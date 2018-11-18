@@ -111,6 +111,7 @@ public class CreateAccount extends JFrame {
 				Dimension d = getSize();
 				g.drawImage(Title.getImage(), 0, 0, 285,65, null);
 				setOpaque(false);
+				
 				super.paintComponent(g);
 			}
 		};
@@ -143,7 +144,7 @@ public class CreateAccount extends JFrame {
 						System.out.println(line);
 						if(line.equals("Success")) {
 							System.out.println("Success to regist");
-						setVisible(false);
+							setVisible(false);
 						}
 						else
 							System.out.println("ID exist");

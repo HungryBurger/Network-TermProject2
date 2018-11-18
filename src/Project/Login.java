@@ -39,26 +39,27 @@ public class Login extends JFrame {
 	public static PrintWriter output;
 	public static Image originImg, changedImg;
 	public static ImageIcon Icon;
-	JButton button1,button2;
-	
+	public static String user_id;
+	JButton button1, button2;
+
 	public void run() throws IOException {
 		// Make connection and initialize streams
 		Socket socket = new Socket("127.0.0.1", 9001);
 		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		out = new PrintWriter(socket.getOutputStream(), true);
-		while(true) {
-			
+		while (true) {
+
 		}
 	}
-	
+
 	public static void main(String[] args) throws Exception {
 		clients = new Login();
-	//	clients.sound("bgm/Opening_bgm.wav", true);
+		// clients.sound("bgm/Opening_bgm.wav", true);
 		clients.setVisible(true);
 		clients.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		clients.run();
 	}
-	
+
 	/**
 	 * Create the frame.
 	 */
@@ -70,7 +71,7 @@ public class Login extends JFrame {
 		ImageIcon Id = new ImageIcon("Image/ID.png");
 		ImageIcon Password = new ImageIcon("Image/Password.png");
 		ImageIcon account = new ImageIcon("Image/Createaccount.png");
-	
+
 		contentPane = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
@@ -88,20 +89,19 @@ public class Login extends JFrame {
 		textField1.setBounds(555, 480, 285, 46);
 		contentPane.add(textField1);
 		textField1.setColumns(10);
-		Font f1 = new Font("휴먼모음T",Font.BOLD,30);
+		Font f1 = new Font("휴먼모음T", Font.BOLD, 30);
 		textField1.setFont(f1);
-		
+
 		TextField textField2 = new TextField();
 		textField2.setBounds(555, 542, 285, 46);
 		contentPane.add(textField2);
 		textField2.setColumns(10);
-		Font f2 = new Font("휴먼모음T",Font.BOLD,30);
+		Font f2 = new Font("휴먼모음T", Font.BOLD, 30);
 		textField2.setEchoChar('*');
 		textField2.setFont(f2);
-		
-		
+
 		Image originImg = Login.getImage();
-		Image changedImg= originImg.getScaledInstance(171, 53, Image.SCALE_SMOOTH );
+		Image changedImg = originImg.getScaledInstance(171, 53, Image.SCALE_SMOOTH);
 		Icon = new ImageIcon(changedImg);
 		button1 = new JButton(Icon);
 		button1.setBounds(268, 650, 171, 53);
@@ -122,14 +122,13 @@ public class Login extends JFrame {
 						out.println(pw);
 						String line = in.readLine();
 						System.out.println(line);
-						if(line.equals("Success"))
-						{
+						if (line.equals("Success")) {
 							System.out.println("Login success");
+							user_id = id;
 							setVisible(false);
 							new MainMenu().setVisible(true);
-							
-						}
-						else
+
+						} else
 							System.out.println("Check the ID or Password");
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -138,9 +137,9 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		
+
 		originImg = account.getImage();
-		changedImg= originImg.getScaledInstance(342, 53, Image.SCALE_SMOOTH );
+		changedImg = originImg.getScaledInstance(342, 53, Image.SCALE_SMOOTH);
 		Icon = new ImageIcon(changedImg);
 		JButton button2 = new JButton(Icon);
 		button2.addActionListener(new ActionListener() {
@@ -148,13 +147,13 @@ public class Login extends JFrame {
 				new CreateAccount().setVisible(true);
 			}
 		});
-		
+
 		button2.setBounds(529, 650, 342, 53);
 		button2.setContentAreaFilled(false);
 		button2.setBorderPainted(false);
 		button2.setFocusPainted(false);
 		contentPane.add(button2);
-		
+
 		JPanel panel1 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
@@ -165,7 +164,7 @@ public class Login extends JFrame {
 		};
 		panel1.setBounds(322, 480, 166, 46);
 		contentPane.add(panel1);
-		
+
 		JPanel panel_2 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
@@ -176,11 +175,11 @@ public class Login extends JFrame {
 		};
 		panel_2.setBounds(322, 542, 166, 46);
 		contentPane.add(panel_2);
-		
+
 		JPanel panel3 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(Title.getImage(), 0, 0, 872,165, null);
+				g.drawImage(Title.getImage(), 0, 0, 872, 165, null);
 				setOpaque(false);
 				super.paintComponent(g);
 			}
@@ -188,7 +187,7 @@ public class Login extends JFrame {
 		panel3.setBounds(156, 48, 872, 165);
 		contentPane.add(panel3);
 	}
-	
+
 	public void sound(String file, boolean Loop) {
 		// 사운드재생용메소드
 		// 메인 클래스에 추가로 메소드를 하나 더 만들었습니다.
