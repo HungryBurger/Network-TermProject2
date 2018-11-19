@@ -52,9 +52,7 @@ public class MainMenu extends JFrame {
 						String hey = Login.in.readLine();
 						System.out.println(hey);
 						setVisible(false);
-						Runnable r = new GameRoom();
-						Thread t1 = new Thread(r);
-						t1.start();
+						new GameRoom();
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

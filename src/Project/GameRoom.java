@@ -18,14 +18,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class GameRoom extends JFrame implements Runnable {
+public class GameRoom extends JFrame {
 	private JPanel contentPane;
-	JTextField textField;
-	JTextArea messageArea;
-	BufferedReader in;
-	PrintWriter out;
+	static JTextField textField;
+	static JTextArea messageArea;
 
 	public static void main(String[] args) throws Exception {
+		
+		
 		// TODO Auto-generated method stub
 	}
 
@@ -45,7 +45,7 @@ public class GameRoom extends JFrame implements Runnable {
 		contentPane.add(scrollPane);
 		textField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				out.println(textField.getText());
+				Login.out2.println(textField.getText());
 				textField.setText("");
 			}
 		});
@@ -53,43 +53,8 @@ public class GameRoom extends JFrame implements Runnable {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 50, 1400, 800);
 		setVisible(true);
-		run();
-	}
-
-	@Override
-	public void run() {
-		Socket socket;
-		try {
-			socket = new Socket("127.0.0.1", 9003);
-			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			out = new PrintWriter(socket.getOutputStream(), true);
-			while (true) {
-				// Read line from server
-				String line = in.readLine();
-				System.out.println(line);
-				if (line.startsWith("SUBMITNAME")) {
-					out.println(Login.user_id);
-				} else if (line.startsWith("NAMEACCEPTED")) {
-					textField.setEditable(true);
-					messageArea.setEditable(true);
-				} else if (line.startsWith("FIRST")) {
-					messageArea.append(line.substring(5) + "\n");
-				} else if (line.startsWith("MESSAGE")) {
-					messageArea.append(line.substring(8) + "\n");
-				} else if (line.startsWith("ENTRANCE")) { // Entrance prototype
-					messageArea.append(line.substring(9) + "\n");
-				} else if (line.startsWith("EXIT")) { // Exit prototype
-					messageArea.append(line.substring(5) + "\n");
-				} else if (line.startsWith("WHISPER")) { // whisper prototype
-					messageArea.append(line.substring(8) + "\n");
-				}
-			}
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ChatThread runnable1 = new ChatThread();
+		Thread Thread1 = new Thread(runnable1);
+		Thread1.start();
 	}
 }

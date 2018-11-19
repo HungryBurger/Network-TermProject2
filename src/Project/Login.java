@@ -28,13 +28,14 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Button;
 import java.awt.Panel;
+import java.awt.SystemColor;
 
 public class Login extends JFrame {
 	public static Login clients;
 	public static Clip clip;
 	private JPanel contentPane;
-	public static BufferedReader in;
-	public static PrintWriter out;
+	public static BufferedReader in,in2;
+	public static PrintWriter out,out2;
 	public static BufferedReader input;
 	public static PrintWriter output;
 	public static Image originImg, changedImg;
@@ -47,10 +48,20 @@ public class Login extends JFrame {
 		Socket socket = new Socket("127.0.0.1", 9001);
 		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		out = new PrintWriter(socket.getOutputStream(), true);
-		while (true) {
-
-		}
+		System.out.println("Succes to open socket");
+		
 	}
+	public void run2() throws IOException {
+		// Make connection and initialize streams
+		System.out.println("socket2");
+		Socket socket2 = new Socket("127.0.0.1", 9003);
+		in2 = new BufferedReader(new InputStreamReader(socket2.getInputStream()));
+		out2 = new PrintWriter(socket2.getOutputStream(), true);
+		System.out.println("Succes to open socket2");
+		
+	}
+	
+	
 
 	public static void main(String[] args) throws Exception {
 		clients = new Login();
@@ -58,6 +69,7 @@ public class Login extends JFrame {
 		clients.setVisible(true);
 		clients.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		clients.run();
+		clients.run2();
 	}
 
 	/**
@@ -89,14 +101,15 @@ public class Login extends JFrame {
 		textField1.setBounds(555, 480, 285, 46);
 		contentPane.add(textField1);
 		textField1.setColumns(10);
-		Font f1 = new Font("ÈÞ¸Õ¸ðÀ½T", Font.BOLD, 30);
+		Font f1 = new Font("Gabriola", Font.PLAIN, 30);
 		textField1.setFont(f1);
 
 		TextField textField2 = new TextField();
 		textField2.setBounds(555, 542, 285, 46);
 		contentPane.add(textField2);
 		textField2.setColumns(10);
-		Font f2 = new Font("ÈÞ¸Õ¸ðÀ½T", Font.BOLD, 30);
+		
+		Font f2 = new Font("Gabriola", Font.PLAIN, 30);
 		textField2.setEchoChar('*');
 		textField2.setFont(f2);
 

@@ -28,7 +28,6 @@ public class Mypage extends JFrame {
 	private JTextField textField1;
 	private JTextField textField2;
 	private JTextField textField3;
-	private JButton btnNewButton_1;
 	String mypage_id, mypage_pw, mypage_name, mypage_age, mypage_ranking, mypage_score, mypage_victory, mypage_lose;
 
 	/**
