@@ -17,18 +17,18 @@ public class ChatThread implements Runnable{
 				if (line.startsWith("SUBMITNAME")) {
 					Login.out2.println(Login.user_id);
 				} else if (line.startsWith("NAMEACCEPTED")) {
-					GameRoom.textField.setEditable(true);
-					GameRoom.messageArea.setEditable(true);
+					WaitingRoom.textField.setEditable(true);
+					WaitingRoom.messageArea.setEditable(true);
 				} else if (line.startsWith("FIRST")) {
-					GameRoom.messageArea.append(line.substring(5) + "\n");
+					WaitingRoom.messageArea.append(line.substring(5) + "\n");
 				} else if (line.startsWith("MESSAGE")) {
-					GameRoom.messageArea.append(line.substring(8) + "\n");
+					WaitingRoom.messageArea.append(line.substring(8) + "\n");
 				} else if (line.startsWith("ENTRANCE")) { // Entrance prototype
-					GameRoom.messageArea.append(line.substring(9) + "\n");
+					WaitingRoom.messageArea.append(line.substring(9) + "\n");
 				} else if (line.startsWith("EXIT")) { // Exit prototype
-					GameRoom.messageArea.append(line.substring(5) + "\n");
+					WaitingRoom.messageArea.append(line.substring(5) + "\n");
 				} else if (line.startsWith("WHISPER")) { // whisper prototype
-					GameRoom.messageArea.append(line.substring(8) + "\n");
+					WaitingRoom.messageArea.append(line.substring(8) + "\n");
 				} else {
 					System.out.println("Error");
 				}
