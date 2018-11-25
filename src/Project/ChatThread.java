@@ -3,7 +3,7 @@ package Project;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
-public class ChatThread implements Runnable{
+public class ChatThread implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -16,7 +16,7 @@ public class ChatThread implements Runnable{
 					Login.out2.println(Login.user_id);
 				} else if (line.startsWith("NAMEACCEPTED")) {
 					WaitingRoom.textField.setEditable(true);
-					WaitingRoom.messageArea.setEditable(true);
+					WaitingRoom.messageArea.setEditable(false);
 				} else if (line.startsWith("FIRST")) {
 					WaitingRoom.messageArea.append(line.substring(5) + "\n");
 				} else if (line.startsWith("MESSAGE")) {
@@ -27,8 +27,14 @@ public class ChatThread implements Runnable{
 					WaitingRoom.messageArea.append(line.substring(5) + "\n");
 				} else if (line.startsWith("WHISPER")) { // whisper prototype
 					WaitingRoom.messageArea.append(line.substring(8) + "\n");
-				} else {
-					System.out.println("Error");
+				} else if (line.startsWith("G_First")) {
+					GameRoom.messageArea.append(line.substring(7) + "\n");
+				} else if (line.startsWith("G_ENTRANCE")) { // Entrance prototype
+					GameRoom.messageArea.append(line.substring(9) + "\n");
+				} else if (line.startsWith("G_MESSAGE")) {
+					GameRoom.messageArea.append(line.substring(11) + "\n");
+				} else if (line.startsWith("G_WHISPER")) {
+					GameRoom.messageArea.append(line.substring(10) + "\n");
 				}
 			}
 		} catch (UnknownHostException e) {
@@ -40,5 +46,4 @@ public class ChatThread implements Runnable{
 		}
 	}
 
-	
 }

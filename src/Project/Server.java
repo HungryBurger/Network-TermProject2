@@ -21,17 +21,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.lang.String;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Server extends JFrame implements ActionListener {
 
 	// jdbc set
 	private String url = "jdbc:mysql://localhost:8000/network?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=euc-kr";// user테이my블을
+																																		// //
 																																		// 수정하면
 	private String strUser = "root"; // 계정 id
 	private String strPassword = "12345"; // 계정 패스워드
 	private String strMySQLDriver = "com.mysql.cj.jdbc.Driver"; // 드라이버 이름 따로 만들어줌
 	private static final int PORT = 9001;
-
+	static int real_game_timer = 0;
 	// For socket Connection
 	Connection con;
 	Statement stmt;
@@ -46,7 +49,15 @@ public class Server extends JFrame implements ActionListener {
 	int CHECK_FORCE = 0;
 	public static HashSet<String> names = new HashSet<String>();
 	public static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
+	// role = 1 -> 시민
+	// role = 2 -> 마피아
+	// role = 3 -> 의사
+	public static HashSet<Integer> role = new HashSet<Integer>();
+
 	public static HashMap<String, PrintWriter> map = new HashMap<String, PrintWriter>();
+
+	public static HashMap<Integer, PrintWriter> role_map = new HashMap<Integer, PrintWriter>();
+
 	public static String every_user_id[];
 	public static int user_id_sequence = 0;
 	// Call Login page
@@ -161,18 +172,18 @@ public class Server extends JFrame implements ActionListener {
 						Iterator<String> it = names.iterator();
 						System.out.println("This is hash");
 
-						//Based users printing
+						// Based users printing
 						while (it.hasNext()) {
 							if (it.next() != name)
-								out.println("ENTRANCE" + it.next());
+								out.println("ENTRANCE " + it.next());
 						}
-						//Print to all users "Im in!!"
+						// Print to all users "Im in!!"
 						for (PrintWriter writer : writers) {
-							writer.println("ENTRANCE" + name);
+							writer.println("ENTRANCE " + name);
 						}
 
 						System.out.println("여기까진 돌아");
-						while (user_ready_count != 8) {
+						while (user_ready_count != 2) {
 							String line = in.readLine();
 							if (line.equals("Ready")) {
 								user_ready_count++;
@@ -182,10 +193,71 @@ public class Server extends JFrame implements ActionListener {
 								System.out.println("user_ready_count =" + user_ready_count);
 							}
 						}
+						for (PrintWriter writer : writers) {
+							writer.println("[GameStart]");
+						}
+
 						System.out.println("Finish the waiting room");
+					} else if (Check_Class.startsWith("[GameRoom]") == true) {
+						int mafia_count = 0;
+						int doctor_count = 0;
+						int citizen_count = 0;
+						int random;
+						random = (int) (Math.random() * (3) + 1);
+						while (true) {
+							if (random == 1) {
+								if (citizen_count != 6) {
+									role_map.put(random, out);
+									citizen_count++;
+									break;
+								}
+							} else if (random == 2) {
+								if (mafia_count != 2) {
+									role_map.put(random, out);
+									mafia_count++;
+									break;
+								}
+
+							} else if (random == 3) {
+								if (doctor_count != 1) {
+									role_map.put(random, out);
+									doctor_count++;
+									break;
+								}
+							}
+						}
+						// Timer
+						TimerTask game_task = new TimerTask() {
+							@Override
+							public void run() {
+								real_game_timer++;
+								System.out.println(real_game_timer);
+								// 마피아 투표가 시간
+								if (real_game_timer >= 20 && real_game_timer < 35) {
+									for (PrintWriter writer : writers) {
+										writer.println("Mafia_voting" + (real_game_timer - 20));
+									}
+								} else if (real_game_timer >= 35 && real_game_timer < 45) {
+									for (PrintWriter writer : writers) {
+										writer.println("Doctor_voting" + (real_game_timer - 20));
+									}
+								} else if (real_game_timer >= 45 && real_game_timer < 60) {
+									for (PrintWriter writer : writers) {
+										writer.println("Citizen_voting" + (real_game_timer - 20));
+									}
+								}
+							}
+						};
+						Timer game_timer = new Timer();
+						long delay = 0;
+						long intevalPeriod = 1 * 1000;
+						game_timer.scheduleAtFixedRate(game_task, delay, intevalPeriod);
+
 					}
 				}
-			} catch (IOException e) {
+			} catch (
+
+			IOException e) {
 				System.out.println(e);
 			} finally {
 				try {
@@ -194,6 +266,7 @@ public class Server extends JFrame implements ActionListener {
 				}
 			}
 		}
+
 	}
 
 	public Server() {

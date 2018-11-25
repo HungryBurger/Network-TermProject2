@@ -50,6 +50,7 @@ public class MainMenu extends JFrame {
 					Login.out.println("[WaitingRoom]");
 					setVisible(false);
 					new WaitingRoom();
+					//new GameRoom().setVisible(false);
 				}
 			}
 		});
