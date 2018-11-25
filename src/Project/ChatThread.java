@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 
 public class ChatThread implements Runnable{
-
-	
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub

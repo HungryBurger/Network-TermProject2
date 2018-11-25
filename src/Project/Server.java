@@ -42,11 +42,13 @@ public class Server extends JFrame implements ActionListener {
 	String name; // name
 	int age;
 	static int user_ready_count = 0;
+	static int user_sequence = 0;
 	int CHECK_FORCE = 0;
-	private static HashSet<String> names = new HashSet<String>();
-	private static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
-	private static HashMap<String, PrintWriter> map = new HashMap<String, PrintWriter>();
-
+	public static HashSet<String> names = new HashSet<String>();
+	public static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
+	public static HashMap<String, PrintWriter> map = new HashMap<String, PrintWriter>();
+	public static String every_user_id[];
+	public static int user_id_sequence = 0;
 	// Call Login page
 	Login log = new Login(); // true
 	CreateAccount create = new CreateAccount();
@@ -137,7 +139,39 @@ public class Server extends JFrame implements ActionListener {
 					}
 
 					else if (Check_Class.startsWith("[WaitingRoom]") == true) {
-						out.println("This is the gameroom");
+						String name;
+						while (true) {
+							out.println("SUBMITNAME");
+							name = in.readLine();
+							if (name == null) {
+								return;
+							}
+							synchronized (names) {
+								if (!names.contains(name)) {
+									names.add(name);
+									break;
+								}
+							}
+						}
+						out.println("NAMEACCEPTED");
+						writers.add(out);
+						// Input the HasMap
+						map.put(name, out);
+
+						Iterator<String> it = names.iterator();
+						System.out.println("This is hash");
+
+						//Based users printing
+						while (it.hasNext()) {
+							if (it.next() != name)
+								out.println("ENTRANCE" + it.next());
+						}
+						//Print to all users "Im in!!"
+						for (PrintWriter writer : writers) {
+							writer.println("ENTRANCE" + name);
+						}
+
+						System.out.println("여기까진 돌아");
 						while (user_ready_count != 8) {
 							String line = in.readLine();
 							if (line.equals("Ready")) {

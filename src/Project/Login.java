@@ -34,8 +34,8 @@ public class Login extends JFrame {
 	public static Login clients;
 	public static Clip clip;
 	private JPanel contentPane;
-	public static BufferedReader in,in2;
-	public static PrintWriter out,out2;
+	public static BufferedReader in, in2;
+	public static PrintWriter out, out2;
 	public static BufferedReader input;
 	public static PrintWriter output;
 	public static Image originImg, changedImg;
@@ -49,8 +49,8 @@ public class Login extends JFrame {
 		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		out = new PrintWriter(socket.getOutputStream(), true);
 		System.out.println("Succes to open socket");
-		
 	}
+
 	public void run2() throws IOException {
 		// Make connection and initialize streams
 		System.out.println("socket2");
@@ -58,10 +58,7 @@ public class Login extends JFrame {
 		in2 = new BufferedReader(new InputStreamReader(socket2.getInputStream()));
 		out2 = new PrintWriter(socket2.getOutputStream(), true);
 		System.out.println("Succes to open socket2");
-		
 	}
-	
-	
 
 	public static void main(String[] args) throws Exception {
 		clients = new Login();
@@ -90,7 +87,7 @@ public class Login extends JFrame {
 				g.drawImage(Log_back.getImage(), 0, 0, 1200, 800, null);
 				setOpaque(false);
 				super.paintComponent(g);
-			}
+		}
 		};
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
@@ -108,7 +105,7 @@ public class Login extends JFrame {
 		textField2.setBounds(555, 542, 285, 46);
 		contentPane.add(textField2);
 		textField2.setColumns(10);
-		
+
 		Font f2 = new Font("Gabriola", Font.PLAIN, 30);
 		textField2.setEchoChar('*');
 		textField2.setFont(f2);
@@ -140,7 +137,6 @@ public class Login extends JFrame {
 							user_id = id;
 							setVisible(false);
 							new MainMenu().setVisible(true);
-
 						} else
 							System.out.println("Check the ID or Password");
 					} catch (IOException e1) {

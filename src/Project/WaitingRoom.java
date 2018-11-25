@@ -3,7 +3,6 @@ package Project;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.TextField;
@@ -15,7 +14,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -27,10 +25,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
+import java.awt.TextArea;
+
 
 public class WaitingRoom extends JFrame {
 	private JPanel contentPane;
-	static JTextField textField;
+	static JTextField textField,textField_1,textField_2,textField_3,textField_4,textField_5,textField_6,textField_7,textField_8;
 	static JTextArea messageArea;
 	private JPanel panel1;
 	private JPanel panel2;
@@ -44,8 +44,6 @@ public class WaitingRoom extends JFrame {
 	private static int btn_ready_count = 0;
 
 	public static void main(String[] args) throws Exception {
-		new WaitingRoom();
-
 		// TODO Auto-generated method stub
 	}
 
@@ -58,7 +56,7 @@ public class WaitingRoom extends JFrame {
 		ImageIcon user6 = new ImageIcon("Image/user6.png");
 		ImageIcon user7 = new ImageIcon("Image/user7.png");
 		ImageIcon user8 = new ImageIcon("Image/user8.png");
-		ImageIcon title = new ImageIcon("Image/user8.png");
+		ImageIcon title = new ImageIcon("Image/Waiting_room_title.png");
 
 		contentPane = new JPanel();
 		contentPane.setLayout(null);
@@ -87,9 +85,6 @@ public class WaitingRoom extends JFrame {
 						btn_ready_count = 0;
 						System.out.println("User Count = " + btn_ready_count);
 					}
-					setVisible(false);
-					new WaitingRoom();
-
 				}
 			}
 		});
@@ -166,7 +161,7 @@ public class WaitingRoom extends JFrame {
 		};
 		panel6.setBounds(290, 468, 191, 201);
 		contentPane.add(panel6);
-
+		
 		panel7 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
@@ -192,13 +187,53 @@ public class WaitingRoom extends JFrame {
 		Title = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(title.getImage(), 0, 0, 191, 201, null);
+				g.drawImage(title.getImage(), 0, 0, 798, 111, null);
 				setOpaque(false);
 				super.paintComponent(g);
 			}
 		};
 		Title.setBounds(121, 31, 798, 111);
 		contentPane.add(Title);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(61, 406, 191, 34);
+		contentPane.add(textField_1);
+		textField_1.setColumns(10);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(290, 404, 191, 34);
+		contentPane.add(textField_2);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(529, 406, 191, 34);
+		contentPane.add(textField_3);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(772, 404, 191, 34);
+		contentPane.add(textField_4);
+		
+		textField_5 = new JTextField();
+		textField_5.setColumns(10);
+		textField_5.setBounds(61, 681, 191, 34);
+		contentPane.add(textField_5);
+		
+		textField_6 = new JTextField();
+		textField_6.setColumns(10);
+		textField_6.setBounds(290, 681, 191, 34);
+		contentPane.add(textField_6);
+		
+		textField_7 = new JTextField();
+		textField_7.setColumns(10);
+		textField_7.setBounds(529, 681, 191, 34);
+		contentPane.add(textField_7);
+		
+		textField_8 = new JTextField();
+		textField_8.setColumns(10);
+		textField_8.setBounds(772, 681, 191, 34);
+		contentPane.add(textField_8);
 		/*
 		 * ButtonGroup grp = new ButtonGroup(); JRadioButton[] rb = new JRadioButton[8];
 		 * for (int i = 0; i < 8; i++) grp.add(rb[i]); rb[0] = new
@@ -237,12 +272,15 @@ public class WaitingRoom extends JFrame {
 				textField.setText("");
 			}
 		});
-
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 50, 1400, 800);
 		setVisible(true);
 		ChatThread runnable1 = new ChatThread();
 		Thread Thread1 = new Thread(runnable1);
 		Thread1.start();
+		WaitingRoomThread runnable2 = new WaitingRoomThread();
+		Thread Thread2 = new Thread(runnable2);
+		Thread2.start();
 	}
 }

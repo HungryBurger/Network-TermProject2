@@ -47,19 +47,13 @@ public class MainMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Object obj = e.getSource();
 				if (obj.equals(button1)) {
-					Login.out.println("[GameRoom]");
-					try {
-						String hey = Login.in.readLine();
-						System.out.println(hey);
-						setVisible(false);
-						new WaitingRoom();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					Login.out.println("[WaitingRoom]");
+					setVisible(false);
+					new WaitingRoom();
 				}
 			}
 		});
+
 		originImg = Ranking.getImage();
 		changedImg = originImg.getScaledInstance(456, 139, Image.SCALE_SMOOTH);
 		Icon = new ImageIcon(changedImg);
