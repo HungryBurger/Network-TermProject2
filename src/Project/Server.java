@@ -232,8 +232,14 @@ public class Server extends JFrame implements ActionListener {
 							public void run() {
 								real_game_timer++;
 								System.out.println(real_game_timer);
+		
+								if (real_game_timer < 20) {
+									for (PrintWriter writer : writers) {
+										writer.println("Timer" + (real_game_timer - 20));
+									}
+								}
 								// 마피아 투표가 시간
-								if (real_game_timer >= 20 && real_game_timer < 35) {
+								else if (real_game_timer >= 20 && real_game_timer < 35) {
 									for (PrintWriter writer : writers) {
 										writer.println("Mafia_voting" + (real_game_timer - 20));
 									}
@@ -244,7 +250,10 @@ public class Server extends JFrame implements ActionListener {
 								} else if (real_game_timer >= 45 && real_game_timer < 60) {
 									for (PrintWriter writer : writers) {
 										writer.println("Citizen_voting" + (real_game_timer - 20));
+
 									}
+								} else if (real_game_timer == 60) {
+									real_game_timer = 0;
 								}
 							}
 						};
