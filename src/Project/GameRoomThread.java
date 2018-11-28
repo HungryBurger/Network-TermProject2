@@ -16,7 +16,7 @@ public class GameRoomThread implements Runnable {
 				if (line.startsWith("Timer")) {
 					GameRoom.textPane.setText(line.substring(5));
 				} else if (line.startsWith("Mafia_voting")) {
-
+					
 				} else if (line.startsWith("Doctor_voting")) {
 
 				} else if (line.startsWith("Citizen_voting")) {

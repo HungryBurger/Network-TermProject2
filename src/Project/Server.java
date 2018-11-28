@@ -199,6 +199,7 @@ public class Server extends JFrame implements ActionListener {
 
 						System.out.println("Finish the waiting room");
 					} else if (Check_Class.startsWith("[GameRoom]") == true) {
+						System.out.println("This is the Game Room");
 						int mafia_count = 0;
 						int doctor_count = 0;
 						int citizen_count = 0;
@@ -232,10 +233,9 @@ public class Server extends JFrame implements ActionListener {
 							public void run() {
 								real_game_timer++;
 								System.out.println(real_game_timer);
-		
 								if (real_game_timer < 20) {
 									for (PrintWriter writer : writers) {
-										writer.println("Timer" + (real_game_timer - 20));
+										writer.println("Timer" + (real_game_timer));
 									}
 								}
 								// 마피아 투표가 시간
@@ -257,6 +257,7 @@ public class Server extends JFrame implements ActionListener {
 								}
 							}
 						};
+						
 						Timer game_timer = new Timer();
 						long delay = 0;
 						long intevalPeriod = 1 * 1000;
