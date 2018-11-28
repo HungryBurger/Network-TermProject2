@@ -39,7 +39,9 @@ public class Server extends JFrame implements ActionListener {
 	Connection con;
 	Statement stmt;
 	ResultSet rs;
-
+	static int mafia_count = 0;
+	static int doctor_count = 0;
+	static int citizen_count = 0;
 	String sql; // sql query
 	String pass; // password
 	String name; // name
@@ -169,21 +171,20 @@ public class Server extends JFrame implements ActionListener {
 						// Input the HasMap
 						map.put(name, out);
 
-						Iterator<String> it = names.iterator();
-						System.out.println("This is hash");
-
 						// Based users printing
-						while (it.hasNext()) {
-							if (it.next() != name)
-								out.println("ENTRANCE " + it.next());
+
+						for (String name1 : names) {
+							if(!name1.equals(name))
+							out.println("ENTRANCE "+name1);
 						}
+
 						// Print to all users "Im in!!"
 						for (PrintWriter writer : writers) {
 							writer.println("ENTRANCE " + name);
 						}
 
 						System.out.println("여기까진 돌아");
-						while (user_ready_count != 2) {
+						while (user_ready_count != 4) {
 							String line = in.readLine();
 							if (line.equals("Ready")) {
 								user_ready_count++;
@@ -200,33 +201,30 @@ public class Server extends JFrame implements ActionListener {
 						System.out.println("Finish the waiting room");
 					} else if (Check_Class.startsWith("[GameRoom]") == true) {
 						System.out.println("This is the Game Room");
-						int mafia_count = 0;
-						int doctor_count = 0;
-						int citizen_count = 0;
 						int random;
 						random = (int) (Math.random() * (3) + 1);
-						while (true) {
-							if (random == 1) {
-								if (citizen_count != 6) {
-									role_map.put(random, out);
+						System.out.println("Okay");
+						for (PrintWriter writer : writers) {
+							while (true) {
+								random = (int) (Math.random() * (3) + 1);
+								System.out.println("lotto " + random);
+								if (random == 1 && citizen_count <= 6) {
+									writer.println("Take Role" + random);
 									citizen_count++;
 									break;
-								}
-							} else if (random == 2) {
-								if (mafia_count != 2) {
-									role_map.put(random, out);
+								} else if (random == 2 && mafia_count <= 2) {
+									writer.println("Take Role" + random);
 									mafia_count++;
 									break;
-								}
-
-							} else if (random == 3) {
-								if (doctor_count != 1) {
-									role_map.put(random, out);
+								} else if (random == 3 && doctor_count <= 1) {
+									writer.println("Take Role" + random);
 									doctor_count++;
 									break;
 								}
 							}
+							writer.println("Total_count" + citizen_count + " " + doctor_count + " " + mafia_count);
 						}
+
 						// Timer
 						TimerTask game_task = new TimerTask() {
 							@Override
@@ -257,7 +255,7 @@ public class Server extends JFrame implements ActionListener {
 								}
 							}
 						};
-						
+
 						Timer game_timer = new Timer();
 						long delay = 0;
 						long intevalPeriod = 1 * 1000;

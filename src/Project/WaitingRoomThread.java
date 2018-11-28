@@ -13,7 +13,7 @@ public class WaitingRoomThread implements Runnable {
 		try {
 			while (true) {
 				String line = Login.in.readLine();
-				System.out.println("wiating "+line);
+				System.out.println("waiting Thread : "+line);
 				if (line.startsWith("SUBMITNAME")) {
 					Login.out.println(Login.user_id);
 				} else if (line.startsWith("NAMEACCEPTED")) {
@@ -39,7 +39,6 @@ public class WaitingRoomThread implements Runnable {
 					else
 						System.out.println("ERROR wating thread");
 				} else if (line.startsWith("[GameStart]")) {
-					System.out.println("여기 들어가나 확인해보자");
 					new GameRoom();
 					WaitingRoom.frame.setVisible(false);
 					break;

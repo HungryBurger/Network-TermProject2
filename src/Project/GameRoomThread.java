@@ -12,17 +12,18 @@ public class GameRoomThread implements Runnable {
 			Login.out2.println("[GameRoom]");
 			while (true) {
 				String line = Login.in.readLine();
-				System.out.println(line);
+				System.out.println("GameRoom Thread : " + line);
 				if (line.startsWith("Timer")) {
 					GameRoom.textPane.setText(line.substring(5));
-				} else if (line.startsWith("Mafia_voting")) {
-					
-				} else if (line.startsWith("Doctor_voting")) {
-
+				} else if (line.startsWith("Take Role")) {
+					System.out.println(line.substring(9));
+				} else if (line.startsWith("Total_count")) {
+					System.out.println(line.substring(11));
 				} else if (line.startsWith("Citizen_voting")) {
-					
-				}
 
+				} else if (line.startsWith("Give Role")) {
+					String hello = Login.in.readLine();
+				}
 			}
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block

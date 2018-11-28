@@ -112,7 +112,6 @@ public class ChatServer {
 				
 				out.println("G_First" + "게임을 시작합니다. \n 귓속말 형식-> /r 또는 /ㄱ 이름 대화내용");
 				// Print the
-				Iterator<String> it = names.iterator();
 				for (PrintWriter writer : writers) {
 					writer.println("G_ENTRANCE " + name + "님이 입장하셨습니다 ");
 				}
