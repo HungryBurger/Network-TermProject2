@@ -34,13 +34,13 @@ public class WaitingRoom extends JFrame {
 	static JTextField textField,textField_1,textField_2,textField_3,textField_4,textField_5,textField_6,textField_7,textField_8;
 	static JTextArea messageArea;
 	static JPanel panel1;
-	private JPanel panel2;
-	private JPanel panel3;
-	private JPanel panel4;
-	private JPanel panel5;
-	private JPanel panel6;
-	private JPanel panel7;
-	private JPanel panel8;
+	static JPanel panel2;
+	static JPanel panel3;
+	static JPanel panel4;
+	static JPanel panel5;
+	static JPanel panel6;
+	static JPanel panel7;
+	static JPanel panel8;
 	private JPanel Title;
 	static JFrame frame;
 	private static int btn_ready_count = 0;
@@ -247,6 +247,14 @@ public class WaitingRoom extends JFrame {
 		textField_8.setBounds(772, 681, 191, 34);
 		contentPane.add(textField_8);
 		textField_8.setEditable(false);
+		panel1.setVisible(false);
+		panel2.setVisible(false);
+		panel3.setVisible(false);
+		panel4.setVisible(false);
+		panel5.setVisible(false);
+		panel6.setVisible(false);
+		panel7.setVisible(false);
+		panel8.setVisible(false);
 		
 		/*
 		 * ButtonGroup grp = new ButtonGroup(); JRadioButton[] rb = new JRadioButton[8];

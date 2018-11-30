@@ -15,14 +15,12 @@ public class Voting_mafia extends JFrame {
 	
 	public Voting_mafia() {
 
-		frame = new JFrame("Mafia voting");
+		frame = new JFrame("Voting_mafia");
 		contentPane = new JPanel();
 		contentPane.setLayout(null);
-	
-		setContentPane(contentPane);
-		setBounds(100, 50, 1400, 800);
-		setVisible(true);
-		
-		
+
+		frame.setContentPane(contentPane);
+		frame.setBounds(200, 50, 500, 500);
+		frame.setVisible(true);
 	}
 }

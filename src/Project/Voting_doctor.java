@@ -10,19 +10,17 @@ public class Voting_doctor extends JFrame {
 	
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		Voting_mafia start = new Voting_mafia();
+		Voting_doctor start = new Voting_doctor();
 	}
 	
 	public Voting_doctor() {
 
-		frame = new JFrame("Doctor voting");
+		frame = new JFrame("Voting");
 		contentPane = new JPanel();
 		contentPane.setLayout(null);
-		
-		setContentPane(contentPane);
-		setBounds(100, 50, 1400, 800);
-		setVisible(true);
-		
-		
+
+		frame.setContentPane(contentPane);
+		frame.setBounds(200, 50, 500, 500);
+		frame.setVisible(true);
 	}
 }

@@ -34,42 +34,42 @@ public class GameRoom extends JFrame {
 	static JTextField textField,textField_1,textField_2,textField_3,textField_4,textField_5,textField_6,textField_7,textField_8;
 	static JTextArea messageArea;
 	static JTextPane textPane;
-	private JPanel panel1;
-	private JPanel panel2;
-	private JPanel panel3;
-	private JPanel panel4;
-	private JPanel panel5;
-	private JPanel panel6;
-	private JPanel panel7;
-	private JPanel panel8;
-	private JPanel panel_4;
-	private JPanel panel_5;
-	private JPanel panel_6;
-	private JPanel panel_7;
-	private JPanel panel_8;
-	private JPanel panel_9;
-	private JPanel panel_10;
-	private JPanel panel_11;
-	private JPanel panel_12;
-	private JPanel panel_13;
-	private JPanel panel_14;
-	private JPanel panel_15;
-	private JPanel panel_16;
-	private JPanel panel_17;
-	private JPanel panel_18;
-	private JPanel panel_19;
-	private JPanel panel_20;
-	private JPanel panel_21;
-	private JPanel panel_22;
-	private JPanel panel_23;
-	private JPanel panel_24;
-	private JPanel panel_25;
-	private JPanel panel_26;
-	private JPanel panel_27;
-	private JPanel panel_28;
-	private JPanel panel_29;
-	private JPanel panel_30;
-	private JPanel panel_31;
+	static JPanel panel1;
+	static JPanel panel2;
+	static JPanel panel3;
+	static JPanel panel4;
+	static JPanel panel5;
+	static JPanel panel6;
+	static JPanel panel7;
+	static JPanel panel8;
+	static JPanel panel_4;
+	static JPanel panel_5;
+	static JPanel panel_6;
+	static JPanel panel_7;
+	static JPanel panel_8;
+	static JPanel panel_9;
+	static JPanel panel_10;
+	static JPanel panel_11;
+	static JPanel panel_12;
+	static JPanel panel_13;
+	static JPanel panel_14;
+	static JPanel panel_15;
+	static JPanel panel_16;
+	static JPanel panel_17;
+	static JPanel panel_18;
+	static JPanel panel_19;
+	static JPanel panel_20;
+	static JPanel panel_21;
+	static JPanel panel_22;
+	static JPanel panel_23;
+	static JPanel panel_24;
+	static JPanel panel_25;
+	static JPanel panel_26;
+	static JPanel panel_27;
+	static JPanel panel_28;
+	static JPanel panel_29;
+	static JPanel panel_30;
+	static JPanel panel_31;
 	static JFrame frame;
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
@@ -394,6 +394,14 @@ public class GameRoom extends JFrame {
 		 * 
 		 * for (JRadioButton c : rb) { grp.add(c); contentPane.add(c); }
 		 */
+		panel1.setVisible(false);
+		panel2.setVisible(false);
+		panel3.setVisible(false);
+		panel4.setVisible(false);
+		panel5.setVisible(false);
+		panel6.setVisible(false);
+		panel7.setVisible(false);
+		panel8.setVisible(false);
 		textField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Login.out2.println(textField.getText());

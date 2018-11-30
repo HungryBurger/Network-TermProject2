@@ -136,9 +136,6 @@ public class ChatServer {
 						}
 					}
 				}
-				
-				
-				
 			} catch (IOException e) {
 				System.out.println(e);
 			} finally {

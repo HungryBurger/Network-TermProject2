@@ -42,6 +42,7 @@ public class Server extends JFrame implements ActionListener {
 	static int mafia_count = 0;
 	static int doctor_count = 0;
 	static int citizen_count = 0;
+	static String set_id = "";
 	String sql; // sql query
 	String pass; // password
 	String name; // name
@@ -174,8 +175,8 @@ public class Server extends JFrame implements ActionListener {
 						// Based users printing
 
 						for (String name1 : names) {
-							if(!name1.equals(name))
-							out.println("ENTRANCE "+name1);
+							if (!name1.equals(name))
+								out.println("ENTRANCE " + name1);
 						}
 
 						// Print to all users "Im in!!"
@@ -184,85 +185,92 @@ public class Server extends JFrame implements ActionListener {
 						}
 
 						System.out.println("여기까진 돌아");
-						while (user_ready_count != 4) {
-							String line = in.readLine();
-							if (line.equals("Ready")) {
-								user_ready_count++;
-								System.out.println("user_ready_count =" + user_ready_count);
-							} else if (line.equals("NotReady")) {
-								user_ready_count--;
-								System.out.println("user_ready_count =" + user_ready_count);
-							}
-						}
-						for (PrintWriter writer : writers) {
-							writer.println("[GameStart]");
+						String line = in.readLine();
+						if (line.equals("Ready")) {
+							user_ready_count++;
+							System.out.println("user_ready_count =" + user_ready_count);
+						} else if (line.equals("NotReady")) {
+							user_ready_count--;
+							System.out.println("user_ready_count =" + user_ready_count);
 						}
 
+						if (user_ready_count == 2) {
+							for (PrintWriter writer : writers) {
+								writer.println("[GameStart]");
+							}
+							for (String name1 : names) {
+								set_id = set_id + " " + name1;
+							}
+							System.out.println("Server : " + set_id);
+
+							TimerTask game_task = new TimerTask() {
+								@Override
+								public void run() {
+									real_game_timer++;
+									System.out.println(real_game_timer);
+									if (real_game_timer < 20) {
+										for (PrintWriter writer : writers) {
+											writer.println("[Timer]" + real_game_timer);
+										}
+									} else if (real_game_timer == 20) {
+										for (PrintWriter writer : writers) {
+											writer.println("[Voting_id] " + set_id);
+											writer.println("[Voting]");
+										}
+									}
+									// 투표 진행
+									else if (real_game_timer > 20 && real_game_timer < 35) {
+										for (PrintWriter writer : writers) {
+											writer.println("[Timer]" + (real_game_timer - 20));
+										}
+									} else if (real_game_timer >= 35 && real_game_timer < 45) {
+										for (PrintWriter writer : writers) {
+											writer.println("[Mafia_voting]" + (real_game_timer - 35));
+										}
+									} else if (real_game_timer >= 45 && real_game_timer < 60) {
+										for (PrintWriter writer : writers) {
+											writer.println("[Doctor_voting]" + (real_game_timer - 45));
+										}
+									} else if (real_game_timer == 60) {
+										real_game_timer = 0;
+									}
+								}
+							};
+
+							Timer game_timer = new Timer();
+							long delay = 0;
+							long intevalPeriod = 1 * 1000;
+							game_timer.scheduleAtFixedRate(game_task, delay, intevalPeriod);
+						}
 						System.out.println("Finish the waiting room");
 					} else if (Check_Class.startsWith("[GameRoom]") == true) {
 						System.out.println("This is the Game Room");
+						for (String name1 : names) {
+							out.println("G_ENTRANCE " + name1);
+						}
 						int random;
 						random = (int) (Math.random() * (3) + 1);
-						System.out.println("Okay");
-						for (PrintWriter writer : writers) {
-							while (true) {
-								random = (int) (Math.random() * (3) + 1);
-								System.out.println("lotto " + random);
-								if (random == 1 && citizen_count <= 6) {
-									writer.println("Take Role" + random);
-									citizen_count++;
-									break;
-								} else if (random == 2 && mafia_count <= 2) {
-									writer.println("Take Role" + random);
-									mafia_count++;
-									break;
-								} else if (random == 3 && doctor_count <= 1) {
-									writer.println("Take Role" + random);
-									doctor_count++;
-									break;
-								}
+						while (true) {
+							random = (int) (Math.random() * (3) + 1);
+							System.out.println("My Lotto " + random);
+							if (random == 1 && citizen_count <= 6) {
+								out.println("Take Role" + random);
+								citizen_count++;
+								break;
+							} else if (random == 2 && mafia_count <= 2) {
+								out.println("Take Role" + random);
+								mafia_count++;
+								break;
+							} else if (random == 3 && doctor_count <= 1) {
+								out.println("Take Role" + random);
+								doctor_count++;
+								break;
 							}
-							writer.println("Total_count" + citizen_count + " " + doctor_count + " " + mafia_count);
 						}
-
-						// Timer
-						TimerTask game_task = new TimerTask() {
-							@Override
-							public void run() {
-								real_game_timer++;
-								System.out.println(real_game_timer);
-								if (real_game_timer < 20) {
-									for (PrintWriter writer : writers) {
-										writer.println("Timer" + (real_game_timer));
-									}
-								}
-								// 마피아 투표가 시간
-								else if (real_game_timer >= 20 && real_game_timer < 35) {
-									for (PrintWriter writer : writers) {
-										writer.println("Mafia_voting" + (real_game_timer - 20));
-									}
-								} else if (real_game_timer >= 35 && real_game_timer < 45) {
-									for (PrintWriter writer : writers) {
-										writer.println("Doctor_voting" + (real_game_timer - 20));
-									}
-								} else if (real_game_timer >= 45 && real_game_timer < 60) {
-									for (PrintWriter writer : writers) {
-										writer.println("Citizen_voting" + (real_game_timer - 20));
-
-									}
-								} else if (real_game_timer == 60) {
-									real_game_timer = 0;
-								}
-							}
-						};
-
-						Timer game_timer = new Timer();
-						long delay = 0;
-						long intevalPeriod = 1 * 1000;
-						game_timer.scheduleAtFixedRate(game_task, delay, intevalPeriod);
-
+						out.println("Total_count" + citizen_count + " " + doctor_count + " " + mafia_count);
 					}
 				}
+
 			} catch (
 
 			IOException e) {
