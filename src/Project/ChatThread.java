@@ -30,7 +30,7 @@ public class ChatThread implements Runnable {
 				} else if (line.startsWith("G_First")) {
 					GameRoom.messageArea.append(line.substring(7) + "\n");
 				} else if (line.startsWith("G_ENTRANCE")) { // Entrance prototype
-					GameRoom.messageArea.append(line.substring(9) + "\n");
+					GameRoom.messageArea.append(line.substring(10) + "\n");
 				} else if (line.startsWith("G_MESSAGE")) {
 					GameRoom.messageArea.append(line.substring(10) + "\n");
 				} else if (line.startsWith("G_WHISPER")) {

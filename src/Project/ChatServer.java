@@ -19,7 +19,7 @@ public class ChatServer {
 	private static HashSet<String> names = new HashSet<String>();
 	private static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
 	private static HashMap<String, PrintWriter> map = new HashMap<String, PrintWriter>();
-
+	
 	public static void main(String[] args) throws Exception {
 		System.out.println("The chat server is running.");
 		ServerSocket listener = new ServerSocket(PORT);
@@ -129,6 +129,7 @@ public class ChatServer {
 						out.println("G_WHISPER " + "<whisper to " + temp_name[1] + ">" + name + ":"
 								+ input.substring(input.indexOf(" ", 4)));
 					}
+					
 					else {
 						// Print all client
 						for (PrintWriter writer : writers) {

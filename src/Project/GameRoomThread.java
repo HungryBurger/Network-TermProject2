@@ -6,6 +6,7 @@ import java.net.UnknownHostException;
 public class GameRoomThread implements Runnable {
 	int My_Role;
 	int init_count = 0;
+	String[] array;
 	String id1, id2, id3, id4, id5, id6, id7, id8;
 
 	@Override
@@ -30,31 +31,42 @@ public class GameRoomThread implements Runnable {
 				} else if (line.startsWith("[Voting]")) {
 					new Voting();
 					init_count = 1;
-					Voting.button.setText(id1);
-					Voting.button_1.setText(id2);
-					Voting.button_2.setText(id3);
-					Voting.button_3.setText(id4);
-					Voting.button_4.setText(id5);
-					Voting.button_5.setText(id6);
-					Voting.button_6.setText(id7);
-					Voting.button_7.setText(id8);
+					Voting.button.setText(array[2]);
+					Voting.button_1.setText(array[3]);
+					/*
+					 * Voting.button_2.setText(array[4]); Voting.button_3.setText(array[5]);
+					 * Voting.button_4.setText(array[6]); Voting.button_5.setText(array[7]);
+					 * Voting.button_6.setText(array[8]); Voting.button_7.setText(array[9]);
+					 */
+					/*
+					 * Voting.button_2.setText(array[3]); Voting.button_3.setText(array[4]);
+					 * Voting.button_4.setText(array[5]); Voting.button_5.setText(array[6]);
+					 * Voting.button_6.setText(array[7]); Voting.button_7.setText(array[8]);
+					 */
 
 				} else if (line.startsWith("[Voting_id]")) {
-					id1 = line.split(" ")[0];
-					id1 = line.split(" ")[0];
-					id2 = line.split(" ")[0];
-					id3 = line.split(" ")[0];
-					id4 = line.split(" ")[0];
-					id5 = line.split(" ")[0];
-					id6 = line.split(" ")[0];
-					id7 = line.split(" ")[0];
-					id8 = line.split(" ")[0];
+					array = line.split(" ");
 				} else if (line.startsWith("[Mafia_voting]")) {
 					Voting.frame.setVisible(false);
+					new Voting_mafia();
+					Voting_mafia.button.setText(array[2]);
+					Voting_mafia.button_1.setText(array[3]);
+					/*
+					 * Voting.button_2.setText(array[4]); Voting.button_3.setText(array[5]);
+					 * Voting.button_4.setText(array[6]); Voting.button_5.setText(array[7]);
+					 * Voting.button_6.setText(array[8]); Voting.button_7.setText(array[9]);
+					 */
+					/*
+					 * Voting.button_2.setText(array[3]); Voting.button_3.setText(array[4]);
+					 * Voting.button_4.setText(array[5]); Voting.button_5.setText(array[6]);
+					 * Voting.button_6.setText(array[7]); Voting.button_7.setText(array[8]);
+					 */
+
 				} else if (line.startsWith("[Doctor_voting]")) {
-
-				} else if (line.startsWith("Give Role")) {
-
+					Voting_mafia.frame.setVisible(false);
+					new Voting_doctor();
+				} else if (line.startsWith("[Server Voting Result]")) {
+					System.out.println(line.substring(23));
 				} else if (line.startsWith("G_ENTRANCE")) { // Entrance prototype
 					if (GameRoom.textField_1.getText().length() < 1) {
 						GameRoom.textField_1.setText(line.substring(11));

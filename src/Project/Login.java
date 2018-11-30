@@ -156,7 +156,6 @@ public class Login extends JFrame {
 				new CreateAccount().setVisible(true);
 			}
 		});
-
 		button2.setBounds(529, 650, 342, 53);
 		button2.setContentAreaFilled(false);
 		button2.setBorderPainted(false);
