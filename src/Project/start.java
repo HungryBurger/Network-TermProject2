@@ -12,7 +12,7 @@ import javax.swing.JRootPane;
 public class start {
 
 	//컴포넌트 생성
-	JFrame frame = new JFrame();
+	static JFrame frame = new JFrame();
 	JLabel msg = new JLabel("게임을 시작합니다");
 	Font font = new Font("맑은고딕",Font.BOLD,40); //font 통일 뭘로 할지 몰라 임의로 넣습니다.
 	public start()

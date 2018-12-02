@@ -56,6 +56,9 @@ public class Server extends JFrame implements ActionListener {
 	// role = 3 -> 의사
 	static int role[] = new int[8];
 	public static HashSet<String> names = new HashSet<String>();
+	public static HashSet<String> mafia_names = new HashSet<String>();
+	public static HashSet<String> doctor_name = new HashSet<String>();
+	public static HashSet<String> citizen_names = new HashSet<String>();
 	public static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
 	public static HashMap<String, PrintWriter> map = new HashMap<String, PrintWriter>();
 	public static String every_user_id[];
@@ -71,6 +74,7 @@ public class Server extends JFrame implements ActionListener {
 		private Socket socket;
 		private BufferedReader in;
 		private PrintWriter out;
+		private String name;
 
 		public Handler(Socket socket) {
 			this.socket = socket;
@@ -151,7 +155,6 @@ public class Server extends JFrame implements ActionListener {
 					}
 
 					else if (Check_Class.startsWith("[WaitingRoom]") == true) {
-						String name;
 						while (true) {
 							out.println("SUBMITNAME");
 							name = in.readLine();
@@ -192,7 +195,7 @@ public class Server extends JFrame implements ActionListener {
 							System.out.println("user_ready_count =" + user_ready_count);
 						}
 
-						if (user_ready_count == 2) {
+						if (user_ready_count == 3) {
 							for (PrintWriter writer : writers) {
 								writer.println("[GameStart]");
 							}
@@ -201,7 +204,7 @@ public class Server extends JFrame implements ActionListener {
 							}
 							System.out.println("Server : " + set_id);
 							user_ready_count = 0;
-
+							
 							TimerTask game_task = new TimerTask() {
 								@Override
 								public void run() {
@@ -225,13 +228,13 @@ public class Server extends JFrame implements ActionListener {
 										}
 
 									} else if (real_game_timer == 35) {
-										
 										for (PrintWriter writer : writers) {
 											writer.println("[Mafia_Voting]");
+
 										}
 									} else if (real_game_timer > 35 && real_game_timer < 45) {
 										for (PrintWriter writer : writers) {
-											writer.println("[Timer]" + (real_game_timer - 20));
+											writer.println("[Timer]" + (real_game_timer - 35));
 										}
 									} else if (real_game_timer == 45) {
 										for (PrintWriter writer : writers) {
@@ -239,9 +242,12 @@ public class Server extends JFrame implements ActionListener {
 										}
 									} else if (real_game_timer > 45 && real_game_timer < 60) {
 										for (PrintWriter writer : writers) {
-											writer.println("[Timer]" + (real_game_timer - 20));
+											writer.println("[Timer]" + (real_game_timer - 45));
 										}
 									} else if (real_game_timer == 60) {
+										for (PrintWriter writer : writers) {
+											writer.println("[Reset]");
+										}
 										real_game_timer = 0;
 									}
 								}
@@ -254,8 +260,10 @@ public class Server extends JFrame implements ActionListener {
 						System.out.println("Finish the waiting room");
 					} else if (Check_Class.startsWith("[GameRoom]") == true) {
 						System.out.println("This is the Game Room");
-						for (String name1 : names) {
-							out.println("G_ENTRANCE " + name1);
+						name = Check_Class.substring(10);
+						for (PrintWriter writer : writers) {
+							writer.println("[G_ENTRANCE]" + name);
+
 						}
 						int random;
 						random = (int) (Math.random() * (3) + 1);
@@ -264,21 +272,23 @@ public class Server extends JFrame implements ActionListener {
 							System.out.println("My Lotto " + random);
 							if (random == 1 && citizen_count <= 6) {
 								out.println("Take Role" + random);
-								
+								citizen_names.add(name);
 								citizen_count++;
+
 								break;
 							} else if (random == 2 && mafia_count <= 2) {
 								out.println("Take Role" + random);
+								mafia_names.add(name);
 								mafia_count++;
 								break;
 							} else if (random == 3 && doctor_count <= 1) {
 								out.println("Take Role" + random);
+								doctor_name.add(name);
 								doctor_count++;
 								break;
 							}
-							
 						}
-						out.println("Total_count" + citizen_count + " " + doctor_count + " " + mafia_count);
+						out.println("Total_count" + citizen_count + " " + mafia_count + " " + doctor_count);
 					} else if (Check_Class.startsWith("[Result]") == true) {
 						int i = 0;
 						// 값을 더해준다.
@@ -288,7 +298,7 @@ public class Server extends JFrame implements ActionListener {
 							i++;
 						}
 						user_ready_count++;
-						if (user_ready_count == 2) {
+						if (user_ready_count == 3) {
 							i = 0;
 							int max = 0;
 							String temp_name = "";
@@ -325,8 +335,7 @@ public class Server extends JFrame implements ActionListener {
 								voting[i] = 0;
 							}
 						}
-					} else if (Check_Class.startsWith("[Mafia_Result]") == true) 
-					{
+					} else if (Check_Class.startsWith("[Mafia_Result]") == true) {
 						int i = 0;
 						// 값을 더해준다.
 						for (String name1 : names) {

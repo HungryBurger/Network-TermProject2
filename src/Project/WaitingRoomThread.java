@@ -47,12 +47,12 @@ public class WaitingRoomThread implements Runnable {
 					} else
 						System.out.println("ERROR wating thread");
 				} else if (line.startsWith("[GameStart]")) {
+					new start();
 					break;
 				}
 			}
 			WaitingRoom.frame.setVisible(false);
 			new GameRoom();
-			System.out.println();
 
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block

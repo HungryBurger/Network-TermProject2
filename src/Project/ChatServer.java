@@ -99,7 +99,7 @@ public class ChatServer {
 								"WHISPER " + name + "님으로 부터 귓속말이 왔습니다. : " + input.substring(input.indexOf(" ", 4)));
 						out.println("WHISPER " + "<whisper to " + temp_name[1] + ">" + name + ":"
 								+ input.substring(input.indexOf(" ", 4)));
-					}else if(input.startsWith("[GameRoom]")) {
+					}else if(input.startsWith("[GameStart]")) {
 						break;
 					}
 					else {

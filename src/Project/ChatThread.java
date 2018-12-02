@@ -11,6 +11,7 @@ public class ChatThread implements Runnable {
 			while (true) {
 				// Read line from server
 				String line = Login.in2.readLine();
+				
 				System.out.println(line);
 				if (line.startsWith("SUBMITNAME")) {
 					Login.out2.println(Login.user_id);

@@ -12,7 +12,7 @@ import javax.swing.JRootPane;
 public class vote_m {
 
 	//컴포넌트 생성
-	JFrame frame = new JFrame();
+	static JFrame frame = new JFrame();
 	JLabel msg = new JLabel("마피아의 투표가 진행중입니다");
 	Font font = new Font("맑은고딕",Font.BOLD,40); //font 통일 뭘로 할지 몰라 임의로 넣습니다.
 	public vote_m()
@@ -35,9 +35,6 @@ public class vote_m {
 		frame.setResizable(false);
 		//프레임 보이기 설정
 		frame.setVisible(true);
-		
-		//종료 버튼 설정
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	public static void main(String[] args)

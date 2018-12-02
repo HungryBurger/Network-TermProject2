@@ -23,7 +23,7 @@ public class Voting_doctor extends JFrame {
 
 	public Voting_doctor() {
 
-		frame = new JFrame("Voting");
+		frame = new JFrame("Voting_doctor");
 		contentPane = new JPanel();
 		contentPane.setLayout(null);
 

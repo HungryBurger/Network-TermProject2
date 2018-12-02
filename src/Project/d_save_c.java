@@ -14,7 +14,7 @@ import javax.swing.JRootPane;
 public class d_save_c
 {
 	//컴포넌트 생성
-	JFrame frame = new JFrame();
+	static JFrame frame = new JFrame();
 	JLabel msg = new JLabel("의사가 시민을 살렸습니다");
 	Font font = new Font("맑은고딕",Font.BOLD,40); //font 통일 뭘로 할지 몰라 임의로 넣습니다.
 	public d_save_c()

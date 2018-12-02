@@ -183,17 +183,6 @@ public class Login extends JFrame {
 		};
 		panel_2.setBounds(322, 542, 166, 46);
 		contentPane.add(panel_2);
-
-		JPanel panel3 = new JPanel() {
-			public void paintComponent(Graphics g) {
-				Dimension d = getSize();
-				g.drawImage(Title.getImage(), 0, 0, 872, 165, null);
-				setOpaque(false);
-				super.paintComponent(g);
-			}
-		};
-		panel3.setBounds(156, 48, 872, 165);
-		contentPane.add(panel3);
 	}
 
 	public void sound(String file, boolean Loop) {
