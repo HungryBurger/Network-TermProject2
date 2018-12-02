@@ -74,12 +74,12 @@ public class Login extends JFrame {
 	 */
 
 	public Login() {
-		ImageIcon Log_back = new ImageIcon("Image/Login_background.jpg");
+		ImageIcon Log_back = new ImageIcon("Image/png/login/login_back.png");
 		ImageIcon Title = new ImageIcon("Image/Title.png");
-		ImageIcon Login = new ImageIcon("Image/Login.png");
-		ImageIcon Id = new ImageIcon("Image/ID.png");
-		ImageIcon Password = new ImageIcon("Image/Password.png");
-		ImageIcon account = new ImageIcon("Image/Createaccount.png");
+		ImageIcon Login = new ImageIcon("Image/png/login/login.png");
+		ImageIcon Id = new ImageIcon("Image/png/login/id.png");
+		ImageIcon Password = new ImageIcon("Image/png/login/password.png");
+		ImageIcon account = new ImageIcon("Image/png/login/creat.png");
 
 		contentPane = new JPanel() {
 			public void paintComponent(Graphics g) {

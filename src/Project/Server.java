@@ -47,23 +47,17 @@ public class Server extends JFrame implements ActionListener {
 	String pass; // password
 	String name; // name
 	static int user_ready_count = 0;
-	static int user_sequence = 0;
 	int CHECK_FORCE = 0;
 	static int voting[] = new int[8];
-	static int mafia_voting[] = { 0, };
-	static int doctor_voting[] = { 0, };
-
-	public static HashSet<String> names = new HashSet<String>();
-	public static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
+	static int mafia_voting[] = new int[8];
+	static int doctor_voting[] = new int[8];
 	// role = 1 -> 시민
 	// role = 2 -> 마피아
 	// role = 3 -> 의사
-	public static HashSet<Integer> role = new HashSet<Integer>();
-
+	static int role[] = new int[8];
+	public static HashSet<String> names = new HashSet<String>();
+	public static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
 	public static HashMap<String, PrintWriter> map = new HashMap<String, PrintWriter>();
-
-	public static HashMap<Integer, PrintWriter> role_map = new HashMap<Integer, PrintWriter>();
-
 	public static String every_user_id[];
 	public static int user_id_sequence = 0;
 	// Call Login page
@@ -231,7 +225,7 @@ public class Server extends JFrame implements ActionListener {
 										}
 
 									} else if (real_game_timer == 35) {
-
+										
 										for (PrintWriter writer : writers) {
 											writer.println("[Mafia_Voting]");
 										}
@@ -270,6 +264,7 @@ public class Server extends JFrame implements ActionListener {
 							System.out.println("My Lotto " + random);
 							if (random == 1 && citizen_count <= 6) {
 								out.println("Take Role" + random);
+								
 								citizen_count++;
 								break;
 							} else if (random == 2 && mafia_count <= 2) {
@@ -281,6 +276,7 @@ public class Server extends JFrame implements ActionListener {
 								doctor_count++;
 								break;
 							}
+							
 						}
 						out.println("Total_count" + citizen_count + " " + doctor_count + " " + mafia_count);
 					} else if (Check_Class.startsWith("[Result]") == true) {
@@ -310,11 +306,13 @@ public class Server extends JFrame implements ActionListener {
 								}
 								i++;
 							}
+							System.out.println(temp_name + " " + temp_index);
 							for (String name1 : names) {
-								if (!temp_name.equals(name1)) {
-									if (voting[temp_index] == voting[i]) {
+								if (temp_name.equals(name1)) {
+									if (temp_index != i) {
 										duplicate++;
 									}
+									System.out.println(name1 + duplicate);
 								}
 							}
 							// 동률일 경우에
@@ -323,11 +321,59 @@ public class Server extends JFrame implements ActionListener {
 							// 동률이 아닐경우에
 							else
 								out.println("[Server Voting Result] " + temp_name);
-
-							for (i = 0; i < 8; i++)
+							for (i = 0; i < 8; i++) {
 								voting[i] = 0;
+							}
+						}
+					} else if (Check_Class.startsWith("[Mafia_Result]") == true) 
+					{
+						int i = 0;
+						// 값을 더해준다.
+						for (String name1 : names) {
+							if (name1.equals(Check_Class.substring(8)))
+								voting[i]++;
+							i++;
+						}
+						user_ready_count++;
+						if (user_ready_count == 2) {
+							i = 0;
+							int max = 0;
+							String temp_name = "";
+							int temp_index = 0;
+							int duplicate = 0;
+							for (String name1 : names) {
+								if (i == 0) {
+									max = voting[0];
+									temp_name = name1;
+									temp_index = 0;
+								} else if (max < voting[i]) {
+									max = voting[i];
+									temp_name = name1;
+									temp_index = i;
+								}
+								i++;
+							}
+							System.out.println(temp_name + " " + temp_index);
+							for (String name1 : names) {
+								if (temp_name.equals(name1)) {
+									if (temp_index != i) {
+										duplicate++;
+									}
+									System.out.println(name1 + duplicate);
+								}
+							}
+							// 동률일 경우에
+							if (duplicate == 0)
+								out.println("[Server Voting Result] NO DEAD");
+							// 동률이 아닐경우에
+							else
+								out.println("[Server Voting Result] " + temp_name);
+							for (i = 0; i < 8; i++) {
+								voting[i] = 0;
+							}
 						}
 					}
+
 				}
 
 			} catch (

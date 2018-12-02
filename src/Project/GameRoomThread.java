@@ -25,7 +25,6 @@ public class GameRoomThread implements Runnable {
 				} else if (line.startsWith("Take Role")) {
 					System.out.println(line.substring(9));
 					My_Role = Integer.parseInt(line.substring(9));
-
 				} else if (line.startsWith("Total_count")) {
 					System.out.println(line.substring(11));
 				} else if (line.startsWith("[Voting]")) {
@@ -47,10 +46,10 @@ public class GameRoomThread implements Runnable {
 				} else if (line.startsWith("[Voting_id]")) {
 					array = line.split(" ");
 				} else if (line.startsWith("[Mafia_voting]")) {
-					Voting.frame.setVisible(false);
 					new Voting_mafia();
 					Voting_mafia.button.setText(array[2]);
 					Voting_mafia.button_1.setText(array[3]);
+			
 					/*
 					 * Voting.button_2.setText(array[4]); Voting.button_3.setText(array[5]);
 					 * Voting.button_4.setText(array[6]); Voting.button_5.setText(array[7]);
@@ -61,7 +60,6 @@ public class GameRoomThread implements Runnable {
 					 * Voting.button_4.setText(array[5]); Voting.button_5.setText(array[6]);
 					 * Voting.button_6.setText(array[7]); Voting.button_7.setText(array[8]);
 					 */
-
 				} else if (line.startsWith("[Doctor_voting]")) {
 					Voting_mafia.frame.setVisible(false);
 					new Voting_doctor();

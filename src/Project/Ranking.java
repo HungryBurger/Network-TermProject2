@@ -16,6 +16,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Ranking extends JFrame {
+	
+	public static void main(String[] args) {
+		Ranking test = new Ranking();
+		
+	}
+	
 	public Ranking() {
 		setLayout(new BorderLayout());
 		String[] a = { "Rank", "ID", "VICTORY", "SCORE" };
@@ -61,7 +67,7 @@ public class Ranking extends JFrame {
 		b3.setBackground(Color.black);
 		this.add(b1, BorderLayout.LINE_START);
 		this.add(b2, BorderLayout.LINE_END);
-		ImageIcon img = new ImageIcon("./Image/rank_head.jpg");
+		ImageIcon img = new ImageIcon("./Image/png/lanking/ranking.png");
 		JButton head = new JButton(img);
 		head.setBackground(Color.black);
 		this.add(head, BorderLayout.PAGE_START);

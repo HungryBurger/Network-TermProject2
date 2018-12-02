@@ -1,26 +1,21 @@
 package Project;
 
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Toolkit;
-
 import javax.swing.JFrame;
-import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import java.awt.Font;
 import javax.swing.JLabel;
-import java.awt.SystemColor;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
-import java.awt.GridLayout;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.event.*;
 import java.io.IOException;
 import java.sql.*;
+import java.awt.*;
+
 
 public class Mypage extends JFrame {
 	private JFrame frame;
@@ -29,77 +24,79 @@ public class Mypage extends JFrame {
 	private JTextField textField2;
 	private JTextField textField3;
 	String mypage_id, mypage_pw, mypage_name, mypage_age, mypage_ranking, mypage_score, mypage_victory, mypage_lose;
+	
+	ImageIcon age = new ImageIcon("Image/png/userinfo/age.png");
+	ImageIcon game_score = new ImageIcon("Image/png/userinfo/game_score.png");
+	ImageIcon id = new ImageIcon("Image/png/userinfo/id.png");
+	ImageIcon lose = new ImageIcon("Image/png/userinfo/lose.png");
+	ImageIcon name = new ImageIcon("Image/png/userinfo/name.png");
+	ImageIcon pw = new ImageIcon("Image/png/userinfo/pw.png");
+	ImageIcon ranking = new ImageIcon("Image/png/userinfo/ranking.png");
+	ImageIcon score = new ImageIcon("Image/png/userinfo/score.png");
+	ImageIcon victory= new ImageIcon("Image/png/userinfo/victory.png");
+	Image original = null;
+	Image change = null;
+	ImageIcon Icon = null;
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	public Mypage() {
+		
+	    
 
 		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.DARK_GRAY);
+		frame.getContentPane().setBackground(Color.BLACK);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("My Information");
+		
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "My Information",
 				TitledBorder.CENTER, TitledBorder.TOP, null, SystemColor.info));
-		panel.setBackground(Color.DARK_GRAY);
+		panel.setBackground(Color.BLACK);
 		panel.setBounds(70, 25, 450, 300);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
-
-		JLabel lblNewLabel = new JLabel("ID");
-		lblNewLabel.setForeground(SystemColor.textHighlightText);
-		lblNewLabel.setFont(new Font("Gabriola", Font.PLAIN, 30));
-		lblNewLabel.setBounds(26, 30, 107, 49);
+        
+		original = id.getImage();
+		change = original.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
+		Icon = new ImageIcon(change);
+		
+		JLabel lblNewLabel = new JLabel(Icon);
+		lblNewLabel.setBounds(15, 40, 60, 30);
 		panel.add(lblNewLabel);
+		
+		original = pw.getImage();
+		change = original.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
+		Icon = new ImageIcon(change);
 
-		JLabel lblNewLabel_1 = new JLabel("PW");
-		lblNewLabel_1.setForeground(SystemColor.menu);
-		lblNewLabel_1.setBackground(Color.WHITE);
-		lblNewLabel_1.setFont(new Font("Gabriola", Font.PLAIN, 30));
-		lblNewLabel_1.setBounds(26, 90, 107, 49);
+		JLabel lblNewLabel_1 = new JLabel(Icon);
+		lblNewLabel_1.setBounds(15, 100, 60, 30);
 		panel.add(lblNewLabel_1);
+		
+		original = name.getImage();
+		change = original.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
+		Icon = new ImageIcon(change);
 
-		JLabel lblNewLabel_2 = new JLabel("Name");
-		lblNewLabel_2.setForeground(SystemColor.menu);
-		lblNewLabel_2.setFont(new Font("Gabriola", Font.PLAIN, 30));
-		lblNewLabel_2.setBounds(26, 150, 107, 49);
+		JLabel lblNewLabel_2 = new JLabel(Icon);
+		lblNewLabel_2.setBounds(15, 160, 60, 30);
 		panel.add(lblNewLabel_2);
 
-		JLabel lblNewLabel_3 = new JLabel("Age");
-		lblNewLabel_3.setForeground(SystemColor.menu);
-		lblNewLabel_3.setFont(new Font("Gabriola", Font.PLAIN, 30));
-		lblNewLabel_3.setBounds(26, 210, 107, 49);
+		original = age.getImage();
+		change = original.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
+		Icon = new ImageIcon(change);
+		
+		JLabel lblNewLabel_3 = new JLabel(Icon);
+		lblNewLabel_3.setBounds(15, 220, 60, 30);
 		panel.add(lblNewLabel_3);
 
-		JLabel lblNewLabel_4 = new JLabel(":");
-		lblNewLabel_4.setForeground(SystemColor.menu);
-		lblNewLabel_4.setFont(new Font("Gabriola", Font.PLAIN, 30));
-		lblNewLabel_4.setBounds(87, 30, 10, 49);
-		panel.add(lblNewLabel_4);
+		
 
-		JLabel lblNewLabel_5 = new JLabel(":");
-		lblNewLabel_5.setForeground(SystemColor.menu);
-		lblNewLabel_5.setFont(new Font("Gabriola", Font.PLAIN, 30));
-		lblNewLabel_5.setBounds(87, 90, 10, 49);
-		panel.add(lblNewLabel_5);
-
-		JLabel lblNewLabel_6 = new JLabel(":");
-		lblNewLabel_6.setForeground(SystemColor.menu);
-		lblNewLabel_6.setFont(new Font("Gabriola", Font.PLAIN, 30));
-		lblNewLabel_6.setBounds(87, 150, 10, 49);
-		panel.add(lblNewLabel_6);
-
-		JLabel lblNewLabel_7 = new JLabel(":");
-		lblNewLabel_7.setForeground(SystemColor.menu);
-		lblNewLabel_7.setFont(new Font("Gabriola", Font.PLAIN, 30));
-		lblNewLabel_7.setBounds(87, 210, 10, 49);
-		panel.add(lblNewLabel_7);
 
 		textField = new JTextField();
 		textField.setEnabled(false);
-		textField.setForeground(Color.DARK_GRAY);
+		textField.setForeground(Color.BLACK);
 		textField.setBackground(SystemColor.info);
 		textField.setFont(new Font("Gabriola", Font.PLAIN, 30));
 		textField.setBounds(110, 35, 255, 40);
@@ -133,18 +130,21 @@ public class Mypage extends JFrame {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Game Score",
 				TitledBorder.CENTER, TitledBorder.TOP, null, SystemColor.info));
-		panel_1.setBackground(Color.DARK_GRAY);
+		panel_1.setBackground(Color.BLACK);
 		panel_1.setForeground(Color.BLACK);
 		panel_1.setBounds(70, 350, 450, 200);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
+		
+		original = score.getImage();
+		change = original.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
+		Icon = new ImageIcon(change);
 
-		JLabel lblNewLabel_8 = new JLabel("Score  :");
-		lblNewLabel_8.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_8.setForeground(new Color(230, 230, 250));
-		lblNewLabel_8.setFont(new Font("Gabriola", Font.PLAIN, 30));
+		JLabel lblNewLabel_8 = new JLabel(Icon);
 		lblNewLabel_8.setBounds(15, 40, 105, 35);
 		panel_1.add(lblNewLabel_8);
+		
+
 
 		JLabel lblNewLabel_12 = new JLabel("0");
 		lblNewLabel_12.setHorizontalAlignment(SwingConstants.LEFT);
@@ -152,13 +152,16 @@ public class Mypage extends JFrame {
 		lblNewLabel_12.setFont(new Font("Gabriola", Font.PLAIN, 30));
 		lblNewLabel_12.setBounds(120, 40, 105, 35);
 		panel_1.add(lblNewLabel_12);
+		
+		original = ranking.getImage();
+		change = original.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
+		Icon = new ImageIcon(change);
 
-		JLabel lblNewLabel_9 = new JLabel("Ranking :");
-		lblNewLabel_9.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_9.setForeground(new Color(230, 230, 250));
-		lblNewLabel_9.setFont(new Font("Gabriola", Font.PLAIN, 30));
+		JLabel lblNewLabel_9 = new JLabel(Icon);
 		lblNewLabel_9.setBounds(15, 125, 105, 35);
 		panel_1.add(lblNewLabel_9);
+		
+	
 
 		JLabel lblNewLabel_13 = new JLabel("0");
 		lblNewLabel_13.setHorizontalAlignment(SwingConstants.LEFT);
@@ -167,10 +170,12 @@ public class Mypage extends JFrame {
 		lblNewLabel_13.setBounds(120, 125, 105, 35);
 		panel_1.add(lblNewLabel_13);
 
-		JLabel lblNewLabel_10 = new JLabel("Victory :");
-		lblNewLabel_10.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_10.setForeground(new Color(230, 230, 250));
-		lblNewLabel_10.setFont(new Font("Gabriola", Font.PLAIN, 30));
+		
+		original = victory.getImage();
+		change = original.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
+		Icon = new ImageIcon(change);
+		
+		JLabel lblNewLabel_10 = new JLabel(Icon);
 		lblNewLabel_10.setBounds(235, 40, 105, 35);
 		panel_1.add(lblNewLabel_10);
 
@@ -181,10 +186,13 @@ public class Mypage extends JFrame {
 		lblNewLabel_14.setBounds(340, 40, 105, 35);
 		panel_1.add(lblNewLabel_14);
 
-		JLabel lblNewLabel_11 = new JLabel("Lose  :");
-		lblNewLabel_11.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_11.setForeground(new Color(230, 230, 250));
-		lblNewLabel_11.setFont(new Font("Gabriola", Font.PLAIN, 30));
+		
+		original =lose.getImage();
+		change = original.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
+		Icon = new ImageIcon(change);
+		
+		
+		JLabel lblNewLabel_11 = new JLabel(Icon);
 		lblNewLabel_11.setBounds(235, 125, 105, 35);
 		panel_1.add(lblNewLabel_11);
 
@@ -195,6 +203,8 @@ public class Mypage extends JFrame {
 		lblNewLabel_15.setBounds(340, 125, 105, 35);
 		panel_1.add(lblNewLabel_15);
 
+		
+		
 		JButton btnNewButton = new JButton("modify");
 		btnNewButton.setBackground(SystemColor.info);
 		btnNewButton.setFont(new Font("Gabriola", Font.PLAIN, 23));
@@ -280,6 +290,7 @@ public class Mypage extends JFrame {
 
 	public static void main(String[] args) {
 		Mypage client = new Mypage();
+		client.setVisible(true);
 		// TODO Auto-generated method stub
 	}
 }

@@ -15,11 +15,11 @@ import javax.swing.JButton;
 public class MainMenu extends JFrame {
 	public static MainMenu main;
 	private JPanel contentPane;
-	ImageIcon Start = new ImageIcon("Image/Gamestart.png");
-	ImageIcon Ranking = new ImageIcon("Image/Ranking.png");
-	ImageIcon Personal = new ImageIcon("Image/Mypage.png");
-	ImageIcon Title = new ImageIcon("Image/Mainmenu_title.png");
-	ImageIcon MainMenu_back = new ImageIcon("Image/MainMenu_back.jpg");
+	ImageIcon Start = new ImageIcon("Image/png/menu/gamestart.png");
+	ImageIcon Ranking = new ImageIcon("Image/png/menu/ranking.png");
+	ImageIcon Personal = new ImageIcon("Image/png/menu/mypage.png");
+	ImageIcon Title = new ImageIcon("Image/png/menu/mainmeun.png");
+	ImageIcon MainMenu_back = new ImageIcon("Image/png/menu/mainmeunback.png");
 
 	public MainMenu() {
 		contentPane = new JPanel() {
@@ -34,7 +34,7 @@ public class MainMenu extends JFrame {
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
 		Image originImg = Start.getImage();
-		Image changedImg = originImg.getScaledInstance(456, 139, Image.SCALE_SMOOTH);
+		Image changedImg = originImg.getScaledInstance(400, 80, Image.SCALE_SMOOTH);
 		ImageIcon Icon = new ImageIcon(changedImg);
 
 		JButton button1 = new JButton(Icon);
@@ -56,7 +56,7 @@ public class MainMenu extends JFrame {
 		});
 
 		originImg = Ranking.getImage();
-		changedImg = originImg.getScaledInstance(456, 139, Image.SCALE_SMOOTH);
+		changedImg = originImg.getScaledInstance(400, 80, Image.SCALE_SMOOTH);
 		Icon = new ImageIcon(changedImg);
 		JButton button2 = new JButton(Icon);
 		button2.setBounds(92, 360, 456, 139);
@@ -75,7 +75,7 @@ public class MainMenu extends JFrame {
 		});
 
 		originImg = Personal.getImage();
-		changedImg = originImg.getScaledInstance(456, 139, Image.SCALE_SMOOTH);
+		changedImg = originImg.getScaledInstance(400, 80, Image.SCALE_SMOOTH);
 		Icon = new ImageIcon(changedImg);
 		JButton button3 = new JButton(Icon);
 		button3.setBounds(92, 534, 456, 139);
@@ -96,7 +96,7 @@ public class MainMenu extends JFrame {
 		JPanel panel1 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(Title.getImage(), 0, 0, 968, 119, null);
+				g.drawImage(Title.getImage(), 0, 0, 450, 100, null);
 				setOpaque(false);
 				super.paintComponent(g);
 			}
@@ -112,6 +112,8 @@ public class MainMenu extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		MainMenu test = new MainMenu();
+		test.setVisible(true);
+		
 	}
 }

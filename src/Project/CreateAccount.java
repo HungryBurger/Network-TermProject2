@@ -22,12 +22,12 @@ public class CreateAccount extends JFrame {
 	public static CreateAccount main;
 	public CreateAccount()
 	{
-		ImageIcon Id = new ImageIcon("Image/ID.png");
-		ImageIcon Password = new ImageIcon("Image/Password.png");
-		ImageIcon Age = new ImageIcon("Image/Age.png");
-		ImageIcon Name = new ImageIcon("Image/Name.png");
-		ImageIcon Title = new ImageIcon("Image/Createaccount.png");
-		ImageIcon Submit = new ImageIcon("Image/submit.png");
+		ImageIcon Id = new ImageIcon("Image/png/user/id.png");
+		ImageIcon Password = new ImageIcon("Image/png/user/password.png");
+		ImageIcon Age = new ImageIcon("Image/png/user/age.png");
+		ImageIcon Name = new ImageIcon("Image/png/user/name.png");
+		ImageIcon Title = new ImageIcon("Image/png/user/create_new_account.png");
+		ImageIcon Submit = new ImageIcon("Image/png/user/submit.png");
 		
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.GRAY);
@@ -65,7 +65,7 @@ public class CreateAccount extends JFrame {
 		JPanel panel = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(Id.getImage(), 0, 0, 114,45, null);
+				g.drawImage(Id.getImage(), 0, 0, 80,30, null);
 				setOpaque(false);
 				super.paintComponent(g);
 			}
@@ -76,7 +76,7 @@ public class CreateAccount extends JFrame {
 		JPanel panel_1 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(Password.getImage(), 0, 0, 114,45, null);
+				g.drawImage(Password.getImage(), 0, 0, 80,30, null);
 				setOpaque(false);
 				super.paintComponent(g);
 			}
@@ -87,7 +87,7 @@ public class CreateAccount extends JFrame {
 		JPanel panel_2 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(Name.getImage(), 0, 0, 114 ,45, null);
+				g.drawImage(Name.getImage(), 0, 0, 80 ,30, null);
 				setOpaque(false);
 				super.paintComponent(g);
 			}
@@ -98,7 +98,7 @@ public class CreateAccount extends JFrame {
 		JPanel panel_3 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(Age.getImage(), 0, 0, 114,45, null);
+				g.drawImage(Age.getImage(), 0, 0, 80,30, null);
 				setOpaque(false);
 				super.paintComponent(g);
 			}
@@ -109,7 +109,7 @@ public class CreateAccount extends JFrame {
 		JPanel panel_4 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(Title.getImage(), 0, 0, 285,65, null);
+				g.drawImage(Title.getImage(), 0, 0, 285,50, null);
 				setOpaque(false);
 				
 				super.paintComponent(g);
@@ -119,7 +119,7 @@ public class CreateAccount extends JFrame {
 		contentPane.add(panel_4);
 		
 		Image originImg = Submit.getImage();
-		Image changedImg= originImg.getScaledInstance(116, 100, Image.SCALE_SMOOTH );
+		Image changedImg= originImg.getScaledInstance(116, 30, Image.SCALE_SMOOTH );
 		ImageIcon Icon = new ImageIcon(changedImg);
 		JButton btnNewButton = new JButton(Icon);
 		btnNewButton.setBounds(116, 392, 249, 49);
