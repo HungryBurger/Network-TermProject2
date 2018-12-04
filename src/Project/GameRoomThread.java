@@ -20,14 +20,32 @@ public class GameRoomThread implements Runnable {
 				String line = Login.in.readLine();
 				System.out.println("GameRoom Thread : " + line);
 				if (line.startsWith("[Timer]")) {
-
 					GameRoom.textPane.setText(line.substring(7));
-
 				} else if (line.startsWith("Take Role")) {
 					My_Role = Integer.parseInt(line.substring(9));
-				} else if (line.startsWith("Total_count")) {
-					System.out.println(line.substring(11));
+				} else if (line.startsWith("[GameIsStart]")) {
 					Login.out2.println("[GameStart]");
+					new start().frame.setVisible(true);
+				} else if (line.startsWith("[WhatIsRole]")) {
+					start.frame.setVisible(false);
+					if (My_Role == 1)
+						new Im_citizen();
+					else if (My_Role == 2)
+						new Im_mafia();
+					else if (My_Role == 3)
+						new Im_doctor();
+
+				} else if (line.startsWith("[TimerStart]")) {
+					if (My_Role == 1)
+						Im_citizen.frame.setVisible(false);
+					else if (My_Role == 2)
+						Im_mafia.frame.setVisible(false);
+					else if (My_Role == 3)
+						Im_doctor.frame.setVisible(false);
+				}
+
+				else if (line.startsWith("Total_count")) {
+					System.out.println(line.substring(11));
 				} else if (line.startsWith("[Voting]")) {
 					new Voting();
 					init_count = 1;
@@ -44,7 +62,7 @@ public class GameRoomThread implements Runnable {
 					 * Voting.button_4.setText(array[5]); Voting.button_5.setText(array[6]);
 					 * Voting.button_6.setText(array[7]); Voting.button_7.setText(array[8]);
 					 */
-
+					
 				} else if (line.startsWith("[Voting_id]")) {
 					array = line.split(" ");
 				} else if (line.startsWith("[Mafia_Voting]")) {
@@ -53,16 +71,15 @@ public class GameRoomThread implements Runnable {
 						new Voting_mafia();
 						Voting_mafia.button.setText(array[2]);
 						Voting_mafia.button_1.setText(array[3]);
-						Voting.button_2.setText(array[4]);
+						Voting_mafia.button_2.setText(array[4]);
 					} else {
-						new vote_m();
+						new vote_m().frame.setVisible(true);
 					}
 					/*
 					 * Voting.button_3.setText(array[5]); Voting.button_4.setText(array[6]);
 					 * Voting.button_5.setText(array[7]); Voting.button_6.setText(array[8]);
 					 * Voting.button_7.setText(array[9]);
 					 */
-
 				} else if (line.startsWith("[Doctor_Voting]")) {
 					vote_m.frame.setVisible(false);
 					if (My_Role == 3) {

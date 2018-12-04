@@ -47,7 +47,6 @@ public class WaitingRoomThread implements Runnable {
 					} else
 						System.out.println("ERROR wating thread");
 				} else if (line.startsWith("[GameStart]")) {
-					new start();
 					break;
 				}
 			}

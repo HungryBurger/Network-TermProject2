@@ -146,7 +146,7 @@ public class Login extends JFrame {
 				}
 			}
 		});
-
+		
 		originImg = account.getImage();
 		changedImg = originImg.getScaledInstance(342, 53, Image.SCALE_SMOOTH);
 		Icon = new ImageIcon(changedImg);

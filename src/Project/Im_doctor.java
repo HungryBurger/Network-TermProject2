@@ -9,15 +9,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRootPane;
 
-public class vote_m {
+public class Im_doctor {
 
 	//컴포넌트 생성
 	static JFrame frame = new JFrame();
-	JLabel msg = new JLabel("마피아의 투표가 진행중입니다");
+	JLabel msg = new JLabel("당신은 의사 입니다");
 	Font font = new Font("맑은고딕",Font.BOLD,40); //font 통일 뭘로 할지 몰라 임의로 넣습니다.
-	public vote_m()
+	public Im_doctor()
 	{
 		//위 표시줄 제거하기(사용자가 임의로 창 못 닫게 하려고 추가했습니다.)
+		frame.setUndecorated(true);
 		frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 		//Font 적용
 		msg.setFont(font);
@@ -33,12 +34,12 @@ public class vote_m {
 		frame.setBackground(Color.black);
 		frame.setResizable(false);
 		//프레임 보이기 설정
-		frame.setUndecorated(true);
+		frame.setVisible(true);
 	}
 
 	public static void main(String[] args)
 	{
 		//실행
-		new vote_m();
+		new Im_mafia();
 	}
 }

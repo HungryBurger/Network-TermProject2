@@ -17,7 +17,7 @@ public class vote_d {
 			public vote_d()
 			{
 				//위 표시줄 제거하기(사용자가 임의로 창 못 닫게 하려고 추가했습니다.)
-				frame.setUndecorated(true);
+				
 				frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 				//Font 적용
 				msg.setFont(font);
@@ -33,7 +33,7 @@ public class vote_d {
 				frame.setBackground(Color.black);
 				frame.setResizable(false);
 				//프레임 보이기 설정
-				frame.setVisible(true);
+				frame.setUndecorated(true);
 			}
 
 			public static void main(String[] args)

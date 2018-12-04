@@ -55,6 +55,8 @@ public class Server extends JFrame implements ActionListener {
 	// role = 2 -> 마피아
 	// role = 3 -> 의사
 	static int role[] = new int[8];
+	static int once_count = 0;
+	public static HashSet<String> dead = new HashSet<String>();
 	public static HashSet<String> names = new HashSet<String>();
 	public static HashSet<String> mafia_names = new HashSet<String>();
 	public static HashSet<String> doctor_name = new HashSet<String>();
@@ -194,7 +196,6 @@ public class Server extends JFrame implements ActionListener {
 							user_ready_count--;
 							System.out.println("user_ready_count =" + user_ready_count);
 						}
-
 						if (user_ready_count == 3) {
 							for (PrintWriter writer : writers) {
 								writer.println("[GameStart]");
@@ -204,47 +205,71 @@ public class Server extends JFrame implements ActionListener {
 							}
 							System.out.println("Server : " + set_id);
 							user_ready_count = 0;
-							
 							TimerTask game_task = new TimerTask() {
 								@Override
 								public void run() {
 									real_game_timer++;
-									System.out.println(real_game_timer);
-									if (real_game_timer < 20) {
+									if (once_count == 0 && real_game_timer == 2) {
 										for (PrintWriter writer : writers) {
-											writer.println("[Timer]" + real_game_timer);
+											writer.println("[GameIsStart]");
 										}
-									} else if (real_game_timer == 20) {
+									} else if (once_count == 0 && real_game_timer == 5) {
+										for (PrintWriter writer : writers) {
+											writer.println("[WhatIsRole]");
+										}
+									} else if (real_game_timer == 10 && once_count == 0) {
+										for (PrintWriter writer : writers) {
+											writer.println("[TimerStart]");
+										}
+										once_count++;
+									} else if (real_game_timer > 8 && real_game_timer < 28) {
+
+										for (String name1 : names) {
+											for (String dead1 : dead) {
+												if (name1.equals(dead1)) {
+													map.get(name1).println("[Timer]" + (real_game_timer - 8));
+												}
+											}
+										}
+									} else if (real_game_timer == 28) {
+										for (String name1 : names) {
+											for (String dead1 : dead) {
+												if (name1.equals(dead1)) {
+													map.get(name1).println("[Voting_id]");
+													map.get(name1).println("[Voting]");
+												}
+											}
+										}
 										for (PrintWriter writer : writers) {
 											writer.println("[Voting_id] " + set_id);
 											writer.println("[Voting]");
 										}
 									}
 									// 투표 진행
-									else if (real_game_timer > 20 && real_game_timer < 35) {
+									else if (real_game_timer > 28 && real_game_timer < 43) {
 
 										for (PrintWriter writer : writers) {
-											writer.println("[Timer]" + (real_game_timer - 20));
+											writer.println("[Timer]" + (real_game_timer - 28));
 										}
 
-									} else if (real_game_timer == 35) {
+									} else if (real_game_timer == 43) {
 										for (PrintWriter writer : writers) {
 											writer.println("[Mafia_Voting]");
 
 										}
-									} else if (real_game_timer > 35 && real_game_timer < 45) {
+									} else if (real_game_timer > 43 && real_game_timer < 53) {
 										for (PrintWriter writer : writers) {
-											writer.println("[Timer]" + (real_game_timer - 35));
+											writer.println("[Timer]" + (real_game_timer - 43));
 										}
-									} else if (real_game_timer == 45) {
+									} else if (real_game_timer == 53) {
 										for (PrintWriter writer : writers) {
 											writer.println("[Doctor_Voting]");
 										}
-									} else if (real_game_timer > 45 && real_game_timer < 60) {
+									} else if (real_game_timer > 53 && real_game_timer < 63) {
 										for (PrintWriter writer : writers) {
-											writer.println("[Timer]" + (real_game_timer - 45));
+											writer.println("[Timer]" + (real_game_timer - 53));
 										}
-									} else if (real_game_timer == 60) {
+									} else if (real_game_timer == 63) {
 										for (PrintWriter writer : writers) {
 											writer.println("[Reset]");
 										}
@@ -329,8 +354,10 @@ public class Server extends JFrame implements ActionListener {
 							if (duplicate == 0)
 								out.println("[Server Voting Result] NO DEAD");
 							// 동률이 아닐경우에
-							else
+							else {
 								out.println("[Server Voting Result] " + temp_name);
+								dead.add(temp_name);
+							}
 							for (i = 0; i < 8; i++) {
 								voting[i] = 0;
 							}
@@ -375,10 +402,14 @@ public class Server extends JFrame implements ActionListener {
 							if (duplicate == 0)
 								out.println("[Server Voting Result] NO DEAD");
 							// 동률이 아닐경우에
-							else
+							else {
 								out.println("[Server Voting Result] " + temp_name);
+								dead.add(temp_name);
+							}
+
 							for (i = 0; i < 8; i++) {
 								voting[i] = 0;
+
 							}
 						}
 					}

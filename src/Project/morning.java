@@ -35,9 +35,6 @@ public class morning{
 			frame.setResizable(false);
 			//프레임 보이기 설정
 			frame.setVisible(true);
-			
-			//종료 버튼 설정
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
 
 		public static void main(String[] args)
