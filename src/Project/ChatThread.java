@@ -14,7 +14,7 @@ public class ChatThread implements Runnable {
 				
 				System.out.println(line);
 				if (line.startsWith("SUBMITNAME")) {
-					Login.out2.println(Login.user_id);
+					Login.out2.println(Login.user_id); 
 				} else if (line.startsWith("NAMEACCEPTED")) {
 					WaitingRoom.textField.setEditable(true);
 					WaitingRoom.messageArea.setEditable(false);

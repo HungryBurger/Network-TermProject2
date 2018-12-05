@@ -23,7 +23,7 @@ public class d_save_c
 		frame.setUndecorated(true);
 		frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 		//Font 적용
-		msg.setFont(font);
+		msg.setFont(font); 
 		//컴포넌트를 넣을 컨테이너 구하기
 		Container container = frame.getContentPane();
         container.add(msg, BorderLayout.CENTER);
