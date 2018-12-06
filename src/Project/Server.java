@@ -223,7 +223,6 @@ public class Server extends JFrame implements ActionListener {
 										}
 										once_count++;
 									} else if (real_game_timer > 8 && real_game_timer < 28) {
-
 										for (String name1 : names) {
 											for (String dead1 : dead) {
 												if (name1.equals(dead1)) {
@@ -234,36 +233,45 @@ public class Server extends JFrame implements ActionListener {
 									} else if (real_game_timer == 28) {
 										for (String name1 : names) {
 											for (String dead1 : dead) {
-												if (name1.equals(dead1)) {
+												if (!name1.equals(dead1)) {
 													map.get(name1).println("[Voting_id]");
 													map.get(name1).println("[Voting]");
 												}
 											}
 										}
-										for (PrintWriter writer : writers) {
-											writer.println("[Voting_id] " + set_id);
-											writer.println("[Voting]");
-										}
 									}
 									// 투표 진행
 									else if (real_game_timer > 28 && real_game_timer < 43) {
-
-										for (PrintWriter writer : writers) {
-											writer.println("[Timer]" + (real_game_timer - 28));
+										for (String name1 : names) {
+											for (String dead1 : dead) {
+												if (!name1.equals(dead1)) {
+													map.get(name1).println("[Timer]" + (real_game_timer - 28));
+												}
+											}
 										}
-
 									} else if (real_game_timer == 43) {
-										for (PrintWriter writer : writers) {
-											writer.println("[Mafia_Voting]");
-
+										for (String name1 : names) {
+											for (String dead1 : dead) {
+												if (!name1.equals(dead1)) {
+													map.get(name1).println("[Mafia_Voting]");
+												}
+											}
 										}
 									} else if (real_game_timer > 43 && real_game_timer < 53) {
-										for (PrintWriter writer : writers) {
-											writer.println("[Timer]" + (real_game_timer - 43));
+										for (String name1 : names) {
+											for (String dead1 : dead) {
+												if (!name1.equals(dead1)) {
+													map.get(name1).println("[Timer]" + (real_game_timer - 43));
+												}
+											}
 										}
 									} else if (real_game_timer == 53) {
-										for (PrintWriter writer : writers) {
-											writer.println("[Doctor_Voting]");
+										for (String name1 : names) {
+											for (String dead1 : dead) {
+												if (!name1.equals(dead1)) {
+													map.get(name1).println("[Doctor_Voting]");
+												}
+											}
 										}
 									} else if (real_game_timer > 53 && real_game_timer < 63) {
 										for (PrintWriter writer : writers) {
