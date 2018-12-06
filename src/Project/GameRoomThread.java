@@ -94,7 +94,7 @@ public class GameRoomThread implements Runnable {
 					} else {
 						vote_m.frame.setVisible(false);
 						new vote_d();
-					}
+					} 
 
 				} else if (line.startsWith("[Reset]")) {
 					if (My_Role == 3)
