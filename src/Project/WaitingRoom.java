@@ -414,7 +414,7 @@ public class WaitingRoom extends JFrame {
 		panel7.setLayout(null);
 		
 		JPanel panel8_1 = new JPanel() {
-			
+			 
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
 				g.drawImage(n8.getImage(), 0, 0, 25,30, null);
