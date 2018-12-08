@@ -17,8 +17,6 @@ public class win_m {
 		public win_m()
 		{
 			//위 표시줄 제거하기(사용자가 임의로 창 못 닫게 하려고 추가했습니다.)
-			frame.setUndecorated(true);
-			frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 			//Font 적용
 			msg.setFont(font);
 			//컴포넌트를 넣을 컨테이너 구하기
@@ -36,7 +34,6 @@ public class win_m {
 			frame.setVisible(true);
 			
 			//종료 버튼 설정
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
 
 		public static void main(String[] args)

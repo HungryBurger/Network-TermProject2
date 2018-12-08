@@ -27,6 +27,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
 import java.awt.TextArea;
 import javax.swing.JTextPane;
+import java.awt.Font;
+import java.awt.*;
 
 
 public class GameRoom extends JFrame {
@@ -71,6 +73,14 @@ public class GameRoom extends JFrame {
 	static JPanel panel_30;
 	static JPanel panel_31;
 	static JFrame frame;
+	static JPanel panel1_1;
+	static JPanel panel2_1;
+	static JPanel panel3_1;
+	static JPanel panel4_1;
+	static JPanel panel5_1;
+	static JPanel panel6_1;
+	static JPanel panel7_1;
+	static JPanel panel8_1;
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		GameRoom wait = new GameRoom();
@@ -87,8 +97,21 @@ public class GameRoom extends JFrame {
 		ImageIcon user7 = new ImageIcon("Image/user7.png");
 		ImageIcon user8 = new ImageIcon("Image/user8.png");
 		ImageIcon title = new ImageIcon("Image/Waiting_room_title.png");
+		ImageIcon death = new ImageIcon("Image/png/gameScreen/x.png");
+		ImageIcon num = new ImageIcon("Image/png/gameScreen/1.png");
+		ImageIcon back = new ImageIcon("Image/png/gameScreen/back.png");
 
-		contentPane = new JPanel();
+		contentPane = new JPanel() {
+			public void paintComponent(Graphics g)
+			{
+				
+				Dimension d = getSize();
+				g.drawImage(back.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
+				setOpaque(false);
+				super.paintComponent(g);
+				
+			}
+		};
 		contentPane.setLayout(null);
 		frame.setContentPane(contentPane);
 
@@ -97,6 +120,7 @@ public class GameRoom extends JFrame {
 		contentPane.add(textField);
 
 		messageArea = new JTextArea();
+		messageArea.setFont(new Font("±¼¸²", Font.PLAIN, 15));
 		messageArea.setBounds(1088, 42, 282, 666);
 		contentPane.add(messageArea);
 		messageArea.setEditable(false);
@@ -105,7 +129,7 @@ public class GameRoom extends JFrame {
 
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(user1.getImage(), 0, 0, 191, 201, null);
+				g.drawImage(user1.getImage(), 0, 0, 180, 130, null);
 				setOpaque(false);
 				super.paintComponent(g);
 			}
@@ -116,7 +140,7 @@ public class GameRoom extends JFrame {
 		panel2 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(user2.getImage(), 0, 0, 191, 201, null);
+				g.drawImage(user2.getImage(), 0, 0, 180, 130, null);
 				setOpaque(false);
 				super.paintComponent(g);
 			}
@@ -127,7 +151,7 @@ public class GameRoom extends JFrame {
 		panel3 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(user3.getImage(), 0, 0, 191, 201, null);
+				g.drawImage(user3.getImage(), 0, 0, 180, 130, null);
 				setOpaque(false);
 				super.paintComponent(g);
 			}
@@ -192,44 +216,53 @@ public class GameRoom extends JFrame {
 		contentPane.add(panel8);
 		
 		textField_1 = new JTextField();
+		textField_1.setFont(new Font("Gabriola", Font.BOLD, 30));
 		textField_1.setBounds(61, 197, 191, 34);
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
+		textField_2.setFont(new Font("Gabriola", Font.BOLD, 30));
 		textField_2.setBounds(290, 197, 191, 34);
 		contentPane.add(textField_2);
 		
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
+		textField_3.setFont(new Font("Gabriola", Font.BOLD, 30));
 		textField_3.setBounds(529, 197, 191, 34);
 		contentPane.add(textField_3);
 		
 		textField_4 = new JTextField();
 		textField_4.setColumns(10);
+		textField_4.setFont(new Font("Gabriola", Font.BOLD, 30));
 		textField_4.setBounds(772, 197, 191, 34);
 		contentPane.add(textField_4);
 		
 		textField_5 = new JTextField();
 		textField_5.setColumns(10);
+		textField_5.setFont(new Font("Gabriola", Font.BOLD, 30));
 		textField_5.setBounds(61, 452, 191, 34);
 		contentPane.add(textField_5);
 		
 		textField_6 = new JTextField();
 		textField_6.setColumns(10);
+		textField_6.setFont(new Font("Gabriola", Font.BOLD, 30));
 		textField_6.setBounds(290, 452, 191, 34);
 		contentPane.add(textField_6);
 		
 		textField_7 = new JTextField();
 		textField_7.setColumns(10);
+		textField_7.setFont(new Font("Gabriola", Font.BOLD, 30));
 		textField_7.setBounds(529, 452, 191, 34);
 		contentPane.add(textField_7);
 		
 		textField_8 = new JTextField();
 		textField_8.setColumns(10);
+		textField_8.setFont(new Font("Gabriola", Font.BOLD, 30));
 		textField_8.setBounds(772, 452, 191, 34);
 		contentPane.add(textField_8);
+		
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(60, 400, 40, 40);
@@ -248,6 +281,7 @@ public class GameRoom extends JFrame {
 		contentPane.add(panel_3);
 		
 		textPane = new JTextPane();
+		textPane.setFont(new Font("Gabriola", Font.BOLD, 50));
 		textPane.setBounds(325, 30, 387, 101);
 		contentPane.add(textPane);
 		
@@ -394,6 +428,125 @@ public class GameRoom extends JFrame {
 		 * 
 		 * for (JRadioButton c : rb) { grp.add(c); contentPane.add(c); }
 		 */
+		
+		panel1_1 = new JPanel() {
+
+			public void paintComponent(Graphics g) {
+				Dimension d = getSize();
+				g.drawImage(death.getImage(), 0, 0, 191, 143,null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		panel1_1.setBounds(0, 0, 200, 140);
+		
+		panel2_1 = new JPanel() {
+
+			public void paintComponent(Graphics g) {
+				Dimension d = getSize();
+				g.drawImage(death.getImage(), 0, 0, 191, 143, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		panel2_1.setBounds(0, 0, 200, 140);
+		
+		panel3_1 = new JPanel() {
+
+			public void paintComponent(Graphics g) {
+				Dimension d = getSize();
+				g.drawImage(death.getImage(), 0, 0, 191, 143, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		panel3_1.setBounds(0, 0, 200, 140);
+		
+		panel4_1 = new JPanel() {
+
+			public void paintComponent(Graphics g) {
+				Dimension d = getSize();
+				g.drawImage(death.getImage(), 0, 0, 191, 143, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		panel4_1.setBounds(0, 0, 200, 140);
+		
+		panel5_1 = new JPanel() {
+
+			public void paintComponent(Graphics g) {
+				Dimension d = getSize();
+				g.drawImage(death.getImage(), 0, 0, 191, 143, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		panel5_1.setBounds(0, 0, 200, 140);
+		
+		panel6_1 = new JPanel() {
+
+			public void paintComponent(Graphics g) {
+				Dimension d = getSize();
+				g.drawImage(death.getImage(), 0, 0, 191, 143, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		panel6_1.setBounds(0, 0,200, 140);
+		
+		panel7_1 = new JPanel() {
+
+			public void paintComponent(Graphics g) {
+				Dimension d = getSize();
+				g.drawImage(death.getImage(), 0, 0, 191, 143, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		panel7_1.setBounds(0, 0, 200, 140);
+		
+		panel8_1 = new JPanel() {
+
+			public void paintComponent(Graphics g) {
+				Dimension d = getSize();
+				g.drawImage(death.getImage(), 0, 0, 191, 143, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		panel8_1.setBounds(0, 0, 200, 140);
+		
+		
+		
+		panel1_1.setVisible(false);
+		panel2_1.setVisible(false);
+		panel3_1.setVisible(false);
+		panel4_1.setVisible(false);
+		panel5_1.setVisible(false);
+		panel6_1.setVisible(false);
+		panel7_1.setVisible(false);
+		panel8_1.setVisible(false);
+		
+		panel1.setLayout(null);
+		
+		panel1.add(panel1_1);
+		panel2.setLayout(null);
+		panel2.add(panel2_1);
+		panel3.setLayout(null);
+		panel3.add(panel3_1);
+		panel4.setLayout(null);
+		panel4.add(panel4_1);
+		panel5.setLayout(null);
+		panel5.add(panel5_1);
+		panel6.setLayout(null);
+		panel6.add(panel6_1);
+		panel7.setLayout(null);
+		panel7.add(panel7_1);
+		panel8.setLayout(null);
+		panel8.add(panel8_1);
+		
+		
 		panel1.setVisible(false);
 		panel2.setVisible(false);
 		panel3.setVisible(false);

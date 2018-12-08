@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JTextPane;
+import javax.swing.*;
+import java.awt.*;
 
 public class Voting extends JFrame {
 
@@ -15,6 +17,9 @@ public class Voting extends JFrame {
 	static JFrame frame;
 	static JButton button, button_1, button_2, button_3, button_4, button_5, button_6, button_7, btnNewButton;
 	static JTextPane textPane;
+	
+	ImageIcon back =  new ImageIcon("Image/png/vote/back.png");
+	
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
@@ -22,14 +27,25 @@ public class Voting extends JFrame {
 	}
 
 	public Voting() {
+		Image original = null;
+		Image change = null;
 
 		frame = new JFrame("Voting");
-		contentPane = new JPanel();
+		contentPane = new JPanel() {
+			public void paintComponent(Graphics g) {
+				Dimension d = getSize();
+				g.drawImage(back.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
 		contentPane.setLayout(null);
 
 		frame.setContentPane(contentPane);
 
-		button = new JButton("");
+		button = new JButton("vote");
+		button.setBackground(Color.WHITE);
+		button.setFont(new Font("Gabriola", Font.BOLD, 30));
 		button.setBounds(43, 110, 140, 46);
 		contentPane.add(button);
 		button.addActionListener(new ActionListener() {
@@ -41,7 +57,9 @@ public class Voting extends JFrame {
 			}
 		});
 		button.setVisible(false);
-		button_1 = new JButton("");
+		button_1 = new JButton("vote");
+		button_1.setBackground(Color.WHITE);
+		button_1.setFont(new Font("Gabriola", Font.BOLD, 30));
 		button_1.setBounds(43, 168, 140, 46);
 		contentPane.add(button_1);
 		button_1.addActionListener(new ActionListener() {
@@ -54,8 +72,10 @@ public class Voting extends JFrame {
 		});
 		button_1.setVisible(false);
 
-		button_2 = new JButton("");
+		button_2 = new JButton("vote");
+		button_2.setBackground(Color.WHITE);
 		button_2.setBounds(43, 226, 140, 46);
+		button_2.setFont(new Font("Gabriola", Font.BOLD, 30));
 		contentPane.add(button_2);
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -67,8 +87,10 @@ public class Voting extends JFrame {
 		});
 		button_2.setVisible(false);
 
-		button_3 = new JButton("");
+		button_3 = new JButton("vote");
+		button_3.setBackground(Color.WHITE);
 		button_3.setBounds(43, 296, 140, 46);
+		button_3.setFont(new Font("Gabriola", Font.BOLD, 30));
 		contentPane.add(button_3);
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -79,8 +101,10 @@ public class Voting extends JFrame {
 			}
 		});
 		button_3.setVisible(false);
-		button_4 = new JButton("");
+		button_4 = new JButton("vote");
+		button_4.setBackground(Color.WHITE);
 		button_4.setBounds(283, 110, 140, 46);
+		button_4.setFont(new Font("Gabriola", Font.BOLD, 30));
 		contentPane.add(button_4);
 		button_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -91,8 +115,10 @@ public class Voting extends JFrame {
 			}
 		});
 		button_4.setVisible(false);
-		button_5 = new JButton("");
+		button_5 = new JButton("vote");
+		button_5.setBackground(Color.WHITE);
 		button_5.setBounds(283, 168, 140, 46);
+		button_5.setFont(new Font("Gabriola", Font.BOLD, 30));
 		contentPane.add(button_5);
 		button_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -103,8 +129,10 @@ public class Voting extends JFrame {
 			}
 		});
 		button_5.setVisible(false);
-		button_6 = new JButton("");
+		button_6 = new JButton("vote");
+		button_6.setBackground(Color.WHITE);
 		button_6.setBounds(283, 226, 140, 46);
+		button_6.setFont(new Font("Gabriola", Font.BOLD, 30));
 		contentPane.add(button_6);
 		button_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -115,7 +143,8 @@ public class Voting extends JFrame {
 			}
 		});
 		button_6.setVisible(false);
-		button_7 = new JButton("");
+		button_7 = new JButton("vote");
+		button_7.setBackground(Color.WHITE);
 		button_7.setBounds(283, 296, 140, 46);
 		contentPane.add(button_7);
 		button_7.addActionListener(new ActionListener() {
@@ -128,17 +157,23 @@ public class Voting extends JFrame {
 		});
 		button_7.setVisible(false);
 		textPane = new JTextPane();
+		textPane.setFont(new Font("Gabriola", Font.BOLD, 30));
 		textPane.setBounds(110, 12, 257, 56);
 		contentPane.add(textPane);
-
-		btnNewButton = new JButton("투표하기");
+        
+	
+		
+		btnNewButton = new JButton("vote");
+		btnNewButton.setFont(new Font("Gabriola", Font.BOLD, 50));
+		btnNewButton.setBackground(Color.WHITE);
+		
 		btnNewButton.setBounds(43, 369, 375, 56);
 		contentPane.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object obj = e.getSource();
 				if (obj.equals(btnNewButton)) {
-					Login.out.println("[Result]"+textPane.getText());
+				//	Login.out.println("[Result]"+textPane.getText());
 					System.out.println("[Result]"+textPane.getText());
 					frame.setVisible(false);
 				}

@@ -59,7 +59,7 @@ public class WaitingRoom extends JFrame {
 		ImageIcon user6 = new ImageIcon("Image/user6.png");
 		ImageIcon user7 = new ImageIcon("Image/user7.png");
 		ImageIcon user8 = new ImageIcon("Image/user8.png");
-		ImageIcon title = new ImageIcon("Image/Waiting_room_title.png");
+		ImageIcon title = new ImageIcon("Image/png/gameScreen/Waiting_room.png");
 		ImageIcon back  = new ImageIcon("Image/png/gameScreen/back.png");
 		ImageIcon ready = new ImageIcon("Image/png/gameScreen/ready.png");
 		ImageIcon n1 = new ImageIcon("Image/png/gameScreen/1.png");

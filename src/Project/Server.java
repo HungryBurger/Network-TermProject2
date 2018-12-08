@@ -205,6 +205,7 @@ public class Server extends JFrame implements ActionListener {
 							}
 							System.out.println("Server : " + set_id);
 							user_ready_count = 0;
+							Timer game_timer = new Timer();
 							TimerTask game_task = new TimerTask() {
 								@Override
 								public void run() {
@@ -213,6 +214,7 @@ public class Server extends JFrame implements ActionListener {
 										for (PrintWriter writer : writers) {
 											writer.println("[GameIsStart]");
 										}
+
 									} else if (once_count == 0 && real_game_timer == 5) {
 										for (PrintWriter writer : writers) {
 											writer.println("[WhatIsRole]");
@@ -248,7 +250,7 @@ public class Server extends JFrame implements ActionListener {
 												alive_set += name1 + " ";
 											} else {
 												check_dead = 0;
-												alive_set+=" ";
+												alive_set += " ";
 											}
 										}
 										for (String name1 : names) {
@@ -258,7 +260,7 @@ public class Server extends JFrame implements ActionListener {
 												}
 											}
 											if (check_dead == 0) {
-												map.get(name1).println("[Voting_id]"+alive_set);
+												map.get(name1).println("[Voting_id]" + alive_set);
 												map.get(name1).println("[Voting]");
 											} else
 												check_dead = 0;
@@ -278,7 +280,28 @@ public class Server extends JFrame implements ActionListener {
 											} else
 												check_dead = 0;
 										}
-									} else if (real_game_timer == 43) {
+									}else if (real_game_timer == 43) {
+										for (PrintWriter writer : writers) {
+											writer.println("[ShutDownVoting]");
+										}
+									}
+									else if (real_game_timer == 45) {
+										for (PrintWriter writer : writers) {
+											writer.println("[ShutDownResult]");
+										}
+										if (mafia_count == 0) {
+											for (PrintWriter writer : writers) {
+												writer.println("[CITIZEN_WIN]");
+											}
+											game_timer.cancel();
+										} else if ((citizen_count+doctor_count) <= mafia_count) {
+											for (PrintWriter writer : writers) {
+												writer.println("[MAFIA_WIN]");
+											}
+											game_timer.cancel();
+										}
+										
+									} else if (real_game_timer == 47) {
 										int check_dead = 0;
 										for (String name1 : names) {
 											for (String dead1 : dead) {
@@ -291,8 +314,8 @@ public class Server extends JFrame implements ActionListener {
 											} else
 												check_dead = 0;
 										}
-						
-									} else if (real_game_timer > 43 && real_game_timer < 53) {
+//마피아 투표
+									} else if (real_game_timer > 47 && real_game_timer < 53) {
 										for (PrintWriter writer : writers) {
 											writer.println("[Timer]" + (real_game_timer - 43));
 										}
@@ -314,6 +337,16 @@ public class Server extends JFrame implements ActionListener {
 											writer.println("[Timer]" + (real_game_timer - 53));
 										}
 									} else if (real_game_timer == 63) {
+										if (mafia_count == 0) {
+											for (PrintWriter writer : writers) {
+												writer.println("[CITIZEN_WIN]");
+											}
+										} else if (citizen_count <= mafia_count) {
+											for (PrintWriter writer : writers) {
+												writer.println("[MAFIA_WIN]");
+											}
+										}
+
 										for (PrintWriter writer : writers) {
 											writer.println("[Reset]");
 										}
@@ -321,7 +354,6 @@ public class Server extends JFrame implements ActionListener {
 									}
 								}
 							};
-							Timer game_timer = new Timer();
 							long delay = 0;
 							long intevalPeriod = 1 * 1000;
 							game_timer.scheduleAtFixedRate(game_task, delay, intevalPeriod);
@@ -342,7 +374,6 @@ public class Server extends JFrame implements ActionListener {
 								out.println("Take Role" + random);
 								citizen_names.add(name);
 								citizen_count++;
-
 								break;
 							} else if (random == 2 && mafia_count <= 2) {
 								out.println("Take Role" + random);
@@ -358,54 +389,6 @@ public class Server extends JFrame implements ActionListener {
 						}
 						out.println("Total_count" + citizen_count + " " + mafia_count + " " + doctor_count);
 					} else if (Check_Class.startsWith("[Result]") == true) {
-						int i = 0;
-						// 값을 더해준다.
-						for (String name1 : names) {
-							if (name1.equals(Check_Class.substring(8)))
-								voting[i]++;
-							i++;
-						}
-						user_ready_count++;
-						if (user_ready_count == 3) {
-							i = 0;
-							int max = 0;
-							String temp_name = "";
-							int temp_index = 0;
-							int duplicate = 0;
-							for (String name1 : names) {
-								if (i == 0) {
-									max = voting[0];
-									temp_name = name1;
-									temp_index = 0;
-								} else if (max < voting[i]) {
-									max = voting[i];
-									temp_name = name1;
-									temp_index = i;
-								}
-								i++;
-							}
-							System.out.println(temp_name + " " + temp_index);
-							for (String name1 : names) {
-								if (temp_name.equals(name1)) {
-									if (temp_index != i) {
-										duplicate++;
-									}
-									System.out.println(name1 + duplicate);
-								}
-							}
-							// 동률일 경우에
-							if (duplicate == 0)
-								out.println("[Server Voting Result] NO DEAD");
-							// 동률이 아닐경우에
-							else {
-								out.println("[Server Voting Result] " + temp_name);
-								dead.add(temp_name);
-							}
-							for (i = 0; i < 8; i++) {
-								voting[i] = 0;
-							}
-						}
-					} else if (Check_Class.startsWith("[Mafia_Result]") == true) {
 						int i = 0;
 						// 값을 더해준다.
 						for (String name1 : names) {
@@ -446,13 +429,122 @@ public class Server extends JFrame implements ActionListener {
 								out.println("[Server Voting Result] NO DEAD");
 							// 동률이 아닐경우에
 							else {
-								out.println("[Server Voting Result] " + temp_name);
+								for (String a : citizen_names) {
+									if (temp_name.equals(a)) {
+										out.println("[Server Voting Result] " + "1" + temp_name);
+										citizen_count--;
+									}
+								}
+								for (String a : mafia_names) {
+									if (temp_name.equals(a)) {
+										out.println("[Server Voting Result] " + "2" + temp_name);
+										mafia_count--;
+									}
+								}
+								for (String a : doctor_name) {
+									if (temp_name.equals(a)) {
+										out.println("[Server Voting Result] " + "3" + temp_name);
+										doctor_count--;
+									}
+								}
 								dead.add(temp_name);
 							}
-
 							for (i = 0; i < 8; i++) {
 								voting[i] = 0;
+							}
+							user_ready_count = 0;
+						}
+					} else if (Check_Class.startsWith("[Mafia_Result]") == true) {
+						int i = 0;
+						// 값을 더해준다.
+						for (String name1 : names) {
+							if (name1.equals(Check_Class.substring(8)))
+								voting[i]++;
+							i++;
+						}
+						user_ready_count++;
+						if (user_ready_count == 2) {
+							i = 0;
+							int max = 0;
+							String temp_name = "";
+							int temp_index = 0;
+							int duplicate = 0;
+							for (String name1 : names) {
+								if (i == 0) {
+									max = voting[0];
+									temp_name = name1;
+									temp_index = 0;
+								} else if (max < voting[i]) {
+									max = voting[i];
+									temp_name = name1;
+									temp_index = i;
+								}
+								i++;
+							}
 
+							System.out.println(temp_name + " " + temp_index);
+							for (String name1 : names) {
+								if (temp_name.equals(name1)) {
+									if (temp_index != i) {
+										duplicate++;
+									}
+									System.out.println(name1 + duplicate);
+								}
+							}
+							// 동률일 경우에
+							if (duplicate == 0) {
+								for (PrintWriter writer : writers) {
+									writer.println("[Server Voting Result] NO DEAD");
+								}
+							}
+							// 동률이 아닐경우에
+							else {
+								for (PrintWriter writer : writers) {
+									writer.println("[Server Voting Result] " + temp_name);
+								}
+							}
+							for (i = 0; i < 8; i++) {
+								voting[i] = 0;
+							}
+						}
+					} else if (Check_Class.startsWith("[Doctor_Result]") == true) {
+						int i = 0;
+						// 값을 더해준다.
+						for (String name1 : names) {
+							if (name1.equals(Check_Class.substring(8)))
+								voting[i]++;
+							i++;
+						}
+						user_ready_count++;
+						if (user_ready_count == 2) {
+							i = 0;
+							int max = 0;
+							String temp_name = "";
+							int temp_index = 0;
+							int duplicate = 0;
+							for (String name1 : names) {
+								if (i == 0) {
+									max = voting[0];
+									temp_name = name1;
+									temp_index = 0;
+								} else if (max < voting[i]) {
+									max = voting[i];
+									temp_name = name1;
+									temp_index = i;
+								}
+								i++;
+							}
+							System.out.println(temp_name + " " + temp_index);
+							for (String name1 : names) {
+								if (temp_name.equals(name1)) {
+									if (temp_index != i) {
+										duplicate++;
+									}
+									System.out.println(name1 + duplicate);
+								}
+							}
+							for (i = 0; i < 8; i++) {
+								voting[i] = 0;
 							}
 						}
 					}
