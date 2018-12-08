@@ -5,10 +5,10 @@ import java.net.UnknownHostException;
 
 public class GameRoomThread implements Runnable {
 	int My_Role;
+	int clue_array[]=new int[32];
 	int init_count = 0;
-	String[] array;
+	String array[]= {" "," "," "," "," "," "," "," "," "};
 	String id1, id2, id3, id4, id5, id6, id7, id8;
-
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -34,7 +34,7 @@ public class GameRoomThread implements Runnable {
 						new Im_mafia();
 					else if (My_Role == 3)
 						new Im_doctor();
-
+				
 				} else if (line.startsWith("[TimerStart]")) {
 					if (My_Role == 1)
 						Im_citizen.frame.setVisible(false);
@@ -49,29 +49,79 @@ public class GameRoomThread implements Runnable {
 				} else if (line.startsWith("[Voting]")) {
 					new Voting();
 					init_count = 1;
-					Voting.button.setText(array[2]);
-					Voting.button_1.setText(array[3]);
-					Voting.button_2.setText(array[4]);
-					/*
-					 * Voting.button_3.setText(array[5]); Voting.button_4.setText(array[6]);
-					 * Voting.button_5.setText(array[7]); Voting.button_6.setText(array[8]);
-					 * Voting.button_7.setText(array[9]);
-					 */
-					/*
-					 * Voting.button_2.setText(array[3]); Voting.button_3.setText(array[4]);
-					 * Voting.button_4.setText(array[5]); Voting.button_5.setText(array[6]);
-					 * Voting.button_6.setText(array[7]); Voting.button_7.setText(array[8]);
-					 */
-					
+					if (array[1] != " ") {
+						Voting.button.setText(array[1]);
+						Voting.button.setVisible(true);
+					}
+					if (array[2] != " ") {
+						Voting.button_1.setText(array[2]);
+						Voting.button_1.setVisible(true);
+					}/*
+					if (array[3] != " ") {
+						Voting.button_2.setText(array[3]);
+						Voting.button_2.setVisible(true);
+					}
+					if (array[4] != " ") {
+						Voting.button_3.setText(array[4]);
+						Voting.button_3.setVisible(true);
+					}
+					if (array[5] != " ") {
+						Voting.button_4.setText(array[5]);
+						Voting.button_4.setVisible(true);
+					}
+					if (array[6] != " ") {
+						Voting.button_5.setText(array[6]);
+						Voting.button_5.setVisible(true);
+					}
+					if (array[7] != " ") {
+						Voting.button_6.setText(array[7]);
+						Voting.button_6.setVisible(true);
+					}
+					if (array[8] != " ") {
+						Voting.button_7.setText(array[8]);
+						Voting.button_7.setVisible(true);
+					}*/
+
 				} else if (line.startsWith("[Voting_id]")) {
 					array = line.split(" ");
+					for (String a : array)
+						System.out.println("name : " + a);
 				} else if (line.startsWith("[Mafia_Voting]")) {
 					Voting.frame.setVisible(false);
 					if (My_Role == 2) {
 						new Voting_mafia();
-						Voting_mafia.button.setText(array[2]);
-						Voting_mafia.button_1.setText(array[3]);
-						Voting_mafia.button_2.setText(array[4]);
+						if (array[1] != " ") {
+							Voting_mafia.button.setText(array[1]);
+							Voting_mafia.button.setVisible(true);
+						}
+						if (array[2] != " ") {
+							Voting_mafia.button_1.setText(array[2]);
+							Voting_mafia.button_1.setVisible(true);
+						}/*
+						if (array[3] != " ") {
+							Voting_mafia.button_2.setText(array[3]);
+							Voting_mafia.button_2.setVisible(true);
+						}
+						if (array[4] != " ") {
+							Voting_mafia.button_3.setText(array[4]);
+							Voting_mafia.button_3.setVisible(true);
+						}
+						if (array[5] != " ") {
+							Voting_mafia.button_4.setText(array[5]);
+							Voting_mafia.button_4.setVisible(true);
+						}
+						if (array[6] != " ") {
+							Voting_mafia.button_5.setText(array[6]);
+							Voting_mafia.button_5.setVisible(true);
+						}
+						if (array[7] != " ") {
+							Voting_mafia.button_6.setText(array[7]);
+							Voting_mafia.button_6.setVisible(true);
+						}
+						if (array[8] != " ") {
+							Voting_mafia.button_7.setText(array[8]);
+							Voting_mafia.button_7.setVisible(true);
+						}*/
 					} else {
 						new vote_m().frame.setVisible(true);
 					}
@@ -84,9 +134,39 @@ public class GameRoomThread implements Runnable {
 					vote_m.frame.setVisible(false);
 					if (My_Role == 3) {
 						new Voting_doctor();
-						Voting_mafia.button.setText(array[2]);
-						Voting_mafia.button_1.setText(array[3]);
-						Voting.button_2.setText(array[4]);
+						if (array[1] != " ") {
+							Voting_doctor.button.setText(array[1]);
+							Voting_doctor.button.setVisible(true);
+						}
+						if (array[2] != " ") {
+							Voting_doctor.button_1.setText(array[2]);
+							Voting_doctor.button_1.setVisible(true);
+						}
+						/*
+						if (array[3] != " ") {
+							Voting_doctor.button_2.setText(array[3]);
+							Voting_doctor.button_2.setVisible(true);
+						}
+						if (array[4] != " ") {
+							Voting_doctor.button_3.setText(array[4]);
+							Voting_doctor.button_3.setVisible(true);
+						}
+						if (array[5] != " ") {
+							Voting_doctor.button_4.setText(array[5]);
+							Voting_doctor.button_4.setVisible(true);
+						}
+						if (array[6] != " ") {
+							Voting_doctor.button_5.setText(array[6]);
+							Voting_doctor.button_5.setVisible(true);
+						}
+						if (array[7] != " ") {
+							Voting_doctor.button_6.setText(array[7]);
+							Voting_doctor.button_6.setVisible(true);
+						}
+						if (array[8] != " ") {
+							Voting_doctor.button_7.setText(array[8]);
+							Voting_doctor.button_7.setVisible(true);
+						}*/
 					} else if (My_Role == 2) {
 						vote_m.frame.setVisible(false);
 						Voting_mafia.frame.setVisible(false);
@@ -94,7 +174,7 @@ public class GameRoomThread implements Runnable {
 					} else {
 						vote_m.frame.setVisible(false);
 						new vote_d();
-					} 
+					}
 
 				} else if (line.startsWith("[Reset]")) {
 					if (My_Role == 3)

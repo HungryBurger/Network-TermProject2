@@ -40,5 +40,6 @@ public class vote_d {
 			{
 				//½ÇÇà
 				new vote_d();
+				vote_d.frame.setVisible(true);
 			}
 }

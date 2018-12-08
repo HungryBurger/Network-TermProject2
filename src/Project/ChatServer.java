@@ -13,9 +13,7 @@ import java.util.HashMap;
 import java.lang.String;
 
 public class ChatServer {
-
 	private static final int PORT = 9003;
-
 	private static HashSet<String> names = new HashSet<String>();
 	private static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
 	private static HashMap<String, PrintWriter> map = new HashMap<String, PrintWriter>();

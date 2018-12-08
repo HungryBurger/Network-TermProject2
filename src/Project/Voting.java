@@ -40,7 +40,7 @@ public class Voting extends JFrame {
 				}
 			}
 		});
-
+		button.setVisible(false);
 		button_1 = new JButton("");
 		button_1.setBounds(43, 168, 140, 46);
 		contentPane.add(button_1);
@@ -52,6 +52,7 @@ public class Voting extends JFrame {
 				}
 			}
 		});
+		button_1.setVisible(false);
 
 		button_2 = new JButton("");
 		button_2.setBounds(43, 226, 140, 46);
@@ -64,6 +65,7 @@ public class Voting extends JFrame {
 				}
 			}
 		});
+		button_2.setVisible(false);
 
 		button_3 = new JButton("");
 		button_3.setBounds(43, 296, 140, 46);
@@ -76,7 +78,7 @@ public class Voting extends JFrame {
 				}
 			}
 		});
-
+		button_3.setVisible(false);
 		button_4 = new JButton("");
 		button_4.setBounds(283, 110, 140, 46);
 		contentPane.add(button_4);
@@ -88,7 +90,7 @@ public class Voting extends JFrame {
 				}
 			}
 		});
-
+		button_4.setVisible(false);
 		button_5 = new JButton("");
 		button_5.setBounds(283, 168, 140, 46);
 		contentPane.add(button_5);
@@ -100,7 +102,7 @@ public class Voting extends JFrame {
 				}
 			}
 		});
-
+		button_5.setVisible(false);
 		button_6 = new JButton("");
 		button_6.setBounds(283, 226, 140, 46);
 		contentPane.add(button_6);
@@ -112,7 +114,7 @@ public class Voting extends JFrame {
 				}
 			}
 		});
-
+		button_6.setVisible(false);
 		button_7 = new JButton("");
 		button_7.setBounds(283, 296, 140, 46);
 		contentPane.add(button_7);
@@ -124,7 +126,7 @@ public class Voting extends JFrame {
 				}
 			}
 		});
-
+		button_7.setVisible(false);
 		textPane = new JTextPane();
 		textPane.setBounds(110, 12, 257, 56);
 		contentPane.add(textPane);

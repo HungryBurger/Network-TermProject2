@@ -165,7 +165,7 @@ public class Login extends JFrame {
 		JPanel panel1 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(Id.getImage(), 0, 0, 166, 46, null);
+				g.drawImage(Id.getImage(), 0, 0, 100, 46, null);
 				setOpaque(false);
 				super.paintComponent(g);
 			}
