@@ -173,7 +173,7 @@ public class Voting extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Object obj = e.getSource();
 				if (obj.equals(btnNewButton)) {
-				//	Login.out.println("[Result]"+textPane.getText());
+					Login.out.println("[Result]"+textPane.getText());
 					System.out.println("[Result]"+textPane.getText());
 					frame.setVisible(false);
 				}
