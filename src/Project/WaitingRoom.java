@@ -75,7 +75,6 @@ public class WaitingRoom extends JFrame {
 		
 
 		contentPane = new JPanel() {
-         
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
 				g.drawImage(back.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
@@ -316,7 +315,7 @@ public class WaitingRoom extends JFrame {
 		 * rb[7] = new JRadioButton("User8"); rb[7].setBounds(150, 665, 100, 27);
 		 * contentPane.add(rb[7]);
 		 * 
-		 * JButton btnNewButton_1 = new JButton("È®ÀÎ"); btnNewButton_1.setBounds(14, 709,
+		 * JButton btnNewButton_1 = new JButton("È®ï¿½ï¿½"); btnNewButton_1.setBounds(14, 709,
 		 * 248, 34); contentPane.add(btnNewButton_1);
 		 * 
 		 * for (JRadioButton c : rb) { grp.add(c); contentPane.add(c); }

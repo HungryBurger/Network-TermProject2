@@ -10,35 +10,29 @@ import javax.swing.JLabel;
 import javax.swing.JRootPane;
 
 public class vote_d {
-	//ÄÄÆ÷³ÍÆ® »ı¼º
 			static JFrame frame = new JFrame();
-			JLabel msg = new JLabel("ÀÇ»çÀÇ ÅõÇ¥°¡ ÁøÇàÁßÀÔ´Ï´Ù");
-			Font font = new Font("¸¼Àº°íµñ",Font.BOLD,40); //font ÅëÀÏ ¹»·Î ÇÒÁö ¸ô¶ó ÀÓÀÇ·Î ³Ö½À´Ï´Ù.
+			JLabel msg = new JLabel("ì˜ì‚¬ê°€ íˆ¬í‘œì¤‘ì…ë‹ˆë‹¤");
+			Font font = new Font("ë§‘ì€ ê³ ë”•",Font.BOLD,40); //font ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
 			public vote_d()
 			{
-				//À§ Ç¥½ÃÁÙ Á¦°ÅÇÏ±â(»ç¿ëÀÚ°¡ ÀÓÀÇ·Î Ã¢ ¸ø ´İ°Ô ÇÏ·Á°í Ãß°¡Çß½À´Ï´Ù.)
-				
 				frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-				//Font Àû¿ë
+				//Font ï¿½ï¿½ï¿½ï¿½
 				msg.setFont(font);
-				//ÄÄÆ÷³ÍÆ®¸¦ ³ÖÀ» ÄÁÅ×ÀÌ³Ê ±¸ÇÏ±â
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
 				Container container = frame.getContentPane();
 		        container.add(msg, BorderLayout.CENTER);
 		        msg.setHorizontalAlignment(JLabel.CENTER);
 		        msg.setForeground(Color.white);
 		        frame.setBounds(600,300, 0, 0);
 		        frame.getContentPane().setBackground(new Color(53,53,53));
-				//ÇÁ·¹ÀÓ Å©±â ÁöÁ¤
 				frame.setSize(750, 150);
 				frame.setBackground(Color.black);
 				frame.setResizable(false);
-				//ÇÁ·¹ÀÓ º¸ÀÌ±â ¼³Á¤
 				frame.setUndecorated(true);
 			}
 
 			public static void main(String[] args)
 			{
-				//½ÇÇà
 				new vote_d();
 				vote_d.frame.setVisible(true);
 			}

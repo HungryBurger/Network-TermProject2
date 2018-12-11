@@ -186,9 +186,6 @@ public class Login extends JFrame {
 	}
 
 	public void sound(String file, boolean Loop) {
-		// »ç¿îµåÀç»ý¿ë¸Þ¼Òµå
-		// ¸ÞÀÎ Å¬·¡½º¿¡ Ãß°¡·Î ¸Þ¼Òµå¸¦ ÇÏ³ª ´õ ¸¸µé¾ú½À´Ï´Ù.
-		// »ç¿îµåÆÄÀÏÀ»¹Þ¾Æµé¿©ÇØ´ç»ç¿îµå¸¦Àç»ý½ÃÅ²´Ù.
 		try {
 			if (clip != null)
 				clip.stop();
@@ -199,8 +196,8 @@ public class Login extends JFrame {
 
 			if (Loop)
 				clip.loop(-1);
-			// Loop °ªÀÌtrue¸é »ç¿îµåÀç»ýÀ»¹«ÇÑ¹Ýº¹½ÃÅµ´Ï´Ù.
-			// false¸é ÇÑ¹ø¸¸Àç»ý½ÃÅµ´Ï´Ù.
+			// Loop ï¿½ï¿½ï¿½ï¿½trueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹Ýºï¿½ï¿½ï¿½Åµï¿½Ï´ï¿½.
+			// falseï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½Ï´ï¿½.
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

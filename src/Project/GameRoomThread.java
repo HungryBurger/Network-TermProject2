@@ -13,6 +13,14 @@ public class GameRoomThread implements Runnable {
 	String clue_array[] = { " ", " ", " ", " ", " ", " ", " ", " ", " " };
 	String id1, id2, id3, id4, id5, id6, id7, id8;
 	int dead_man = 0;
+	String clue_image1 = "Image/ÎèãÎ≥¥Í∏∞.png";
+	String clue_image2 = "Image/ÏãúÍ≥Ñ.png";
+	String clue_image3 = "Image/ÏïàÍ≤Ω.png";
+	String clue_image4 = "Image/Ïó∞ÌïÑ.png";
+	String clue_image5 = "Image/Ïûê.png";
+	String clue_image6 = "Image/Ï¥ù.png";
+	String clue_image7 = "Image/Ïπº.png";
+	String clue_image8 = "Image/Ìè¨ÌÅ¨.png";
 
 	@Override
 	public void run() {
@@ -75,14 +83,6 @@ public class GameRoomThread implements Runnable {
 
 						}
 					}
-					String clue_image1 = "Image/µ∏∫∏±‚.png";
-					String clue_image2 = "Image/Ω√∞Ë.png";
-					String clue_image3 = "Image/æ»∞Ê.png";
-					String clue_image4 = "Image/ø¨« .png";
-					String clue_image5 = "Image/¿⁄.png";
-					String clue_image6 = "Image/√—.png";
-					String clue_image7 = "Image/ƒÆ.png";
-					String clue_image8 = "Image/∆˜≈©.png";
 					int index = 0;
 
 					if (clue_array[index].equals("1"))
@@ -651,13 +651,21 @@ public class GameRoomThread implements Runnable {
 					new start().frame.setVisible(true);
 				} else if (line.startsWith("[WhatIsRole]")) {
 					start.frame.setVisible(false);
-					if (My_Role == 1)
+					if (My_Role == 1) {
 						new Im_citizen();
-					else if (My_Role == 2)
+						GameRoom.my_role.setText("I'm CITIZEN");
+						GameRoom.my_id.setText(Login.user_id);
+					} else if (My_Role == 2) {
 						new Im_mafia();
-					else if (My_Role == 3)
+						GameRoom.my_role.setText("I'm MAFIA");
+						GameRoom.my_id.setText(Login.user_id);
+						GameRoom.mafia_check.setVisible(true);
+						GameRoom.mafia_check.setText("Other : "+line.substring(12));
+					} else if (My_Role == 3) {
 						new Im_doctor();
-
+						GameRoom.my_role.setText("I'm DOCTOR");
+						GameRoom.my_id.setText(Login.user_id);
+					}
 				} else if (line.startsWith("[TimerStart]")) {
 					if (My_Role == 1)
 						Im_citizen.frame.setVisible(false);
@@ -712,6 +720,7 @@ public class GameRoomThread implements Runnable {
 					for (String a : array)
 						System.out.println("name : " + a);
 				} else if (line.startsWith("[Mafia_Voting]")) {
+					array = line.split(" ");
 					if (My_Role == 2) {
 						new Voting_mafia();
 						for (int i = 0; i < array.length; i++) {
@@ -752,9 +761,8 @@ public class GameRoomThread implements Runnable {
 						new vote_m().frame.setVisible(true);
 					}
 				} else if (line.startsWith("[Doctor_Voting]")) {
-					vote_m.frame.setVisible(false);
 					if (My_Role == 3) {
-						new Voting_doctor();
+						new Voting_doctor().frame.setVisible(true);
 						for (int i = 0; i < array.length; i++) {
 							if (i == 1) {
 								Voting_doctor.button.setText(array[i]);
@@ -789,14 +797,14 @@ public class GameRoomThread implements Runnable {
 								Voting_doctor.button_7.setVisible(true);
 							}
 						}
-
 					} else if (My_Role == 2) {
 						vote_m.frame.setVisible(false);
 						Voting_mafia.frame.setVisible(false);
-						new vote_d();
+						new vote_d().frame.setVisible(true);
+						
 					} else {
 						vote_m.frame.setVisible(false);
-						new vote_d();
+						new vote_d().frame.setVisible(true);
 					}
 
 				} else if (line.startsWith("[ShutDownResult]")) {
@@ -842,19 +850,13 @@ public class GameRoomThread implements Runnable {
 						GameRoom.panel2_1.setVisible(true);
 					} else if (GameRoom.textField_3.getText().equals(line.substring(24))) {
 						GameRoom.panel3_1.setVisible(true);
-					}
-					else if (GameRoom.textField_4.getText().equals(line.substring(24))) {
+					} else if (GameRoom.textField_4.getText().equals(line.substring(24))) {
 						GameRoom.panel4_1.setVisible(true);
-					}
-
-					else if (GameRoom.textField_5.getText().equals(line.substring(24))) {
+					} else if (GameRoom.textField_5.getText().equals(line.substring(24))) {
 						GameRoom.panel5_1.setVisible(true);
-					}
-
-					else if (GameRoom.textField_6.getText().equals(line.substring(24))) {
+					} else if (GameRoom.textField_6.getText().equals(line.substring(24))) {
 						GameRoom.panel6_1.setVisible(true);
 					}
-
 					else if (GameRoom.textField_7.getText().equals(line.substring(24))) {
 						GameRoom.panel7_1.setVisible(true);
 					}
@@ -870,6 +872,209 @@ public class GameRoomThread implements Runnable {
 					new MainMenu().setVisible(true);
 					new win_c().frame.setVisible(true);
 					GameRoom.frame.setVisible(false);
+				} else if (line.startsWith("[ShutDownMD]")) {
+					System.out.println("DEAD : " + line.substring(13));
+					if (line.substring(13).startsWith("1")) {
+						System.out.println("DEAD: " + line.substring(14));
+						new dead_c().frame.setVisible(true);
+						dead_man = 1;
+					} else if (line.substring(13).startsWith("2")) {
+						System.out.println("DEAD: " + line.substring(14));
+						new dead_m().frame.setVisible(true);
+						dead_man = 2;
+					} else if (line.substring(13).startsWith("3")) {
+						System.out.println("DEAD: " + line.substring(14));
+						new dead_d().frame.setVisible(true);
+						dead_man = 3;
+					} else if (line.substring(13).startsWith("NO DEAD")) {
+						System.out.println("DEAD: NO ONE");
+						new dead_no_one().frame.setVisible(true);
+						dead_man = 4;
+					}
+					if (GameRoom.textField_1.getText().equals(line.substring(14))) {
+						GameRoom.panel1_1.setVisible(true);
+					} else if (GameRoom.textField_2.getText().equals(line.substring(14))) {
+						GameRoom.panel2_1.setVisible(true);
+					} else if (GameRoom.textField_3.getText().equals(line.substring(14))) {
+						GameRoom.panel3_1.setVisible(true);
+					} else if (GameRoom.textField_4.getText().equals(line.substring(14))) {
+						GameRoom.panel4_1.setVisible(true);
+					}
+
+					else if (GameRoom.textField_5.getText().equals(line.substring(14))) {
+						GameRoom.panel5_1.setVisible(true);
+					}
+
+					else if (GameRoom.textField_6.getText().equals(line.substring(14))) {
+						GameRoom.panel6_1.setVisible(true);
+					}
+
+					else if (GameRoom.textField_7.getText().equals(line.substring(14))) {
+						GameRoom.panel7_1.setVisible(true);
+					}
+
+					else if (GameRoom.textField_8.getText().equals(line.substring(14))) {
+						GameRoom.panel8_1.setVisible(true);
+					}
+				} else if (line.startsWith("[ShowMafiaClue]")) {
+					System.out.println("Mafia_CLUE : " + line.substring(16, 17));
+					String temp = line.substring(16, 17);
+					System.out.println("MAFIA_CLUE NAME : " + line.substring(17));
+					String temp_name = line.substring(17);
+					if (GameRoom.textField_1.getText().equals(line.substring(17))) {
+						GameRoom.panel1_1_1.setVisible(true);
+						if (temp.equals("1"))
+							GameRoom.clue1 = new ImageIcon(clue_image1);
+						else if (temp.equals("2"))
+							GameRoom.clue1 = new ImageIcon(clue_image2);
+						else if (temp.equals("3"))
+							GameRoom.clue1 = new ImageIcon(clue_image3);
+						else if (temp.equals("4"))
+							GameRoom.clue1 = new ImageIcon(clue_image4);
+						else if (temp.equals("5"))
+							GameRoom.clue1 = new ImageIcon(clue_image5);
+						else if (temp.equals("6"))
+							GameRoom.clue1 = new ImageIcon(clue_image6);
+						else if (temp.equals("7"))
+							GameRoom.clue1 = new ImageIcon(clue_image7);
+						else if (temp.equals("8"))
+							GameRoom.clue1 = new ImageIcon(clue_image8);
+
+					} else if (GameRoom.textField_2.getText().equals(line.substring(17))) {
+						GameRoom.panel2_1_1.setVisible(true);
+						if (temp.equals("1"))
+							GameRoom.clue2 = new ImageIcon(clue_image1);
+						else if (temp.equals("2"))
+							GameRoom.clue2 = new ImageIcon(clue_image2);
+						else if (temp.equals("3"))
+							GameRoom.clue2 = new ImageIcon(clue_image3);
+						else if (temp.equals("4"))
+							GameRoom.clue2 = new ImageIcon(clue_image4);
+						else if (temp.equals("5"))
+							GameRoom.clue2 = new ImageIcon(clue_image5);
+						else if (temp.equals("6"))
+							GameRoom.clue2 = new ImageIcon(clue_image6);
+						else if (temp.equals("7"))
+							GameRoom.clue2 = new ImageIcon(clue_image7);
+						else if (temp.equals("8"))
+							GameRoom.clue2 = new ImageIcon(clue_image8);
+
+					} else if (GameRoom.textField_3.getText().equals(line.substring(17))) {
+						GameRoom.panel3_1_1.setVisible(true);
+						if (temp.equals("1"))
+							GameRoom.clue3 = new ImageIcon(clue_image1);
+						else if (temp.equals("2"))
+							GameRoom.clue3 = new ImageIcon(clue_image2);
+						else if (temp.equals("3"))
+							GameRoom.clue3 = new ImageIcon(clue_image3);
+						else if (temp.equals("4"))
+							GameRoom.clue3 = new ImageIcon(clue_image4);
+						else if (temp.equals("5"))
+							GameRoom.clue3 = new ImageIcon(clue_image5);
+						else if (temp.equals("6"))
+							GameRoom.clue3 = new ImageIcon(clue_image6);
+						else if (temp.equals("7"))
+							GameRoom.clue3 = new ImageIcon(clue_image7);
+						else if (temp.equals("8"))
+							GameRoom.clue3 = new ImageIcon(clue_image8);
+
+					} else if (GameRoom.textField_4.getText().equals(line.substring(17))) {
+						GameRoom.panel4_1_1.setVisible(true);
+						if (temp.equals("1"))
+							GameRoom.clue4 = new ImageIcon(clue_image1);
+						else if (temp.equals("2"))
+							GameRoom.clue4 = new ImageIcon(clue_image2);
+						else if (temp.equals("3"))
+							GameRoom.clue4 = new ImageIcon(clue_image3);
+						else if (temp.equals("4"))
+							GameRoom.clue4 = new ImageIcon(clue_image4);
+						else if (temp.equals("5"))
+							GameRoom.clue4 = new ImageIcon(clue_image5);
+						else if (temp.equals("6"))
+							GameRoom.clue4 = new ImageIcon(clue_image6);
+						else if (temp.equals("7"))
+							GameRoom.clue4 = new ImageIcon(clue_image7);
+						else if (temp.equals("8"))
+							GameRoom.clue4 = new ImageIcon(clue_image8);
+
+					} else if (GameRoom.textField_5.getText().equals(line.substring(17))) {
+						GameRoom.panel5_1_1.setVisible(true);
+						if (temp.equals("1"))
+							GameRoom.clue5 = new ImageIcon(clue_image1);
+						else if (temp.equals("2"))
+							GameRoom.clue5 = new ImageIcon(clue_image2);
+						else if (temp.equals("3"))
+							GameRoom.clue5 = new ImageIcon(clue_image3);
+						else if (temp.equals("4"))
+							GameRoom.clue5 = new ImageIcon(clue_image4);
+						else if (temp.equals("5"))
+							GameRoom.clue5 = new ImageIcon(clue_image5);
+						else if (temp.equals("6"))
+							GameRoom.clue5 = new ImageIcon(clue_image6);
+						else if (temp.equals("7"))
+							GameRoom.clue5 = new ImageIcon(clue_image7);
+						else if (temp.equals("8"))
+							GameRoom.clue5 = new ImageIcon(clue_image8);
+
+					} else if (GameRoom.textField_6.getText().equals(line.substring(17))) {
+						GameRoom.panel6_1_1.setVisible(true);
+						if (temp.equals("1"))
+							GameRoom.clue6 = new ImageIcon(clue_image1);
+						else if (temp.equals("2"))
+							GameRoom.clue6 = new ImageIcon(clue_image2);
+						else if (temp.equals("3"))
+							GameRoom.clue6 = new ImageIcon(clue_image3);
+						else if (temp.equals("4"))
+							GameRoom.clue6 = new ImageIcon(clue_image4);
+						else if (temp.equals("5"))
+							GameRoom.clue6 = new ImageIcon(clue_image5);
+						else if (temp.equals("6"))
+							GameRoom.clue6 = new ImageIcon(clue_image6);
+						else if (temp.equals("7"))
+							GameRoom.clue6 = new ImageIcon(clue_image7);
+						else if (temp.equals("8"))
+							GameRoom.clue6 = new ImageIcon(clue_image8);
+
+					} else if (GameRoom.textField_7.getText().equals(line.substring(17))) {
+						GameRoom.panel7_1_1.setVisible(true);
+						if (temp.equals("1"))
+							GameRoom.clue7 = new ImageIcon(clue_image1);
+						else if (temp.equals("2"))
+							GameRoom.clue7 = new ImageIcon(clue_image2);
+						else if (temp.equals("3"))
+							GameRoom.clue7 = new ImageIcon(clue_image3);
+						else if (temp.equals("4"))
+							GameRoom.clue7 = new ImageIcon(clue_image4);
+						else if (temp.equals("5"))
+							GameRoom.clue7 = new ImageIcon(clue_image5);
+						else if (temp.equals("6"))
+							GameRoom.clue7 = new ImageIcon(clue_image6);
+						else if (temp.equals("7"))
+							GameRoom.clue7 = new ImageIcon(clue_image7);
+						else if (temp.equals("8"))
+							GameRoom.clue7 = new ImageIcon(clue_image8);
+
+					} else if (GameRoom.textField_8.getText().equals(line.substring(17))) {
+						GameRoom.panel8_1_1.setVisible(true);
+						if (temp.equals("1"))
+							GameRoom.clue8 = new ImageIcon(clue_image1);
+						else if (temp.equals("2"))
+							GameRoom.clue8 = new ImageIcon(clue_image2);
+						else if (temp.equals("3"))
+							GameRoom.clue8 = new ImageIcon(clue_image3);
+						else if (temp.equals("4"))
+							GameRoom.clue8 = new ImageIcon(clue_image4);
+						else if (temp.equals("5"))
+							GameRoom.clue8 = new ImageIcon(clue_image5);
+						else if (temp.equals("6"))
+							GameRoom.clue8 = new ImageIcon(clue_image6);
+						else if (temp.equals("7"))
+							GameRoom.clue8 = new ImageIcon(clue_image7);
+						else if (temp.equals("8"))
+							GameRoom.clue8 = new ImageIcon(clue_image8);
+
+					}
+
 				} else if (line.startsWith("[G_ENTRANCE]")) { // Entrance prototype
 					if (GameRoom.textField_1.getText().length() < 1) {
 						GameRoom.textField_1.setText(line.substring(12));

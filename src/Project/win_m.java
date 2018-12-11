@@ -10,35 +10,35 @@ import javax.swing.JLabel;
 import javax.swing.JRootPane;
 
 public class win_m {
-	//ддфВЁмф╝ ╩Щ╪╨
+	//О©╫О©╫О©╫О©╫О©╫О©╫ф╝ О©╫О©╫О©╫О©╫
 		static JFrame frame = new JFrame();
-		JLabel msg = new JLabel("╦╤гг╬ф╟║ ╫б╦╝гъ╫ю╢о╢ы");
-		Font font = new Font("╦╪ю╨╟М╣Я",Font.BOLD,40); //font еКюо ╧╩╥н граЖ ╦Т╤С юсюг╥н Ёж╫ю╢о╢ы.
+		JLabel msg = new JLabel("К╖┬М■╪Л∙└Й╟─ Л┼╧К╕╛М∙≤Л≤─Л┼╣К▀┬К▀╓.");
+		Font font = new Font("К╖▒Л²─ ЙЁ═К■∙",Font.BOLD,40); //font О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫О©╫г╥О©╫ О©╫ж╫О©╫О©╫о╢О©╫.
 		public win_m()
 		{
-			//ю╖ г╔╫цаы а╕╟его╠Б(╩Г©Кюз╟║ юсюг╥н ц╒ ╦Ь ╢щ╟т го╥а╟М цъ╟║гъ╫ю╢о╢ы.)
-			//Font юШ©К
+			//О©╫О©╫ г╔О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫о╠О©╫(О©╫О©╫О©╫О©╫з╟О©╫ О©╫О©╫О©╫г╥О©╫ ц╒ О©╫О©╫ О©╫щ╟О©╫ О©╫о╥О©╫О©╫О©╫ О©╫ъ╟О©╫О©╫ъ╫О©╫О©╫о╢О©╫.)
+			//Font О©╫О©╫О©╫О©╫
 			msg.setFont(font);
-			//ддфВЁмф╝╦╕ Ёжю╩ даевюлЁй ╠╦го╠Б
+			//О©╫О©╫О©╫О©╫О©╫О©╫ф╝О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫лЁО©╫ О©╫О©╫О©╫о╠О©╫
 			Container container = frame.getContentPane();
 	        container.add(msg, BorderLayout.CENTER);
 	        msg.setHorizontalAlignment(JLabel.CENTER);
 	        msg.setForeground(Color.white);
 	        frame.getContentPane().setBackground(new Color(53,53,53));
-			//га╥╧юс е╘╠Б аЖа╓
+			//О©╫О©╫О©╫О©╫О©╫О©╫ е╘О©╫О©╫ О©╫О©╫О©╫О©╫
 	        frame.setBounds(600,300, 0, 0);
 			frame.setSize(750, 150);
 			frame.setBackground(Color.black);
 			frame.setResizable(false);
-			//га╥╧юс ╨╦юл╠Б ╪Ёа╓
+			//О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫л╠О©╫ О©╫О©╫О©╫О©╫
 			frame.setVisible(true);
 			
-			//а╬╥А ╧Жф╟ ╪Ёа╓
+			//О©╫О©╫О©╫О©╫ О©╫О©╫ф╟ О©╫О©╫О©╫О©╫
 		}
 
 		public static void main(String[] args)
 		{
-			//╫ггЮ
+			//О©╫О©╫О©╫О©╫
 			new win_m();
 		}
 }

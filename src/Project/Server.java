@@ -27,12 +27,12 @@ import java.util.TimerTask;
 public class Server extends JFrame implements ActionListener {
 
 	// jdbc set
-	private String url = "jdbc:mysql://localhost:8000/network?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=euc-kr";// userÅ×ÀÌmyºíÀ»
+	private String url = "jdbc:mysql://localhost:8000/network?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=euc-kr";// userï¿½ï¿½ï¿½ï¿½myï¿½ï¿½ï¿½ï¿½
 																																		// //
-																																		// ¼öÁ¤ÇÏ¸é
-	private String strUser = "root"; // °èÁ¤ id
-	private String strPassword = "12345"; // °èÁ¤ ÆÐ½º¿öµå
-	private String strMySQLDriver = "com.mysql.cj.jdbc.Driver"; // µå¶óÀÌ¹ö ÀÌ¸§ µû·Î ¸¸µé¾îÁÜ
+																																		// ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
+	private String strUser = "root"; // ï¿½ï¿½ï¿½ï¿½ id
+	private String strPassword = "12345"; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String strMySQLDriver = "com.mysql.cj.jdbc.Driver"; // ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private static final int PORT = 9001;
 	static int real_game_timer = 0;
 	// For socket Connection
@@ -47,15 +47,16 @@ public class Server extends JFrame implements ActionListener {
 	String pass; // password
 	String name; // name
 	static int user_ready_count = 0;
+	static int alive_user_count = 8;
 	int CHECK_FORCE = 0;
 	static int voting[] = new int[8];
 	static int mafia_voting[] = new int[8];
 	static int doctor_voting[] = new int[8];
 	static int mafia_clue[] = new int[8];
 	static int mafia_clue_index = 0;
-	// role = 1 -> ½Ã¹Î
-	// role = 2 -> ¸¶ÇÇ¾Æ
-	// role = 3 -> ÀÇ»ç
+	// role = 1 -> ï¿½Ã¹ï¿½
+	// role = 2 -> ï¿½ï¿½ï¿½Ç¾ï¿½
+	// role = 3 -> ï¿½Ç»ï¿½
 	static int role[] = new int[8];
 	static String clue_sentence = "";
 	static int once_count = 0;
@@ -68,6 +69,7 @@ public class Server extends JFrame implements ActionListener {
 	public static HashMap<String, PrintWriter> map = new HashMap<String, PrintWriter>();
 	public static String every_user_id[];
 	public static int user_id_sequence = 0;
+	public static String mafia_result = "";
 	// Call Login page
 	Login log = new Login(); // true
 	CreateAccount create = new CreateAccount();
@@ -189,8 +191,6 @@ public class Server extends JFrame implements ActionListener {
 						for (PrintWriter writer : writers) {
 							writer.println("ENTRANCE " + name);
 						}
-
-						System.out.println("¿©±â±îÁø µ¹¾Æ");
 						String line = in.readLine();
 						if (line.equals("Ready")) {
 							user_ready_count++;
@@ -219,9 +219,23 @@ public class Server extends JFrame implements ActionListener {
 										}
 
 									} else if (once_count == 0 && real_game_timer == 5) {
-										for (PrintWriter writer : writers) {
-											writer.println("[WhatIsRole]");
+
+										for (String name1 : citizen_names)
+											map.get(name1).println("[WhatIsRole]");
+										for (String name1 : doctor_name)
+											map.get(name1).println("[WhatIsRole]");
+
+										for (String name1 : mafia_names) {
+											if (mafia_count == 2) {
+												for (String name2 : mafia_names) {
+													if (!name1.equals(name2))
+														map.get(name1).println("[WhatIsRole]" + name2);
+												}
+											} else {
+												map.get(name1).println("[WhatIsRole]" + "NO");
+											}
 										}
+
 										int random2;
 										for (int i = 0; i < 32; i++) {
 											random2 = (int) (Math.random() * (8) + 1);
@@ -235,7 +249,7 @@ public class Server extends JFrame implements ActionListener {
 											writer.println("[TimerStart]");
 										}
 										once_count++;
-									} else if (real_game_timer > 15 && real_game_timer < 28) {
+									} else if (real_game_timer > 17 && real_game_timer < 28) {
 										int check_dead = 0;
 										for (String name1 : names) {
 											for (String dead1 : dead) {
@@ -244,7 +258,7 @@ public class Server extends JFrame implements ActionListener {
 												}
 											}
 											if (check_dead == 0) {
-												map.get(name1).println("[Timer]" + (real_game_timer - 15));
+												map.get(name1).println("[Timer]" + (real_game_timer - 17));
 											} else
 												check_dead = 0;
 										}
@@ -259,12 +273,10 @@ public class Server extends JFrame implements ActionListener {
 											}
 											if (check_dead == 0) {
 												alive_set += name1 + " ";
-											} else {
-												check_dead = 0;
-												alive_set += " ";
 											}
 										}
 										for (String name1 : names) {
+											check_dead = 0;
 											for (String dead1 : dead) {
 												if (name1.equals(dead1)) {
 													check_dead++;
@@ -273,12 +285,9 @@ public class Server extends JFrame implements ActionListener {
 											if (check_dead == 0) {
 												map.get(name1).println("[Voting_id]" + alive_set);
 												map.get(name1).println("[Voting]");
-											} else
-												check_dead = 0;
+											}
 										}
-									}
-									// ÅõÇ¥ ÁøÇà
-									else if (real_game_timer > 28 && real_game_timer < 43) {
+									} else if (real_game_timer > 28 && real_game_timer < 43) {
 										int check_dead = 0;
 										for (String name1 : names) {
 											for (String dead1 : dead) {
@@ -313,6 +322,7 @@ public class Server extends JFrame implements ActionListener {
 
 									} else if (real_game_timer == 47) {
 										int check_dead = 0;
+										String alive_set = " ";
 										for (String name1 : names) {
 											for (String dead1 : dead) {
 												if (name1.equals(dead1)) {
@@ -320,17 +330,29 @@ public class Server extends JFrame implements ActionListener {
 												}
 											}
 											if (check_dead == 0) {
-												map.get(name1).println("[Mafia_Voting]");
-											} else
-												check_dead = 0;
+												alive_set += name1 + " ";
+											}
 										}
-											//¸¶ÇÇ¾Æ ÅõÇ¥
+										for (String name1 : names) {
+											check_dead = 0;
+											for (String dead1 : dead) {
+												if (name1.equals(dead1)) {
+													check_dead++;
+												}
+											}
+											if (check_dead == 0) {
+												map.get(name1).println("[Mafia_Voting]" + alive_set);
+												System.out.println("This is mafia_voting : " + alive_set);
+											}
+										}
+
 									} else if (real_game_timer > 47 && real_game_timer < 58) {
 										for (PrintWriter writer : writers) {
 											writer.println("[Timer]" + (real_game_timer - 43));
 										}
 									} else if (real_game_timer == 58) {
 										int check_dead = 0;
+										String alive_set = " ";
 										for (String name1 : names) {
 											for (String dead1 : dead) {
 												if (name1.equals(dead1)) {
@@ -338,15 +360,26 @@ public class Server extends JFrame implements ActionListener {
 												}
 											}
 											if (check_dead == 0) {
+												alive_set += name1 + " ";
+											}
+										}
+										for (String name1 : names) {
+											check_dead = 0;
+											for (String dead1 : dead) {
+												if (name1.equals(dead1)) {
+													check_dead++;
+												}
+											}
+											if (check_dead == 0) {
+												map.get(name1).println("[Voting_id]" + alive_set);
 												map.get(name1).println("[Doctor_Voting]");
-											} else
-												check_dead = 0;
+											}
 										}
 									} else if (real_game_timer > 58 && real_game_timer < 65) {
 										for (PrintWriter writer : writers) {
 											writer.println("[Timer]" + (real_game_timer - 58));
 										}
-									} else if (real_game_timer == 63) {
+									} else if (real_game_timer == 67) {
 										if (mafia_count == 0) {
 											for (PrintWriter writer : writers) {
 												writer.println("[CITIZEN_WIN]");
@@ -360,7 +393,7 @@ public class Server extends JFrame implements ActionListener {
 										for (PrintWriter writer : writers) {
 											writer.println("[Reset]");
 										}
-										real_game_timer = 8;
+										real_game_timer = 17;
 									}
 								}
 							};
@@ -372,7 +405,7 @@ public class Server extends JFrame implements ActionListener {
 
 					} else if (Check_Class.startsWith("[MAFIA_CLUE]") == true) {
 						String str[] = Check_Class.substring(12).split(" ");
-						
+
 						mafia_clue[mafia_clue_index] = Integer.parseInt(str[0]);
 						mafia_clue_index++;
 						mafia_clue[mafia_clue_index] = Integer.parseInt(str[1]);
@@ -381,46 +414,52 @@ public class Server extends JFrame implements ActionListener {
 						mafia_clue_index++;
 						mafia_clue[mafia_clue_index] = Integer.parseInt(str[3]);
 						mafia_clue_index++;
-						
-						for(int i=0;i<mafia_clue.length;i++)
-						{
-							System.out.println("MAFIA_CLUE LIST ="+mafia_clue[i]);
+
+						for (int i = 0; i < mafia_clue.length; i++) {
+							System.out.println("MAFIA_CLUE LIST =" + mafia_clue[i]);
 						}
-			
+
 					} else if (Check_Class.startsWith("[GameRoom]") == true) {
 						System.out.println("This is the Game Room");
 						name = Check_Class.substring(10);
 						for (PrintWriter writer : writers) {
 							writer.println("[G_ENTRANCE]" + name);
 						}
-						int random, random2;
+						int random;
 						random = (int) (Math.random() * (3) + 1);
 						while (true) {
 							random = (int) (Math.random() * (3) + 1);
-							System.out.println("My Lotto " + random);
 							if (random == 1 && citizen_count <= 5) {
-								out.println("Take Role" + random);
-								citizen_names.add(name);
 								citizen_count++;
-								break;
+								if (citizen_count <= 5) {
+									out.println("Take Role" + random);
+									citizen_names.add(name);
+									break;
+								} else
+									citizen_count--;
 							} else if (random == 2 && mafia_count <= 2) {
-								out.println("Take Role" + random);
-								mafia_names.add(name);
 								mafia_count++;
-								break;
+								if (mafia_count <= 2) {
+									out.println("Take Role" + random);
+									mafia_names.add(name);
+									break;
+								} else
+									mafia_count--;
 							} else if (random == 3 && doctor_count <= 1) {
-								out.println("Take Role" + random);
-								doctor_name.add(name);
 								doctor_count++;
-								break;
+								if (doctor_count <= 1) {
+									out.println("Take Role" + random);
+									doctor_name.add(name);
+									break;
+								} else
+									doctor_count--;
 							}
 						}
-						
+						System.out.println("My Lotto " + random);
 						out.println("Total_count" + citizen_count + " " + mafia_count + " " + doctor_count);
 
 					} else if (Check_Class.startsWith("[Result]") == true) {
 						int i = 0;
-						// °ªÀ» ´õÇØÁØ´Ù.
 						for (String name1 : names) {
 							if (name1.equals(Check_Class.substring(8)))
 								voting[i]++;
@@ -454,10 +493,8 @@ public class Server extends JFrame implements ActionListener {
 									System.out.println(name1 + duplicate);
 								}
 							}
-							// µ¿·üÀÏ °æ¿ì¿¡
 							if (duplicate == 0)
 								out.println("[Server Voting Result] NO DEAD");
-							// µ¿·üÀÌ ¾Æ´Ò°æ¿ì¿¡
 							else {
 								for (String a : citizen_names) {
 									if (temp_name.equals(a)) {
@@ -465,6 +502,7 @@ public class Server extends JFrame implements ActionListener {
 											writer.println("[Server Voting Result] " + "1" + temp_name);
 										}
 										citizen_count--;
+										alive_user_count--;
 									}
 								}
 								for (String a : mafia_names) {
@@ -473,6 +511,8 @@ public class Server extends JFrame implements ActionListener {
 											writer.println("[Server Voting Result] " + "2" + temp_name);
 										}
 										mafia_count--;
+										alive_user_count--;
+
 									}
 								}
 								for (String a : doctor_name) {
@@ -481,6 +521,7 @@ public class Server extends JFrame implements ActionListener {
 											writer.println("[Server Voting Result] " + "3" + temp_name);
 										}
 										doctor_count--;
+										alive_user_count--;
 									}
 								}
 								dead.add(temp_name);
@@ -492,7 +533,6 @@ public class Server extends JFrame implements ActionListener {
 						}
 					} else if (Check_Class.startsWith("[Mafia_Result]") == true) {
 						int i = 0;
-						// °ªÀ» ´õÇØÁØ´Ù.
 						for (String name1 : names) {
 							if (name1.equals(Check_Class.substring(8)))
 								voting[i]++;
@@ -517,7 +557,6 @@ public class Server extends JFrame implements ActionListener {
 								}
 								i++;
 							}
-
 							System.out.println(temp_name + " " + temp_index);
 							for (String name1 : names) {
 								if (temp_name.equals(name1)) {
@@ -527,33 +566,22 @@ public class Server extends JFrame implements ActionListener {
 									System.out.println(name1 + duplicate);
 								}
 							}
-							// µ¿·üÀÏ °æ¿ì¿¡
-							if (duplicate == 0) {
-								for (PrintWriter writer : writers) {
-									writer.println("[Server Voting Result] NO DEAD");
-								}
-							}
-							// µ¿·üÀÌ ¾Æ´Ò°æ¿ì¿¡
-							else {
-								for (PrintWriter writer : writers) {
-									writer.println("[Server Voting Result] " + temp_name);
-								}
-							}
+
+							mafia_result = temp_name;
 							for (i = 0; i < 8; i++) {
 								voting[i] = 0;
 							}
-							user_ready_count=0;
+							user_ready_count = 0;
 						}
 					} else if (Check_Class.startsWith("[Doctor_Result]") == true) {
 						int i = 0;
-						// °ªÀ» ´õÇØÁØ´Ù.
 						for (String name1 : names) {
 							if (name1.equals(Check_Class.substring(8)))
 								voting[i]++;
 							i++;
 						}
 						user_ready_count++;
-						if (user_ready_count == 4) {
+						if (user_ready_count == doctor_count) {
 							i = 0;
 							int max = 0;
 							String temp_name = "";
@@ -577,15 +605,52 @@ public class Server extends JFrame implements ActionListener {
 									if (temp_index != i) {
 										duplicate++;
 									}
-									System.out.println(name1 + duplicate);
+									System.out.println("ê°’ì´ ë™ë¥ ì´ ìžˆë‹¤" + name1 + duplicate);
 								}
+							}
+							int random = (int) (Math.random() * (7));
+							if (temp_name.equals(mafia_result))
+								out.println("[ShutDownMD] NO DEAD");
+							else {
+								for (String a : citizen_names) {
+									if (temp_name.equals(a)) {
+										for (PrintWriter writer : writers) {
+											writer.println("[ShutDownMD] " + "1" + temp_name);
+											writer.println("[ShowMafiaClue] " + mafia_clue[random] + temp_name);
+										}
+										citizen_count--;
+										alive_user_count--;
+									}
+								}
+								for (String a : mafia_names) {
+									if (temp_name.equals(a)) {
+										for (PrintWriter writer : writers) {
+											writer.println("[ShutDownMD] " + "2" + temp_name);
+											writer.println("[ShowMafiaClue] " + mafia_clue[random] + temp_name);
+										}
+										mafia_count--;
+										alive_user_count--;
+
+									}
+								}
+								for (String a : doctor_name) {
+									if (temp_name.equals(a)) {
+										for (PrintWriter writer : writers) {
+											writer.println("[ShutDownMD] " + "3" + temp_name);
+											writer.println("[ShowMafiaClue] " + mafia_clue[random] + temp_name);
+										}
+										doctor_count--;
+										alive_user_count--;
+									}
+								}
+								dead.add(temp_name);
 							}
 							for (i = 0; i < 8; i++) {
 								voting[i] = 0;
 							}
+							user_ready_count = 0;
 						}
 					}
-
 				}
 
 			} catch (
@@ -604,11 +669,8 @@ public class Server extends JFrame implements ActionListener {
 
 	public Server() {
 		try {
-			// ·Î±×ÀÎ ¹öÆ°ÀÌ Å¬¸¯ µÇ¾úÀ»½Ã¿¡ jdbcµå¶óÀÌ¹ö¸¦ µî·ÏÇÑ´Ù.
 			Class.forName(strMySQLDriver);
-			// DriverManager·ÎºÎÅÍ Ä¿³Ø¼ÇÀ» ¾ò¾î¿À´Âµ¥ mysql¼­¹ö . id, pw µîÀ» ¾ð¾î¿Â´Ù.
 			con = (Connection) DriverManager.getConnection(url, strUser, strPassword);
-			// Ä¿³Ø¼ÇÀ¸·ÎºÎÅÍ ½ÇÁ¦·Î sqlÄõ¸® ½ÇÇà½ÃÅ°±â À§ÇÑ statement °´Ã¼¸¦ ¾ò¾î¿Â´Ù.
 			stmt = (Statement) con.createStatement();
 			System.out.println("DB Connection Success");
 		} catch (Exception b) {
@@ -619,7 +681,6 @@ public class Server extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		// ÇØ´çÇÏ´Â ¹öÆ°°ª °¡Á®¿À±â
 		Object obj = e.getSource();
 	}
 
@@ -641,10 +702,10 @@ public class Server extends JFrame implements ActionListener {
 			CHECK_FORCE = 0;
 			if (!rs.next()) {
 				int rss = stmt.executeUpdate(sql);
-				System.out.println(rss + "¹øÂ° »ðÀÔ");
+				System.out.println(rss + "ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½");
 				CHECK_FORCE = 1;
 			} else {
-				System.out.println("Á¸ÀçÇÏ´Â ¾ÆÀÌµðÀÔ´Ï´Ù");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½Ô´Ï´ï¿½");
 				CHECK_FORCE = 0;
 			}
 
@@ -657,23 +718,23 @@ public class Server extends JFrame implements ActionListener {
 
 	// Check login
 	int loginCheck(String id, String pass) {
-		// SELECT Äõ¸®¸¦ ÀÛ¼ºÇÑ´Ù. ÇØ´çÇÏ´Â ¾ÆÀÌµð°ªÀÇ ÆÐ½º¿öµå¸¦ °Ë»öÇÑ´Ù.
+		// SELECT ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½Ñ´ï¿½. ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½Ð½ï¿½ï¿½ï¿½ï¿½å¸¦ ï¿½Ë»ï¿½ï¿½Ñ´ï¿½.
 		String query = "SELECT pw,name FROM user where id='" + id + "'";
 		System.out.println(query);
 		try {
-			// executeQuery() ¸Þ¼­µå·Î SELECT¹®ÀÇ ½ÇÇà½ÃÅ°°í °á°ú·Î ResultSet °´Ã¼¸¦ ¹Þ´Â´Ù.
+			// executeQuery() ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ SELECTï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ResultSet ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Þ´Â´ï¿½.
 			ResultSet rs = stmt.executeQuery(query);
-			// ·¹ÄÚµå°¡ ÀÖ´ÂÁö °Ë»ç
+			// ï¿½ï¿½ï¿½Úµå°¡ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 			if (rs.next()) {
 				CHECK_FORCE = 0;
 				name = rs.getString("name");
-				// ÅØ½ºÆ®ÇÊµå¿¡ ¾´°ª°ú µ¥ÀÌÅÍº£ÀÌ½º¿¡ ÀÖ´Â ÆÐ½º¿öµå °ªÀ» ºñ±³ÇÑ´Ù.
+				// ï¿½Ø½ï¿½Æ®ï¿½Êµå¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (pass.equals(rs.getString("pw"))) {
-					System.out.println("ÀÏÄ¡ÇÑ´Ù");
+					System.out.println("ï¿½ï¿½Ä¡ï¿½Ñ´ï¿½");
 					CHECK_FORCE = 1;
-					// ¸ÂÀ¸¸é ·Î±×ÀÎ¼­ºê¸¦ ¶ç¿öÁØ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½Î¼ï¿½ï¿½ê¸¦ ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 				} else {
-					System.out.println("ÀÏÄ¡ÇÏÁö¾Ê´Â´Ù");
+					System.out.println("ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½Ê´Â´ï¿½");
 					CHECK_FORCE = 0;
 				}
 			} else {

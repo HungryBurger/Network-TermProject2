@@ -77,10 +77,10 @@ public class ChatServer {
 				// Input the HasMap
 				map.put(name, out);
 				// Print the message box that print the whisper format
-				out.println("FIRST" + "±Ó¼Ó¸» Çü½Ä-> /r ¶Ç´Â /¤¡ ÀÌ¸§ ´ëÈ­³»¿ë");
+				out.println("FIRST" + "ê·“ì†ë§ í˜•ì‹ -> /r ë˜ëŠ” /ã„± ì•„ì´ë””  + ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”");
 				// Print the
 				for (PrintWriter writer : writers) {
-					writer.println("ENTRANCE " + name + "´ÔÀÌ ÀÔÀåÇÏ¼Ì½À´Ï´Ù ");
+					writer.println("ENTRANCE " + name + "ë‹˜ì´ ì…ì¥í•˜ì…¨ìŠµë‹ˆë‹¤. ");
 				}
 				// Accept messages from this client and broadcast them.
 				// Ignore other clients that cannot be broadcasted to.
@@ -89,12 +89,12 @@ public class ChatServer {
 					if (input == null) {
 						return;
 					}
-					// If client type the "/r" "/¤¡", Apply a whisper
-					if (input.startsWith("/r") || input.startsWith("/¤¡")) {
+					// If client type the "/r" "/ï¿½ï¿½", Apply a whisper
+					if (input.startsWith("/r") || input.startsWith("/ã„±")) {
 						String[] temp_name;
 						temp_name = input.split(" ");
 						map.get(temp_name[1]).println(
-								"WHISPER " + name + "´ÔÀ¸·Î ºÎÅÍ ±Ó¼Ó¸»ÀÌ ¿Ô½À´Ï´Ù. : " + input.substring(input.indexOf(" ", 4)));
+								"WHISPER " + name + "ë‹˜ìœ¼ë¡œë¶€í„° ê·“ì†ë§ì´ ì™”ìŠµë‹ˆë‹¤ : " + input.substring(input.indexOf(" ", 4)));
 						out.println("WHISPER " + "<whisper to " + temp_name[1] + ">" + name + ":"
 								+ input.substring(input.indexOf(" ", 4)));
 					}else if(input.startsWith("[GameStart]")) {
@@ -108,22 +108,22 @@ public class ChatServer {
 					}
 				}
 				
-				out.println("G_First" + "°ÔÀÓÀ» ½ÃÀÛÇÕ´Ï´Ù. \n ±Ó¼Ó¸» Çü½Ä-> /r ¶Ç´Â /¤¡ ÀÌ¸§ ´ëÈ­³»¿ë");
+				out.println("G_First" + "ê·“ì†ë§ í˜•ì‹ -> /r ë˜ëŠ” /ã„± ì•„ì´ë””  + ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”");
 				// Print the
 				for (PrintWriter writer : writers) {
-					writer.println("G_ENTRANCE " + name + "´ÔÀÌ ÀÔÀåÇÏ¼Ì½À´Ï´Ù ");
+					writer.println("G_ENTRANCE " + name + "ë‹˜ì´ ì…ì¥í•˜ì…¨ìŠµë‹ˆë‹¤.");
 				}
 				while(true) {
 					String input = in.readLine();
 					if (input == null) {
 						return;
 					}
-					// If client type the "/r" "/¤¡", Apply a whisper
-					if (input.startsWith("/r") || input.startsWith("/¤¡")) {
+					// If client type the "/r" "/ï¿½ï¿½", Apply a whisper
+					if (input.startsWith("/r") || input.startsWith("/ï¿½ï¿½")) {
 						String[] temp_name;
 						temp_name = input.split(" ");
 						map.get(temp_name[1]).println(
-								"G_WHISPER " + name + "´ÔÀ¸·Î ºÎÅÍ ±Ó¼Ó¸»ÀÌ ¿Ô½À´Ï´Ù. : " + input.substring(input.indexOf(" ", 4)));
+								"G_WHISPER " + name + "ë‹˜ìœ¼ë¡œë¶€í„° ê·“ì†ë§ì´ ì™”ìŠµë‹ˆë‹¤. : " + input.substring(input.indexOf(" ", 4)));
 						out.println("G_WHISPER " + "<whisper to " + temp_name[1] + ">" + name + ":"
 								+ input.substring(input.indexOf(" ", 4)));
 					}
@@ -142,7 +142,7 @@ public class ChatServer {
 				// writer from the sets, and close its socket.
 				// Get out from chat room and print the
 				for (PrintWriter writer : writers) {
-					writer.println("EXIT " + name + "´ÔÀÌ ÅğÀåÇÏ¼Ì½À´Ï´Ù ");
+					writer.println("EXIT " + name + "ë‹˜ì´ í‡´ì¥í•˜ì…¨ìŠµë‹ˆë‹¤.");
 				}
 				if (name != null) {
 					names.remove(name);

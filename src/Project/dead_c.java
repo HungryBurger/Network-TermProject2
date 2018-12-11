@@ -10,39 +10,29 @@ import javax.swing.JLabel;
 import javax.swing.JRootPane;
 
 public class dead_c {
-
-	//ÄÄÆ÷³ÍÆ® »ı¼º
 		static JFrame frame = new JFrame();
-		JLabel msg = new JLabel("½Ã¹ÎÀÌ Á×¾ú½À´Ï´Ù");
-		Font font = new Font("¸¼Àº°íµñ",Font.BOLD,40); //font ÅëÀÏ ¹»·Î ÇÒÁö ¸ô¶ó ÀÓÀÇ·Î ³Ö½À´Ï´Ù.
+		JLabel msg = new JLabel("ì‹œë¯¼ì´ ì£½ì—ˆìŠµë‹ˆë‹¤");
+		Font font = new Font("ë§‘ì€ ê³ ë”•",Font.BOLD,40); //font ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
 		public dead_c()
 		{
-			//À§ Ç¥½ÃÁÙ Á¦°ÅÇÏ±â(»ç¿ëÀÚ°¡ ÀÓÀÇ·Î Ã¢ ¸ø ´İ°Ô ÇÏ·Á°í Ãß°¡Çß½À´Ï´Ù.)
 			frame.setUndecorated(true);
 			frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-			//Font Àû¿ë
 			msg.setFont(font);
-			//ÄÄÆ÷³ÍÆ®¸¦ ³ÖÀ» ÄÁÅ×ÀÌ³Ê ±¸ÇÏ±â
 			Container container = frame.getContentPane();
 	        container.add(msg, BorderLayout.CENTER);
 	        msg.setHorizontalAlignment(JLabel.CENTER);
 	        msg.setForeground(Color.white);
 	        frame.getContentPane().setBackground(new Color(53,53,53));
-			//ÇÁ·¹ÀÓ Å©±â ÁöÁ¤
 	        frame.setBounds(600,300, 0, 0);
 			frame.setSize(750, 150);
 			frame.setBackground(Color.black);
 			frame.setResizable(false);
-			//ÇÁ·¹ÀÓ º¸ÀÌ±â ¼³Á¤
 			frame.setVisible(true);
-			
-			//Á¾·á ¹öÆ° ¼³Á¤
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
-
+		
 		public static void main(String[] args)
 		{
-			//½ÇÇà
+			//ï¿½ï¿½ï¿½ï¿½
 			new dead_c();
 		}
 }
