@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
@@ -20,7 +22,12 @@ public class MainMenu extends JFrame {
 	ImageIcon Personal = new ImageIcon("Image/png/menu/mypage.png");
 	ImageIcon Title = new ImageIcon("Image/png/menu/mainmeun.png");
 	ImageIcon MainMenu_back = new ImageIcon("Image/png/menu/mainmeunback.png");
-
+	ImageIcon gamestart = new ImageIcon("Image/gamestart_p.png");
+	ImageIcon ranking = new ImageIcon("Image/ranking_p.png");
+	ImageIcon mypage = new ImageIcon("Image/mypage_p.png");
+	JPanel panel2; 
+	JPanel panel3; 
+	JPanel panel4; 
 	public MainMenu() {
 		contentPane = new JPanel() {
 			public void paintComponent(Graphics g) {
@@ -54,6 +61,14 @@ public class MainMenu extends JFrame {
 				}
 			}
 		});
+		button1.addMouseListener(new MouseAdapter(){
+			public void mouseEntered(MouseEvent e){
+				panel2.setVisible(true);
+				panel3.setVisible(false);
+				panel4.setVisible(false);
+
+			}
+		});
 
 		originImg = Ranking.getImage();
 		changedImg = originImg.getScaledInstance(400, 80, Image.SCALE_SMOOTH);
@@ -71,6 +86,14 @@ public class MainMenu extends JFrame {
 					Login.out.println("[Ranking]");
 					new Ranking().setVisible(true);
 				}
+			}
+		});
+		button2.addMouseListener(new MouseAdapter(){
+			public void mouseEntered(MouseEvent e){
+				panel2.setVisible(false);
+				panel3.setVisible(true);
+				panel4.setVisible(false);
+
 			}
 		});
 
@@ -92,6 +115,14 @@ public class MainMenu extends JFrame {
 				}
 			}
 		});
+		button3.addMouseListener(new MouseAdapter(){
+			public void mouseEntered(MouseEvent e){
+				panel2.setVisible(false);
+				panel3.setVisible(true);
+				panel4.setVisible(false);
+
+			}
+		});
 
 		JPanel panel1 = new JPanel() {
 			public void paintComponent(Graphics g) {
@@ -104,10 +135,38 @@ public class MainMenu extends JFrame {
 		panel1.setBounds(92, 36, 968, 119);
 		contentPane.add(panel1);
 
-		JPanel panel2 = new JPanel();
+		panel2 = new JPanel(){
+			public void paintComponent(Graphics g) {
+				Dimension d = getSize();
+				g.drawImage(gamestart.getImage(), 0, 0, 417, 486, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
 		panel2.setBounds(640, 187, 417, 486);
 		contentPane.add(panel2);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		panel3 = new JPanel(){
+			public void paintComponent(Graphics g) {
+				Dimension d = getSize();
+				g.drawImage(ranking.getImage(), 0, 0, 417, 486, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		panel2.setBounds(640, 187, 417, 486);
+		contentPane.add(panel2);
+		panel4 = new JPanel(){
+			public void paintComponent(Graphics g) {
+				Dimension d = getSize();
+				g.drawImage(mypage.getImage(), 0, 0, 417, 486, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		panel2.setBounds(640, 187, 417, 486);
+		contentPane.add(panel2);
+		
+
 		setBounds(400, 100, 1200, 800);
 	}
 

@@ -10,7 +10,6 @@ import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.sql.*;
 import javax.swing.*;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
@@ -765,7 +764,6 @@ public class Server extends JFrame implements ActionListener {
 		System.out.println(CHECK_FORCE);
 		return CHECK_FORCE;
 	}
-
 	// Check login
 	int loginCheck(String id, String pass) {
 		// SELECT ������ �ۼ��Ѵ�. �ش��ϴ� ���̵��� �н����带 �˻��Ѵ�.
@@ -872,7 +870,7 @@ public class Server extends JFrame implements ActionListener {
 		}
 		return "success";
 	}
-
+	
 	public static void main(String[] args) throws Exception {
 		System.out.println("The Server is running.");
 		ServerSocket listener = new ServerSocket(PORT);
