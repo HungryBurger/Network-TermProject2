@@ -196,8 +196,6 @@ public class Login extends JFrame {
 
 			if (Loop)
 				clip.loop(-1);
-			// Loop ����true�� ������������ѹݺ���ŵ�ϴ�.
-			// false�� �ѹ��������ŵ�ϴ�.
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

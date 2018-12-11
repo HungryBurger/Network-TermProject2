@@ -17,22 +17,18 @@ public class dead_m {
 		Font font = new Font("맑은 고딕",Font.BOLD,40); //font ���� ���� ���� ���� ���Ƿ� �ֽ��ϴ�.
 		public dead_m()
 		{
-			frame.setUndecorated(true);
-			frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 			//Font ����
 			msg.setFont(font);
-			//������Ʈ�� ���� �����̳� ���ϱ�
+
 			Container container = frame.getContentPane();
 	        container.add(msg, BorderLayout.CENTER);
 	        msg.setHorizontalAlignment(JLabel.CENTER);
 	        msg.setForeground(Color.white);
 	        frame.getContentPane().setBackground(new Color(53,53,53));
-			//������ ũ�� ����
 	        frame.setBounds(600,300, 0, 0);
 			frame.setSize(750, 150);
 			frame.setBackground(Color.black);
 			frame.setResizable(false);
-			//������ ���̱� ����
 			frame.setVisible(true);
 			
 		}

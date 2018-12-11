@@ -15,8 +15,6 @@ public class dead_c {
 		Font font = new Font("맑은 고딕",Font.BOLD,40); //font ���� ���� ���� ���� ���Ƿ� �ֽ��ϴ�.
 		public dead_c()
 		{
-			frame.setUndecorated(true);
-			frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 			msg.setFont(font);
 			Container container = frame.getContentPane();
 	        container.add(msg, BorderLayout.CENTER);

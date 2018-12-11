@@ -17,12 +17,8 @@ public class dead_d {
 		Font font = new Font("맑은 고딕",Font.BOLD,40); //font ���� ���� ���� ���� ���Ƿ� �ֽ��ϴ�.
 		public dead_d()
 		{
-			//�� ǥ���� �����ϱ�(����ڰ� ���Ƿ� â �� �ݰ� �Ϸ��� �߰��߽��ϴ�.)
-			frame.setUndecorated(true);
-			frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 			//Font ����
 			msg.setFont(font);
-			//������Ʈ�� ���� �����̳� ���ϱ�
 			Container container = frame.getContentPane();
 	        container.add(msg, BorderLayout.CENTER);
 	        msg.setHorizontalAlignment(JLabel.CENTER);

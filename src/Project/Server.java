@@ -46,7 +46,7 @@ public class Server extends JFrame implements ActionListener {
 	String pass; // password
 	String name; // name
 	static int user_ready_count = 0;
-	static int alive_user_count = 5;
+	static int alive_user_count = 8;
 	int CHECK_FORCE = 0;
 	static int voting[] = new int[8];
 	static int mafia_voting[] = new int[8];
@@ -180,12 +180,12 @@ public class Server extends JFrame implements ActionListener {
 						map.put(name, out);
 
 						// Based users printing
-
 						for (String name1 : names) {
 							if (!name1.equals(name))
 								out.println("ENTRANCE " + name1);
 						}
-
+						
+						
 						// Print to all users "Im in!!"
 						for (PrintWriter writer : writers) {
 							writer.println("ENTRANCE " + name);
@@ -198,7 +198,7 @@ public class Server extends JFrame implements ActionListener {
 							user_ready_count--;
 							System.out.println("user_ready_count =" + user_ready_count);
 						}
-						if (user_ready_count == 5) {
+						if (user_ready_count == 8) {
 							for (PrintWriter writer : writers) {
 								writer.println("[GameStart]");
 							}
@@ -388,15 +388,18 @@ public class Server extends JFrame implements ActionListener {
 										for (PrintWriter writer : writers) {
 											writer.println("[Timer]" + (real_game_timer - 65));
 										}
-									} else if (real_game_timer == 75) {
+									} else if (real_game_timer == 80) {
 										if (mafia_count == 0) {
 											for (PrintWriter writer : writers) {
 												writer.println("[CITIZEN_WIN]");
 											}
+											game_timer.cancel();
+											
 										} else if (citizen_count <= mafia_count) {
 											for (PrintWriter writer : writers) {
 												writer.println("[MAFIA_WIN]");
 											}
+											game_timer.cancel();
 										}
 
 										for (PrintWriter writer : writers) {
