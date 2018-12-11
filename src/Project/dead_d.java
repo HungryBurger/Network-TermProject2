@@ -35,9 +35,7 @@ public class dead_d {
 			frame.setResizable(false);
 			//������ ���̱� ����
 			frame.setVisible(true);
-			
-			//���� ��ư ����
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		}
 
 		public static void main(String[] args)

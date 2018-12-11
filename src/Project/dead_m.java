@@ -17,7 +17,6 @@ public class dead_m {
 		Font font = new Font("맑은 고딕",Font.BOLD,40); //font ���� ���� ���� ���� ���Ƿ� �ֽ��ϴ�.
 		public dead_m()
 		{
-			//�� ǥ���� �����ϱ�(����ڰ� ���Ƿ� â �� �ݰ� �Ϸ��� �߰��߽��ϴ�.)
 			frame.setUndecorated(true);
 			frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 			//Font ����
@@ -36,8 +35,6 @@ public class dead_m {
 			//������ ���̱� ����
 			frame.setVisible(true);
 			
-			//���� ��ư ����
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
 
 		public static void main(String[] args)

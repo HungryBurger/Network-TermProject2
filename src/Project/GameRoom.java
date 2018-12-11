@@ -88,7 +88,8 @@ public class GameRoom extends JFrame {
 	static JPanel panel7_1;
 	static JPanel panel8_1;
 	static ImageIcon a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21,
-			a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32,clue1,clue2,clue3,clue4,clue5,clue6,clue7,clue8;
+			a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, clue1, clue2, clue3, clue4, clue5, clue6, clue7,
+			clue8;
 	static JTextField my_role;
 	static JTextField mafia_check;
 	static JPanel panel1_1_1;
@@ -781,10 +782,11 @@ public class GameRoom extends JFrame {
 			public void paintComponent(Graphics g) {
 				{
 					Dimension d = getSize();
-					g.drawImage(clue1.getImage(), 0, 0, 191, 201, null);
+					g.drawImage(clue1.getImage(), 0, 0, 40, 40, null);
 					setOpaque(false);
 					super.paintComponent(g);
-				};
+				}
+				;
 			}
 		};
 		panel1_1_1.setBounds(132, 145, 40, 40);
@@ -794,7 +796,7 @@ public class GameRoom extends JFrame {
 		panel2_1_1 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(clue2.getImage(), 0, 0, 191, 201, null);
+				g.drawImage(clue2.getImage(), 0, 0, 40, 40, null);
 				setOpaque(false);
 				super.paintComponent(g);
 			}
@@ -806,7 +808,7 @@ public class GameRoom extends JFrame {
 		panel3_1_1 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(clue3.getImage(), 0, 0, 191, 201, null);
+				g.drawImage(clue3.getImage(), 0, 0, 40, 40, null);
 				setOpaque(false);
 				super.paintComponent(g);
 			}
@@ -817,7 +819,7 @@ public class GameRoom extends JFrame {
 		panel4_1_1 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(clue4.getImage(), 0, 0, 191, 201, null);
+				g.drawImage(clue4.getImage(), 0, 0, 40, 40, null);
 				setOpaque(false);
 				super.paintComponent(g);
 			}
@@ -829,7 +831,7 @@ public class GameRoom extends JFrame {
 		panel8_1_1 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(clue5.getImage(), 0, 0, 191, 201, null);
+				g.drawImage(clue5.getImage(), 0, 0, 40, 40, null);
 				setOpaque(false);
 				super.paintComponent(g);
 			}
@@ -841,7 +843,7 @@ public class GameRoom extends JFrame {
 		panel7_1_1 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(clue6.getImage(), 0, 0, 191, 201, null);
+				g.drawImage(clue6.getImage(), 0, 0, 40, 40, null);
 				setOpaque(false);
 				super.paintComponent(g);
 			}
@@ -849,11 +851,11 @@ public class GameRoom extends JFrame {
 		panel7_1_1.setBounds(609, 709, 40, 40);
 		contentPane.add(panel7_1_1);
 		panel7_1_1.setVisible(false);
-		
+
 		panel5_1_1 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
-				g.drawImage(clue7.getImage(), 0, 0, 191, 201, null);
+				g.drawImage(clue7.getImage(), 0, 0, 40, 40, null);
 				setOpaque(false);
 				super.paintComponent(g);
 			}
@@ -861,7 +863,7 @@ public class GameRoom extends JFrame {
 		panel5_1_1.setBounds(132, 709, 40, 40);
 		contentPane.add(panel5_1_1);
 		panel5_1_1.setVisible(false);
-		
+
 		panel6_1_1 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
@@ -872,7 +874,7 @@ public class GameRoom extends JFrame {
 		};
 		panel6_1_1.setBounds(363, 709, 40, 40);
 		contentPane.add(panel6_1_1);
-		
+
 		my_id = new JTextField();
 		my_id.setHorizontalAlignment(SwingConstants.CENTER);
 		my_id.setFont(new Font("Gabriola", Font.BOLD, 30));
@@ -880,7 +882,7 @@ public class GameRoom extends JFrame {
 		my_id.setBounds(61, 80, 165, 57);
 		contentPane.add(my_id);
 		panel6_1_1.setVisible(false);
-		
+
 		panel1.setVisible(false);
 		panel2.setVisible(false);
 		panel3.setVisible(false);

@@ -901,15 +901,12 @@ public class GameRoomThread implements Runnable {
 					} else if (GameRoom.textField_4.getText().equals(line.substring(14))) {
 						GameRoom.panel4_1.setVisible(true);
 					}
-
 					else if (GameRoom.textField_5.getText().equals(line.substring(14))) {
 						GameRoom.panel5_1.setVisible(true);
 					}
-
 					else if (GameRoom.textField_6.getText().equals(line.substring(14))) {
 						GameRoom.panel6_1.setVisible(true);
 					}
-
 					else if (GameRoom.textField_7.getText().equals(line.substring(14))) {
 						GameRoom.panel7_1.setVisible(true);
 					}

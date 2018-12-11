@@ -47,7 +47,7 @@ public class Server extends JFrame implements ActionListener {
 	String pass; // password
 	String name; // name
 	static int user_ready_count = 0;
-	static int alive_user_count = 4;
+	static int alive_user_count = 5;
 	int CHECK_FORCE = 0;
 	static int voting[] = new int[8];
 	static int mafia_voting[] = new int[8];
@@ -199,7 +199,7 @@ public class Server extends JFrame implements ActionListener {
 							user_ready_count--;
 							System.out.println("user_ready_count =" + user_ready_count);
 						}
-						if (user_ready_count == 4) {
+						if (user_ready_count == 5) {
 							for (PrintWriter writer : writers) {
 								writer.println("[GameStart]");
 							}
@@ -252,7 +252,7 @@ public class Server extends JFrame implements ActionListener {
 											writer.println("[TimerStart]");
 										}
 										once_count++;
-									} else if (real_game_timer > 17 && real_game_timer < 28) {
+									} else if (real_game_timer > 17 && real_game_timer < 25) {
 										int check_dead = 0;
 										for (String name1 : names) {
 											for (String dead1 : dead) {
@@ -265,10 +265,11 @@ public class Server extends JFrame implements ActionListener {
 											} else
 												check_dead = 0;
 										}
-									} else if (real_game_timer == 28) {
+									} else if (real_game_timer == 27) {
 										int check_dead = 0;
 										String alive_set = " ";
 										for (String name1 : names) {
+											check_dead = 0;
 											for (String dead1 : dead) {
 												if (name1.equals(dead1)) {
 													check_dead++;
@@ -290,7 +291,7 @@ public class Server extends JFrame implements ActionListener {
 												map.get(name1).println("[Voting]");
 											}
 										}
-									} else if (real_game_timer > 28 && real_game_timer < 43) {
+									} else if (real_game_timer > 27 && real_game_timer < 50) {
 										int check_dead = 0;
 										for (String name1 : names) {
 											for (String dead1 : dead) {
@@ -299,15 +300,15 @@ public class Server extends JFrame implements ActionListener {
 												}
 											}
 											if (check_dead == 0) {
-												map.get(name1).println("[Timer]" + (real_game_timer - 28));
+												map.get(name1).println("[Timer]" + (real_game_timer - 27));
 											} else
 												check_dead = 0;
 										}
-									} else if (real_game_timer == 43) {
+									} else if (real_game_timer == 50) {
 										for (PrintWriter writer : writers) {
 											writer.println("[ShutDownVoting]");
 										}
-									} else if (real_game_timer == 45) {
+									} else if (real_game_timer == 53) {
 										for (PrintWriter writer : writers) {
 											writer.println("[ShutDownResult]");
 										}
@@ -323,7 +324,7 @@ public class Server extends JFrame implements ActionListener {
 											game_timer.cancel();
 										}
 
-									} else if (real_game_timer == 47) {
+									} else if (real_game_timer == 55) {
 										int check_dead = 0;
 										String alive_set = " ";
 										for (String name1 : names) {
@@ -336,7 +337,7 @@ public class Server extends JFrame implements ActionListener {
 											if (check_dead == 0) {
 												alive_set += name1 + " ";
 												System.out.println("ALIVE SET :" + name1);
-											} 
+											}
 										}
 										for (String name1 : names) {
 											check_dead = 0;
@@ -351,40 +352,44 @@ public class Server extends JFrame implements ActionListener {
 											}
 										}
 
-									} else if (real_game_timer > 47 && real_game_timer < 58) {
+									} else if (real_game_timer > 55 && real_game_timer < 65) {
 										for (PrintWriter writer : writers) {
-											writer.println("[Timer]" + (real_game_timer - 43));
+											writer.println("[Timer]" + (real_game_timer - 55));
 										}
-									} else if (real_game_timer == 58) {
-										int check_dead = 0;
-										String alive_set = " ";
-										for (String name1 : names) {
-											check_dead=0;
-											for (String dead1 : dead) {
-												if (name1.equals(dead1)) {
-													check_dead++;
+									} else if (real_game_timer == 65) {
+										if (doctor_count == 0) {
+											real_game_timer += 15;
+										} else {
+											int check_dead = 0;
+											String alive_set = " ";
+											for (String name1 : names) {
+												check_dead = 0;
+												for (String dead1 : dead) {
+													if (name1.equals(dead1)) {
+														check_dead++;
+													}
+												}
+												if (check_dead == 0) {
+													alive_set += name1 + " ";
 												}
 											}
-											if (check_dead == 0) {
-												alive_set += name1 + " ";
-											}
-										}
-										for (String name1 : names) {
-											check_dead = 0;
-											for (String dead1 : dead) {
-												if (name1.equals(dead1)) {
-													check_dead++;
+											for (String name1 : names) {
+												check_dead = 0;
+												for (String dead1 : dead) {
+													if (name1.equals(dead1)) {
+														check_dead++;
+													}
+												}
+												if (check_dead == 0) {
+													map.get(name1).println("[Doctor_Voting]" + alive_set);
 												}
 											}
-											if (check_dead == 0) {
-												map.get(name1).println("[Doctor_Voting]"+alive_set);
-											}
 										}
-									} else if (real_game_timer > 58 && real_game_timer < 65) {
+									} else if (real_game_timer > 65 && real_game_timer < 75) {
 										for (PrintWriter writer : writers) {
-											writer.println("[Timer]" + (real_game_timer - 58));
+											writer.println("[Timer]" + (real_game_timer - 65));
 										}
-									} else if (real_game_timer == 67) {
+									} else if (real_game_timer == 75) {
 										if (mafia_count == 0) {
 											for (PrintWriter writer : writers) {
 												writer.println("[CITIZEN_WIN]");
@@ -470,7 +475,7 @@ public class Server extends JFrame implements ActionListener {
 							i++;
 						}
 						user_ready_count++;
-						if (user_ready_count == 4) {
+						if (user_ready_count == alive_user_count) {
 							i = 0;
 							int max = 0;
 							String temp_name = "";
@@ -570,13 +575,53 @@ public class Server extends JFrame implements ActionListener {
 									System.out.println(name1 + duplicate);
 								}
 							}
+							int random = (int) (Math.random() * (7));
 
-							mafia_result = temp_name;
-							for (i = 0; i < 8; i++) {
-								voting[i] = 0;
+							if (duplicate == 0)
+								out.println("[ShutDownMD] NO DEAD");
+							else {
+								if (doctor_count == 0) {
+
+									for (String a : citizen_names) {
+										if (temp_name.equals(a)) {
+											for (PrintWriter writer : writers) {
+												writer.println("[ShutDownMD] " + "1" + temp_name);
+												writer.println("[ShowMafiaClue] " + mafia_clue[random] + temp_name);
+											}
+											citizen_count--;
+											alive_user_count--;
+										}
+									}
+									for (String a : mafia_names) {
+										if (temp_name.equals(a)) {
+											for (PrintWriter writer : writers) {
+												writer.println("[ShutDownMD] " + "2" + temp_name);
+												writer.println("[ShowMafiaClue] " + mafia_clue[random] + temp_name);
+											}
+											mafia_count--;
+											alive_user_count--;
+
+										}
+									}
+									for (String a : doctor_name) {
+										if (temp_name.equals(a)) {
+											for (PrintWriter writer : writers) {
+												writer.println("[ShutDownMD] " + "3" + temp_name);
+												writer.println("[ShowMafiaClue] " + mafia_clue[random] + temp_name);
+											}
+											doctor_count--;
+											alive_user_count--;
+										}
+									}
+									dead.add(temp_name);
+								}
+								for (i = 0; i < 8; i++) {
+									voting[i] = 0;
+								}
+								user_ready_count = 0;
 							}
-							user_ready_count = 0;
 						}
+
 					} else if (Check_Class.startsWith("[Doctor_Result]") == true) {
 						int i = 0;
 						for (String name1 : names) {
@@ -606,7 +651,7 @@ public class Server extends JFrame implements ActionListener {
 							System.out.println(temp_name + " " + temp_index);
 							for (String name1 : names) {
 								if (temp_name.equals(name1)) {
-									if (temp_index != i) {
+									if (temp_index != i && voting[temp_index] != 0) {
 										duplicate++;
 									}
 									System.out.println("값이 동률이 있다" + name1 + duplicate);
