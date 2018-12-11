@@ -47,7 +47,7 @@ public class Server extends JFrame implements ActionListener {
 	String pass; // password
 	String name; // name
 	static int user_ready_count = 0;
-	static int alive_user_count = 8;
+	static int alive_user_count = 4;
 	int CHECK_FORCE = 0;
 	static int voting[] = new int[8];
 	static int mafia_voting[] = new int[8];
@@ -235,6 +235,8 @@ public class Server extends JFrame implements ActionListener {
 												map.get(name1).println("[WhatIsRole]" + "NO");
 											}
 										}
+										out.println(
+												"Total_count" + citizen_count + " " + mafia_count + " " + doctor_count);
 
 										int random2;
 										for (int i = 0; i < 32; i++) {
@@ -244,6 +246,7 @@ public class Server extends JFrame implements ActionListener {
 										for (PrintWriter writer : writers) {
 											writer.println("[Clue] " + clue_sentence);
 										}
+
 									} else if (real_game_timer == 10 && once_count == 0) {
 										for (PrintWriter writer : writers) {
 											writer.println("[TimerStart]");
@@ -324,6 +327,7 @@ public class Server extends JFrame implements ActionListener {
 										int check_dead = 0;
 										String alive_set = " ";
 										for (String name1 : names) {
+											check_dead = 0;
 											for (String dead1 : dead) {
 												if (name1.equals(dead1)) {
 													check_dead++;
@@ -331,7 +335,8 @@ public class Server extends JFrame implements ActionListener {
 											}
 											if (check_dead == 0) {
 												alive_set += name1 + " ";
-											}
+												System.out.println("ALIVE SET :" + name1);
+											} 
 										}
 										for (String name1 : names) {
 											check_dead = 0;
@@ -354,6 +359,7 @@ public class Server extends JFrame implements ActionListener {
 										int check_dead = 0;
 										String alive_set = " ";
 										for (String name1 : names) {
+											check_dead=0;
 											for (String dead1 : dead) {
 												if (name1.equals(dead1)) {
 													check_dead++;
@@ -371,8 +377,7 @@ public class Server extends JFrame implements ActionListener {
 												}
 											}
 											if (check_dead == 0) {
-												map.get(name1).println("[Voting_id]" + alive_set);
-												map.get(name1).println("[Doctor_Voting]");
+												map.get(name1).println("[Doctor_Voting]"+alive_set);
 											}
 										}
 									} else if (real_game_timer > 58 && real_game_timer < 65) {
@@ -456,7 +461,6 @@ public class Server extends JFrame implements ActionListener {
 							}
 						}
 						System.out.println("My Lotto " + random);
-						out.println("Total_count" + citizen_count + " " + mafia_count + " " + doctor_count);
 
 					} else if (Check_Class.startsWith("[Result]") == true) {
 						int i = 0;
@@ -609,9 +613,10 @@ public class Server extends JFrame implements ActionListener {
 								}
 							}
 							int random = (int) (Math.random() * (7));
-							if (temp_name.equals(mafia_result))
+							if (temp_name.equals(mafia_result)) {
 								out.println("[ShutDownMD] NO DEAD");
-							else {
+
+							} else {
 								for (String a : citizen_names) {
 									if (temp_name.equals(a)) {
 										for (PrintWriter writer : writers) {

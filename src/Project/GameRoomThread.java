@@ -761,6 +761,7 @@ public class GameRoomThread implements Runnable {
 						new vote_m().frame.setVisible(true);
 					}
 				} else if (line.startsWith("[Doctor_Voting]")) {
+					array = line.split(" ");
 					if (My_Role == 3) {
 						new Voting_doctor().frame.setVisible(true);
 						for (int i = 0; i < array.length; i++) {
@@ -912,7 +913,6 @@ public class GameRoomThread implements Runnable {
 					else if (GameRoom.textField_7.getText().equals(line.substring(14))) {
 						GameRoom.panel7_1.setVisible(true);
 					}
-
 					else if (GameRoom.textField_8.getText().equals(line.substring(14))) {
 						GameRoom.panel8_1.setVisible(true);
 					}
