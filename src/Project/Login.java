@@ -184,6 +184,7 @@ public class Login extends JFrame {
 		panel_2.setBounds(322, 542, 166, 46);
 		contentPane.add(panel_2);
 	}
+	
 
 	public void sound(String file, boolean Loop) {
 		try {
